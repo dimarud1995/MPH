@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>My plywood house</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/client.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+
+        <a class="navbar-brand" href="/">
+            <img src="/images/LogoMPH.jpg" style="height: 50px; width:50px; margin-right:10px;"
+                class="rounded-circle">My Plywood House</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#hot-propositions">Популярне</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/#menu-cat">Категорії</a>
+                </li>
+                {{!-- <li class="nav-item">
+                <a class="nav-link" href="/order" >Замовити</a>
+            </li> --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/#contact-us">Контакти</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#about-us">Про нас</a>
+                </li>
+
+                <li>
+                    <form name="cartBtnForm" method="POST" action="/cart">
+                        <div id="cartBtn" class="cart">
+                            <div id="cart-counter" class="badge badge-danger"></div>
+                            <span class="d-lg-none">Кошик</span>
+                            <i class="fa fa-shopping-cart fa-lg d-none d-lg-block"></i>
+                            <i class="fa fa-shopping-cart d-lg-none"></i>
+                        </div>
+                        <input id="prodIds" name="prodIds" type="text" hidden>
+                        <input id="cartSubmit" type="submit" hidden>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    {{{body}}}
+    <footer style=" background-color:#E0E0E0" id="foot">
+        <div class="container-fluid">
+            <h4 style="margin: 0 auto; width:100%; text-align:center; padding:50px;">Зв'яжіться з нами</h4>
+            <div class="row" style="padding-left: 10%; padding-right:10%;">
+                <div class="col-md-6" style="margin-bottom: 10px;">
+                    <div id="about-us" style="padding-left: 10px;">
+                        <p><i class="fa fa-instagram"></i> <a target="blank"
+                                href="https://instagram.com/my_plywood_house">my_plywood_house</a> </p>
+                        <p><i class="fa fa-facebook"></i> <a target="blank"
+                                href="https://facebook.com/my.plywood.house">my_plywood_house</a> </p>
+                        <p><i class="fa fa-envelope"></i>vasinahata.info@gmail.com</p>
+                        <p><i class="fa fa-phone"></i> 097 32 42 382 </p>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-bottom: 10px;">
+                    <div id="contact-us">
+                        <form style="text-align: right;" @submit="sendForm">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <input type="text" class="form-control" placeholder="Ім'я та прізвище"
+                                        v-model="name">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input type="email" class="form-control" placeholder="email" v-model="email">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col">
+                                    <textarea class="form-control" cols="20" rows="8"
+                                        placeholder="Напишіть що вас цікавить" v-model="desc"></textarea>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8"
+                                        style="padding-top: 10px; padding-bottom:10px; text-align:left;">
+                                        Залиште свої контакти і ми з вами зв'яжемося найближчим часом.
+                                    </div>
+                                    <div class="col-md-4" style="text-align: right;">
+                                        <button type="submit" class="btn btn-primary m-3">Надіслати</button></div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row"
+                style="margin:0px;padding: 20px; background-color:#616161; position: absolute;width: 100%; left: 0px;">
+                <p style="margin:0 auto; color:#ffffff;">2019-2020 My Plywood House</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var foot = new Vue({
+            el: '#foot',
+            data: {
+                email: "",
+                name: "",
+                desc: "",
+                error: ""
+            },
+            mounted() {
+                if (localStorage.userName != null && localStorage.userName != "") this.name = localStorage.userName;
+                if (localStorage.email != null && localStorage.email != "") this.email = localStorage.email;
+            },
+            methods: {
+                sendForm() {
+                    this.error = "";
+                    if (this.name == null || this.name == "") this.error += "Будь ласка, ведіть ім'я. ";
+                    if (this.email == null || this.email == "") this.error += "Введіть адресу електронної пошти ";
+                    if (this.desc == null || this.desc == "") this.error += "Напишіть, що вас цікавить. ";
+                    if (this.error.length == 0) {
+                        localStorage.userName = this.name;
+                        localStorage.email = this.email;
+
+
+                        var data = {
+                            userName: this.name,
+                            email: this.email,
+                            desc: this.desc
+
+                        }
+                        console.log(data);
+                        axios.post("/admin/newFeedback", data).then(res => {
+                            if (res.data == "ok") {
+                                alert("Ваші дані успішно відправлені, ми з вами звяжемось найближчим часом!")
+                                sessionStorage.clear();
+                                window.location.href = "/#menu-cat"
+                            } else {
+                                alert("Щось пішло не так, ви можете звернутись до нас через інстаграм або поштою!");
+                                //   window.location.href = "/#contact-us";
+                            }
+                        });
+                    } else {
+                        alert(error);
+                    }
+
+
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

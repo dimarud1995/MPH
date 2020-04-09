@@ -1,0 +1,182 @@
+<div id="app" class="container" style="margin-top: 100px; margin-bottom:50px;">
+   <div class="row">
+      <div class="col-md-6" style="margin-bottom: 50px;">
+         <div class="card">
+            <div class="card-header">
+               <div class="row">
+                  <div class="col-md-6" style="padding: 8px;">
+                     Продукти
+                  </div>
+                  <div class="col-md-6" style="text-align: end;">
+                     <select name="category" v-model="categoryId" class="form-control">
+                        {{#each categories}}
+                        <option value="{{{this.id}}}">{{this.title}}</option>
+                        {{/each}}
+                     </select>
+                  </div>
+               </div>
+            </div>
+            <div class="card-body">
+               <table class="table table-hover">
+
+                  <tbody>
+                     <tr v-for="(i,index) in products">
+                        <td>
+                           <div class="container-fluid">
+                              <div class="row">
+                                 <div class="col-lg-6">\{{i.title}}</div>
+                                 <div class="col-lg-6"><img :src="i.mainImage" alt="" class="img-fluid"
+                                       style="height:70px;"></div>
+                              </div>
+                           </div>
+                        </td>
+                        <td></td>
+                        <td><button class="btn btn-outline-success" @click="toPopular(index)">Додати</button>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6" style="margin-bottom: 50px;">
+         <div class="card">
+            <div class="card-header">
+               <div class="row">
+                  <div class="col-md-6" style="padding: 8px;">
+                     Популярні
+                  </div>
+                  <div class="col-md-6">
+                     <div class="btn btn-success" @click="onSave()">Зберегти</div>
+                  </div>
+
+               </div>
+            </div>
+            <div class="card-body">
+               <table class="table table-hover">
+
+                  <tbody>
+                     <tr v-for="(i,index) in popularProducts">
+                        <td>
+                           <div class="container-fluid">
+                              <div class="row">
+                                 <div class="col-lg-6">\{{i.title}}</div>
+                                 <div class="col-lg-6"><img :src="i.mainImage" alt="" class="img-fluid"
+                                       style="height:70px;"></div>
+                              </div>
+                           </div>
+                        </td>
+                        <td><button class="btn btn-outline-success" @click="fromPopular(index)">Видалити</button></td>
+                     </tr>
+                  </tbody>
+               </table>
+
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+   var app = new Vue({
+      el: '#app',
+      data: {
+         products: [],
+         popularProducts: [],
+         categories: [],
+         categoryId: 1
+
+      },
+
+
+      created() {
+         axios.get('/admin/get-categories')
+            .then(res => {
+
+               this.categories = res.data;
+            });
+         axios.get('/admin/getProductsByCategory/' + this.categoryId)
+            .then(res => {
+               this.products = [];
+               this.products = res.data;
+            });
+         axios.get('/admin/getPopularProducts')
+            .then(res => {
+               this.popularProducts = res.data;
+            });
+      },
+      watch: {
+         categoryId: function (val) {
+            //   console.log(this.categoryId);
+            //  console.log(this.categories);
+            axios.get('/admin/getProductsByCategory/' + this.categoryId)
+               .then(res => {
+                  this.products = [];
+                  this.products = res.data;
+                  //  console.log(this.categoryId);
+                  //console.log(this.products);
+               })
+         }
+      },
+      methods: {
+         toPopular(id) {
+            if (this.popularProducts == null) this.popularProducts = [];
+            this.popularProducts.push(this.products[id]);
+            console.log(this.popularProducts);
+         },
+         fromPopular(id) {
+            this.popularProducts.splice(id, 1);
+            console.log(this.popularProducts);
+
+         },
+         selectionChange(editor, range) {
+            if (range) {
+               if (range.start !== range.end) {
+                  this.selectedText = editor.getText(range.start, range.end)
+                  editor.formatText(range, 'custom', 'hello world')
+               }
+            }
+         },
+         onSave() {
+            var Data = new FormData();
+            if (this.popularProducts == null || this.popularProducts == "[]") this.popularProducts = [];
+
+            console.log(this.popularProducts);
+            axios.post('/admin/savePopularProducts', this.popularProducts).then(res => {
+               console.log(res.data);
+               alert(res.data);
+            });
+         }
+      }
+   });
+
+
+
+
+
+   $(document).ready(function () {
+      $('.myCategory').on('click', function () {
+         //   console.log($(this));
+      });
+
+      $('.custom-file-input').on("change", function () {
+         var files = $(this)[0].files;
+         var names = "";
+         $.each(files, (index, value) => {
+            names += value.name + ", ";
+         })
+         names = names.slice(0, -2);
+         //  console.log(names);
+         $(this).prev('.custom-file-label').html(names);
+      });
+
+   });
+</script>
+<style>
+
+</style>

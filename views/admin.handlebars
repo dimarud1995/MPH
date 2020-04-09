@@ -1,0 +1,266 @@
+<div id="app" class="container" style="margin-top: 120px; margin-bottom:50px;">
+   <div v-if="newFeedback.length==0&&newOrders==0&&approvedOrders==0&&doneOrders==0">
+      <h3>Немає нових замовлень</h3>
+   </div>
+   <div class="row">
+      <!--new-->
+      <div class=" card" style="margin-top: 20px; width:100%;" v-if="newFeedback.length!=0">
+         <div class="card-header" style="background-color: blue; color:white">
+            <div class="row">
+               <div class=" col">Запитання</div>
+               <div class=" col-auto">
+
+
+               </div>
+            </div>
+         </div>
+         <div class="card-body" style="">
+            <div class="container-fluid">
+
+               <table class="table table-bordered table-hover">
+                  <thead style="background-color:#eeeeee;">
+                     <tr>
+                        <td>Ім'я</td>
+                        <td>Контакти</td>
+                        <td>Запитання</td>
+                        <td>Дата замовлення</td>
+                        <td></td>
+                     </tr>
+                  </thead>
+                  <tbody v-for="(e,i) in newFeedback">
+
+                     <tr>
+                        <td>\{{e.userName}}</td>
+                        <td>\{{e.email}}</td>
+                        <td>\{{e.desc}}</td>
+                        <td>\{{e.date}}</td>
+                        <td><button class="btn btn-outline-danger" @click="removeFeedback(i)">Видалити</button></td>
+                     </tr>
+
+                  </tbody>
+               </table>
+            </div>
+
+         </div>
+      </div>
+      <!--new-->
+      <div class=" card" style="margin-top: 20px;width:100%" v-if="newOrders.length!=0">
+         <div class="card-header" style="background-color: red; color:white">
+            <div class="row">
+               <div class=" col">Нові замовлення</div>
+               <div class=" col-auto">
+
+
+               </div>
+            </div>
+         </div>
+         <div class="card-body" style="">
+            <div class="container-fluid">
+
+               <table class="table table-bordered table-hover">
+                  <thead style="background-color:#eeeeee;">
+                     <tr>
+                        <td>Ім'я</td>
+                        <td>Контакти</td>
+
+                        <td>Спосіб доставки</td>
+                        <td>Спосіб оплати</td>
+                        <td>Дата замовлення</td>
+                        <td></td>
+                     </tr>
+                  </thead>
+                  <tbody v-for="(e,i) in newOrders">
+
+                     <tr>
+                        <td>\{{e.userName}}</td>
+                        <td>tel: \{{e.tel}}<br>\{{e.email}}</td>
+                        <td>\{{e.delivery}}</td>
+                        <td>\{{e.paymethod}}</td>
+                        <td>\{{e.date}}</td>
+                        <td><button class="btn btn-outline-success" @click="approve(i)">Прийняти</button></td>
+                     </tr>
+
+                  </tbody>
+               </table>
+            </div>
+
+         </div>
+      </div>
+      <!--approved-->
+      <div class=" card" style="margin-top: 20px;  width:100%;" v-if="approvedOrders.length!=0">
+         <div class="card-header" style="background-color: orange; color:white">
+            <div class="row">
+               <div class=" col">Підтверджені замовлення</div>
+               <div class=" col-auto">
+
+
+               </div>
+            </div>
+         </div>
+         <div class="card-body" style="">
+            <div class="container-fluid">
+
+               <table class="table table-bordered table-hover">
+
+                  <tbody v-for="(e,i) in approvedOrders">
+
+                     <tr>
+                        <td>\{{e.userName}}</td>
+                        <td>tel: \{{e.tel}}<br>\{{e.email}}</td>
+                        <td>\{{e.delivery}}</td>
+                        <td>\{{e.paymethod}}</td>
+                        <td>\{{e.date}}</td>
+                        <td><button class="btn btn-outline-warning" @click="done(i)">Зроблено</button></td>
+                     </tr>
+
+                  </tbody>
+               </table>
+            </div>
+
+         </div>
+      </div>
+      <!--done-->
+      <div class=" card" style="margin-top: 20px; width:100%;" v-if="doneOrders.length!=0">
+         <div class="card-header" style="background-color: green; color:white">
+            <div class="row">
+               <div class=" col">Зроблені замовлення</div>
+               <div class=" col-auto">
+
+
+               </div>
+            </div>
+         </div>
+         <div class="card-body" style="">
+            <div class="container-fluid">
+
+               <table class="table table-bordered table-hover">
+
+                  <tbody v-for="(e,i) in doneOrders">
+
+                     <tr>
+                        <td>\{{e.userName}}</td>
+                        <td>tel: \{{e.tel}}<br>\{{e.email}}</td>
+                        <td>\{{e.delivery}}</td>
+                        <td>\{{e.paymethod}}</td>
+                        <td>\{{e.date}}</td>
+                        <td><button class="btn btn-outline-danger" @click="sent(i)">Відправлено</button></td>
+                     </tr>
+
+                  </tbody>
+               </table>
+            </div>
+
+         </div>
+      </div>
+   </div>
+   <div><a href="/admin/orders-history">Історія замовлень</a></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+   var app = new Vue({
+      el: '#app',
+      component: {
+         axios
+      },
+      data: {
+         message: "salo",
+         categories: [],
+         productsByCat: [],
+         newOrders: [],
+         approvedOrders: [],
+         doneOrders: [],
+         sentOrders: [],
+         newFeedback: []
+      },
+      beforeCreate: function () {
+         axios.get("/admin/getOrders").then(res => {
+            console.log(res.data);
+            this.newOrders = res.data.newOrders;
+            this.approvedOrders = res.data.approvedOrders;
+            this.doneOrders = res.data.doneOrders;
+            this.sentOrders = res.data.sentOrders;
+         });
+         axios.get("/admin/getNewFeedback").then(res => {
+            this.newFeedback = res.data.newFeedback;
+         });
+      },
+      methods: {
+         approve(i) {
+            console.log(i);
+            var order = this.newOrders[i];
+            this.newOrders.splice(i, 1);
+            console.log(order);
+            if (this.approvedOrders.length == 0) order.id = 0;
+            else order.id = (this.approvedOrders[this.approvedOrders.length - 1].id + 1);
+            this.approvedOrders.push(order)
+            var data = {
+               new: this.newOrders,
+               approved: this.approvedOrders
+            }
+            axios.post("/admin/setApproved", data).then(res => {
+               console.log(res.data);
+            });
+         },
+         done(i) {
+            console.log(i);
+            var order = this.approvedOrders[i];
+            this.approvedOrders.splice(i, 1);
+            console.log(order);
+            if (this.doneOrders.length == 0) order.id = 0;
+            else order.id = (this.doneOrders[this.doneOrders.length - 1].id + 1);
+            this.doneOrders.push(order);
+            var data = {
+               approved: this.approvedOrders,
+               done: this.doneOrders
+            }
+            axios.post("/admin/setDone", data).then(res => {
+               console.log(res.data);
+            });
+         },
+         sent(i) {
+            console.log(i);
+            var order = this.doneOrders[i];
+            this.doneOrders.splice(i, 1);
+            console.log(order);
+            if (this.sentOrders.length == 0) order.id = 0;
+            else order.id = (this.sentOrders[this.sentOrders.length - 1].id + 1);
+            this.sentOrders.push(order);
+            var data = {
+               done: this.doneOrders,
+               sent: order
+            }
+            axios.post("/admin/setSent", data).then(res => {
+               console.log(res.data);
+            });
+         },
+         removeFeedback(i) {
+            var f = this.newFeedback[i];
+            console.log(this.newFeedback[i]);
+            f.status = "viewed";
+            this.newFeedback.splice(i, 1);
+            axios.post("/admin/setFeedbackStatusViewed", f).then(res => {
+               console.log(res.data);
+            });
+         }
+
+
+
+
+
+      }
+   });
+
+
+
+
+</script>
+<style>
+   .myCategory:hover {
+      color: red;
+      cursor: pointer;
+   }
+</style>

@@ -1,0 +1,77 @@
+<div class="container-fluid" id="app">
+    <!--new-->
+    <div class=" card" style="margin-top: 120px;width:100%">
+        <div class="card-header" style="background-color: purple; color:white">
+            <div class="row">
+                <div class=" col">Історія замовлень</div>
+                <div class=" col-auto">
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body" style="">
+            <div class="container-fluid">
+
+                <table class="table table-bordered table-hover">
+                    <thead style="background-color:#eeeeee;">
+                        <tr>
+                            <td>Ім'я</td>
+                            <td>Контакти</td>
+
+                            <td>Спосіб доставки</td>
+                            <td>Спосіб оплати</td>
+                            <td>Дата замовлення</td>
+                        </tr>
+                    </thead>
+                    <tbody v-for="(e,i) in sentOrders">
+
+                        <tr>
+                            <td>\{{e.userName}}</td>
+                            <td>tel: \{{e.tel}}<br>\{{e.email}}</td>
+                            <td>\{{e.delivery}}</td>
+                            <td>\{{e.paymethod}}</td>
+                            <td>\{{e.date}}</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        component: {
+            axios
+        },
+        data: {
+            message: "salo",
+            newOrders: [],
+            approvedOrders: [],
+            doneOrders: [],
+            sentOrders: [],
+            newFeedback: []
+        },
+        beforeCreate: function () {
+            axios.get("/admin/getOrders").then(res => {
+                console.log(res.data);
+                this.newOrders = res.data.newOrders.reverse();
+                this.approvedOrders = res.data.approvedOrders.reverse();
+                this.doneOrders = res.data.doneOrders.reverse();
+                this.sentOrders = res.data.sentOrders.reverse();
+            });
+            axios.get("/admin/getNewFeedback").then(res => {
+                this.newFeedback = res.data.newFeedback.reverse();
+            });
+        }
+    });
+
+</script>

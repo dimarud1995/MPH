@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "title": "Годинники",
+        "url": "/category/clocks",
+        "imageUrl": "/images/category1.png"
+    },
+    {
+        "id": 2,
+        "title": "Посуд",
+        "url": "/category/dishes",
+        "imageUrl": "/images/category2.png"
+    },
+    {
+        "id": 3,
+        "title": "Топпери",
+        "url": "/category/toppers",
+        "imageUrl": "/images/category3.png"
+    },
+    {
+        "id": 4,
+        "title": "Рамки та метрики",
+        "url": "/category/frames",
+        "imageUrl": "/images/category4.png"
+    },
+    {
+        "id": 5,
+        "title": "Фанерні вироби",
+        "url": "/category/wares",
+        "imageUrl": "/images/category5.png"
+    },
+    {
+        "id": 6,
+        "title": "Жалюзійні двері",
+        "url": "/category/doors",
+        "imageUrl": "/images/category6.png"
+    }
+]

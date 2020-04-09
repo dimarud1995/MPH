@@ -1,0 +1,123 @@
+<div id="app" class="container" style="margin-top: 100px; margin-bottom:50px;">
+   <div class="row">
+      <div class="col-md-6">
+         <div class="card">
+            <div class="card-header">
+               <div class="row">
+                  <div class="col">
+                     Нова категорія
+                  </div>
+
+               </div>
+            </div>
+            <div class="form">
+               <div class="card-body">
+                  <div style="margin:30px; color:red;"> \{{error}}</div>
+                  <div class="container-fluid">
+                     <div class="form-group">
+                        <label for="title" class="form-control-label">Назва:</label>
+                        <input type="text" class="form-control" id="title" name="title" v-model="title">
+                     </div>
+                     <div class="form-group">
+                        <label for="url" class="form-control-label">Назва на англійській мові:</label>
+                        <input type="text" class="form-control" id="url" name="url" v-model="url">
+                     </div>
+
+                     <label for="allImages" class="form-control-label">Картинкa:</label>
+                     <div id="allImages">
+                        <div class="custom-file" style="margin-bottom:10px;">
+                           <label for="imageUrl" class="custom-file-label">Головна картинка</label>
+                           <input type="file" class="custom-file-input" id="imageUrl" name="imageUrl"
+                              @change="getImageUrl()">
+                        </div>
+
+                     </div>
+
+                     <button class="btn btn-success btn-block" type="submit" id="submit" @click="onSubmit()"
+                        style="margin-top:10px;margin-bottom:10px;">Зберегти</button>
+                  </div>
+
+
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+   var app = new Vue({
+      el: '#app',
+      data: {
+         title: "",
+         url: "",
+         imageUrl: null,
+         error: ""
+
+      },
+
+      methods: {
+         onSubmit() {
+            this.error = ""
+            if (this.title == "") this.error += "Введіть назву! ";
+            if (this.url == "") this.error += "Введіть назву на англійській мові! ";
+            if (this.imageUrl == null) this.error += "Загрузіть титульну картинку! ";
+            if (this.error == "") {
+
+               var Data = new FormData();
+               Data.append("title", this.title);
+               Data.append("url", this.url);
+               Data.append("imageUrl", this.imageUrl);
+
+               var jsonData = {
+                  "title": this.title,
+                  "url": this.url,
+                  "imageUrl": this.imageUrl,
+               };
+               console.log(jsonData);
+               //  console.log(this.category, this.title, this.description, this.price, this.mainImage, this.images);
+               axios.post('/admin/save-new-category', Data, {
+                  headers: {
+                     'accept': 'application/json',
+                     'Accept-Language': 'en-US,en;q=0.8',
+                     'Content-Type': `multipart/form-data`
+                  }
+               }).then(res => {
+                  console.log(res.data);
+                  alert(res.data);
+
+               });
+            }
+
+         },
+         getImageUrl() {
+            this.imageUrl = imageUrl.files[0];
+         }
+      }
+   })
+
+
+
+
+
+   $(document).ready(function () {
+      $('.myCategory').on('click', function () {
+         //   console.log($(this));
+      });
+
+      $('.custom-file-input').on("change", function () {
+         var files = $(this)[0].files;
+         var names = "";
+         $.each(files, (index, value) => {
+            names += value.name + ", ";
+         })
+         names = names.slice(0, -2);
+         //  console.log(names);
+         $(this).prev('.custom-file-label').html(names);
+      });
+
+   });
+</script>

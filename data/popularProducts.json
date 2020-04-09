@@ -1,0 +1,28 @@
+[{
+    "id": 1,
+    "category": 1,
+    "categoryName": "clocks",
+    "title": "salo",
+    "description": "salosalo ...",
+    "price": "123",
+    "mainImage": "/images/products/73f8ba6e-5dd9-4f53-7952-53f87f02bea5_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/aafa7e1e-9b18-4e96-1771-789e1b09c9db_new_york_taxi_list.jpg"]
+}, {
+    "id": 2,
+    "category": 1,
+    "categoryName": "dishes",
+    "title": "qwewq",
+    "description": "qweqwe ...",
+    "price": "02121312",
+    "mainImage": "/images/products/cfd030fd-6922-4b31-0cd8-d2e97aa040af_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/bdf603d0-2ee5-4d61-083a-51dc7d416396_new_york_taxi_list.jpg"]
+}, {
+    "id": 14,
+    "category": 6,
+    "categoryName": "doors",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum.",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus illum. ...",
+    "price": "3200",
+    "mainImage": "/images/products/07c83ede-dd41-4620-48d0-899fc761366c_minimalizm-oboi-nindzia.jpg",
+    "images": []
+}]

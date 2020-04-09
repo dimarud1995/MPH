@@ -1,0 +1,136 @@
+[{
+    "id": 1,
+    "category": 1,
+    "categoryName": "clocks",
+    "title": "salo",
+    "description": "salosalo",
+    "price": "123",
+    "mainImage": "/images/products/73f8ba6e-5dd9-4f53-7952-53f87f02bea5_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/aafa7e1e-9b18-4e96-1771-789e1b09c9db_new_york_taxi_list.jpg"]
+}, {
+    "id": 2,
+    "category": 1,
+    "categoryName": "dishes",
+    "title": "qwewq",
+    "description": "qweqwe",
+    "price": "02121312",
+    "mainImage": "/images/products/cfd030fd-6922-4b31-0cd8-d2e97aa040af_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/bdf603d0-2ee5-4d61-083a-51dc7d416396_new_york_taxi_list.jpg"]
+}, {
+    "id": 3,
+    "category": 1,
+    "categoryName": "toppers",
+    "title": "qwewq",
+    "description": "qweqwe",
+    "price": "02121312",
+    "mainImage": "/images/products/e08e117b-efc3-4de3-433b-1df642a9b966_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/6ee5d72f-0c33-494e-a42b-466c27c37c18_new_york_taxi_list.jpg"]
+}, {
+    "id": 4,
+    "category": 1,
+    "categoryName": "frames",
+    "title": "qwewq",
+    "description": "qweqwe",
+    "price": "02121312",
+    "mainImage": "/images/products/9f52179f-e788-4a66-819f-bb98bae58c8b_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/10ba365d-691e-4ea0-5ba0-fc9ed2968410_new_york_taxi_list.jpg"]
+}, {
+    "id": 5,
+    "category": 1,
+    "categoryName": "wares",
+    "title": "qwewq",
+    "description": "qweqwe",
+    "price": "02121312",
+    "mainImage": "/images/products/918e6961-c37a-4135-4d9e-8dde2fac17ed_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/c313aa91-0d00-41a4-79d8-cdee957b5ef3_new_york_taxi_list.jpg"]
+}, {
+    "id": 6,
+    "category": 1,
+    "categoryName": "doors",
+    "title": "qwewq",
+    "description": "qweqwe",
+    "price": "02121312",
+    "mainImage": "/images/products/ecce0b6e-4b2d-49c2-9ffb-af5c55cae2d5_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/fca769fd-159e-4056-3921-856aad4867f8_new_york_taxi_list.jpg"]
+}, {
+    "id": 7,
+    "category": 2,
+    "categoryName": "taburetki",
+    "title": "сало",
+    "description": "іваіваіатіва\r\nвіавіаіваів\r\nвіаівавіаві\r\nіва\r\nіва\r\nів\r\nаів\r\n\r\nів\r\nіва\r\nів",
+    "price": "151",
+    "mainImage": "/images/products/cf484292-abf3-43a8-3523-123bbabdb732_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/5bd904d0-89be-41d0-aa47-f8377199d7ce_minimalizm-oboi-nindzia.jpg", "/images/products/f072fc0c-ffa3-4add-6ce4-f27b1f41a0c1_new_york_taxi_list.jpg"]
+}, {
+    "id": 8,
+    "category": 3,
+    "categoryName": "toppers",
+    "title": "123",
+    "description": "123\r\n123\r\n123",
+    "price": "123",
+    "mainImage": "/images/products/bc11dc0d-6368-4296-cbbf-3c540de6b026_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/adde65cf-31cc-4df9-3722-63b6020ab745_minimalizm-oboi-nindzia.jpg", "/images/products/f5a3d883-599d-4af8-2f26-2326b9507cea_new_york_taxi_list.jpg"]
+}, {
+    "id": 9,
+    "category": 8,
+    "categoryName": "salo",
+    "title": "moe salo",
+    "description": "salo 2\r\n\r\n2\r\n2\r\n2\r\n2\r\n2\r\n2",
+    "price": "122329292",
+    "mainImage": "/images/products/a23c88d0-ba84-4ac9-697a-b0ead85486de_new_york_taxi_list.jpg",
+    "images": ["/images/products/f6556400-455a-4b09-cfc5-9cfbd90df2d1_minimalizm-oboi-nindzia.jpg", "/images/products/20b7c409-e7f1-45f0-4e00-3b2b25d58ab9_new_york_taxi_list.jpg"]
+}, {
+    "id": 10,
+    "category": 8,
+    "categoryName": "salo",
+    "title": "moe salo",
+    "description": "salo 2\r\n\r\n2\r\n2\r\n2\r\n2\r\n2\r\n2",
+    "price": "122329292",
+    "mainImage": "/images/products/5800f751-ff64-48d7-c425-addcfcd3e891_new_york_taxi_list.jpg",
+    "images": ["/images/products/ba513dc4-4419-43e7-9ec4-df3c5f235d9c_minimalizm-oboi-nindzia.jpg", "/images/products/6f49b198-f10e-41c1-489e-8445f239875d_new_york_taxi_list.jpg"]
+}, {
+    "id": 11,
+    "category": 1,
+    "categoryName": "clocks",
+    "title": "qweqwe",
+    "description": "Діма пора йти работать, бляха\r\nзаебав, думай бистріше\r\nмуділа \r\nлох\r\nпідр\r\nололо                              ловгий пробіл\r\n()()!\"№;%:?*Щ гачки срані!!!!!",
+    "price": "120022",
+    "mainImage": "/images/products/21055539-7c26-43ca-9a70-ba0530a9aeec_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/d6294f9a-6d00-4950-1d4d-0978594fd635_new_york_taxi_list.jpg"]
+}, {
+    "id": 12,
+    "category": 1,
+    "categoryName": "clocks",
+    "title": "qweqwe",
+    "description": "Діма пора йти работать, бляха<br>заебав, думай бистріше\r\nмуділа \r\nлох\r\nпідр\r\nололо                              ловгий пробіл\r\n()()!\"№;%:?*Щ гачки срані!!!!!",
+    "price": "120022",
+    "mainImage": "/images/products/dcb14db1-2856-44fc-0ddc-257daa551cd2_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/ac6c4d27-2061-4892-69e7-42de08d9543c_new_york_taxi_list.jpg"]
+}, {
+    "id": 13,
+    "category": 1,
+    "categoryName": "clocks",
+    "title": "qweqwe",
+    "description": "Діма пора йти работать, бляха<br>заебав, думай бистріше<br>муділа <br>лох<br>підр<br>ололо                              ловгий пробіл<br>()()!\"№;%:?*Щ гачки срані!!!!!",
+    "price": "120022",
+    "mainImage": "/images/products/fb344d12-76db-4490-28e4-ee26e76d14b3_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/2697722d-b00c-4ec6-bd26-e081e8b280c0_new_york_taxi_list.jpg"]
+}, {
+    "id": 14,
+    "category": 6,
+    "categoryName": "doors",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum.",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum.",
+    "price": "3200",
+    "mainImage": "/images/products/07c83ede-dd41-4620-48d0-899fc761366c_minimalizm-oboi-nindzia.jpg",
+    "images": []
+}, {
+    "id": 15,
+    "category": 6,
+    "categoryName": "doors",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum.",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur natus totam iusto. Adipisci deleniti voluptate sequi sit corporis nulla aut, numquam dolore assumenda possimus vitae eum, eius voluptates quam illum.",
+    "price": "3200",
+    "mainImage": "/images/products/f12849af-0f3c-4968-258c-9dfb00ed2e71_minimalizm-oboi-nindzia.jpg",
+    "images": ["/images/products/1361f53e-919d-4ac9-e3f6-b81d8082b744_minimalizm-oboi-nindzia.jpg", "/images/products/6009bd50-0b69-49e2-1617-852b2b531ad7_new_york_taxi_list.jpg"]
+}]

@@ -1,0 +1,41 @@
+[{
+    "id": 1,
+    "title": "Годинники",
+    "url": "/category/clocks",
+    "imageUrl": "/images/categories/category1.png"
+}, {
+    "id": 2,
+    "title": "Посуд",
+    "url": "/category/dishes",
+    "imageUrl": "/images/categories/category2.png"
+}, {
+    "id": 3,
+    "title": "Топпери",
+    "url": "/category/toppers",
+    "imageUrl": "/images/categories/category3.png"
+}, {
+    "id": 4,
+    "title": "Рамки та метрики",
+    "url": "/category/frames",
+    "imageUrl": "/images/categories/category4.png"
+}, {
+    "id": 5,
+    "title": "Фанерні вироби",
+    "url": "/category/wares",
+    "imageUrl": "/images/categories/category5.png"
+}, {
+    "id": 6,
+    "title": "Жалюзійні двері",
+    "url": "/category/doors",
+    "imageUrl": "/images/categories/category6.png"
+}, {
+    "id": 7,
+    "title": "Табуретки",
+    "url": "/category/taburetki",
+    "imageUrl": "/images/categories/4d69072f-15aa-413a-fb78-15da2b2cd781_minimalizm-oboi-nindzia.jpg"
+}, {
+    "id": 8,
+    "title": "salo",
+    "url": "/category/salo",
+    "imageUrl": "/images/categories/8b501e91-3883-4a47-1dd4-170a5857d1c0_new_york_taxi_list.jpg"
+}]

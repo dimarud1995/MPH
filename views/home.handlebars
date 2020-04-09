@@ -1,0 +1,361 @@
+<div id="app">
+  <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
+    <div class="carousel-inner">
+      {{#each this.slides}}
+      <div {{#if @first }}class="carousel-item active" {{else}}class="carousel-item" {{/if}}>
+        <img src="{{this.imageUrl}}" class="d-block w-100">
+        <div class="carousel-caption d-none d-md-block myTextCarouselSettings">
+          <h5>{{this.title}}</h5>
+          <p>{{this.subtitle}}</p>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{!-- <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a> --}}
+  </div>
+
+
+
+  <div id="hot-propositions" class="container myContainerHeader">
+    <h3>Популярні вироби</h3>
+  </div>
+  <div class="container">
+    {{#each popularProducts}}
+    <div class="col">
+      <hr style="margin-top: 10px;">
+      <a href="/product/{{this.id}}" style=" color:black; text-decoration:none;">
+        <div class="row myHotProp" style="margin-top: 10px; margin-bottom:10px;">
+
+          <div class="col-md-3" style="float: left; padding:10px;">
+            <img class="img-fluid" src="{{this.mainImage}}">
+          </div>
+          <div class="col-md-6" style="float:left;">
+            <div style="padding-top:10px;">
+              <h4>{{this.title}}</h4>
+            </div>
+            <div>
+              <h6>{{this.description}}</h6>
+            </div>
+          </div>
+          <div class="col-md-3" style=" padding:10px; text-align:end; position:relative;min-height:90px;">
+            <h5><span style="color:red;">{{this.price}}<span style="font-size:0.7em;"> ₴</span></span></span></h5>
+            <div style="text-align:end; width:100%; position:absolute; right:10px; bottom:0px;">
+              <button id="{{this.id}}" class="btn btn-primary btn-buy" onclick="buy(event)"
+                style="position: relative; ">
+                В корзину
+              </button>
+            </div>
+          </div>
+
+
+
+        </div>
+      </a>
+    </div>
+
+    {{/each}}
+    <hr style="margin-top: 10px;">
+  </div>
+  <div id="menu-cat"></div>
+  <div class="parallax1" style="color:white; text-align:center;">
+    <div style="margin:auto auto;">
+      {{!-- <div>My Plywood House</div> --}}
+      <div>Категорії</div>
+      {{!-- <div>Висока якість за розумною ціною!</div> --}}
+    </div>
+
+  </div>
+  <div class="container-fluid ">
+    <div class="container myContainerHeader">
+      {{!-- <h3>Категорії</h3> --}}
+    </div>
+    <div class="container" style="margin-bottom: 50px;">
+      <content>
+        <div id="categories">
+          <div id="categories-list">
+            <div class="row">
+              {{#each categories}}
+              <div class="col-md-4 col-lg-3 card-wrapper">
+                <div class="category ply-card">
+                  <a href="{{this.url}}">
+                    <div class="card">
+                      <img class="card-img-top " src="{{this.imageUrl}}">
+                      <div class="card-body">
+                        <h5 class="card-title" style="margin-top:0px;">{{this.title}}</h5>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </content>
+
+    </div>
+  </div>
+
+  <div id="about-us"></div>
+
+  <div class="parallax2" style="color:white; ">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3" style="margin: auto 0; text-align:center;">My <br>Plywood<br> House</div>
+        <div class="col-md-6"></div>
+        <div class="col-md-3" style="margin: auto 0; text-align:center;">
+          <a target="blank" href="https://instagram.com/my_plywood_house"
+            style="display: block; text-decoration:none; color:#fff;">
+            <div style="padding-top:20px; padding-bottom:20px; background-color: rgba(0, 0, 0, 0.0); 
+            width:100%;height:100%; border-radius:0px;">
+
+              <i class="fa fa-instagram"></i>Instagram
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div id="delivery" class="container myContainerHeader">
+    <h3>Доставка по всій Україні!</h3>
+  </div>
+  <div class="container">
+    <div class="row">
+      <h5 style=" margin-bottom:50px;">Ми відправляємо наші вироби у будь-який населений пункт України.
+      </h5>
+    </div>
+    <div class="row" style="margin-bottom: 50px;">
+      <img src="/images/ImageStatic/ua.png" alt="" class="img-fluid" style="margin:0 auto; height:250px;">
+    </div>
+    <hr>
+    <div class="row" style="margin-bottom: 50px;">
+      <h5>Обирайте зручний для вас спосіб доставки</h5>
+    </div>
+    <div class="row">
+      <div class="col-md-6" style="text-align: center;">
+        <img src="/images/ImageStatic/NovaPoshta.png" alt="" class="img-fluid" style="margin:10px auto; height:60px;">
+      </div>
+      <div class="col-md-6" style="text-align: center;">
+        <img src="/images/ImageStatic/Ukrposhta.png" alt="" class="img-fluid" style="margin:10px auto; height:60px;">
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div class="container" style="margin-bottom: 50px;">
+    <div class="row" style="margin-bottom: 50px;">
+      <h5>Оплачуйте замовлення зручними методами</h5>
+    </div>
+    <div class="row" style="margin-bottom: 50px;">
+
+      <div class="col-md-4" style="text-align: center; margin-top:20px;margin-bottom:20px;">
+        <img src="/images/ImageStatic/Mono.png" alt="" class="img-fluid" style="margin:10px auto; height:40px;">
+
+      </div>
+      <div class="col-md-4" style="text-align: center;margin-top:20px;margin-bottom:20px;">
+        <img src="/images/ImageStatic/PryvatBank.png" alt="" class="img-fluid" style="margin:10px auto; height:40px;">
+
+      </div>
+      <div class="col-md-4" style="text-align: center; margin-top:20px;margin-bottom:20px;">
+        <img src="/images/ImageStatic/PayPal.png" alt="" class="img-fluid" style="margin:10px auto; height:40px;">
+
+      </div>
+    </div>
+  </div>
+  <div class="parallax3" style="color:white; text-align:center;">
+    <div style="margin:auto auto;">
+      <div>My Plywood House</div>
+      <div>Висока якість за розумною ціною!</div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  $('.carousel').carousel({
+    interval: 6000
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+
+    },
+    methods: {
+
+    }
+  })
+
+
+
+
+
+
+
+</script>
+<style>
+  .myCard {
+    margin: 20px;
+    position: relative;
+  }
+
+  .myCatImage {
+    z-index: 2;
+    position: relative;
+  }
+
+  .myCatTitle {
+    padding-top: 20px;
+    padding-left: 10px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(to Bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+
+  }
+
+  .myCard:hover {
+    -webkit-box-shadow: 0 8px 6px #bbb;
+    -moz-box-shadow: 0 8px 6px #bbb;
+    box-shadow: 0 8px 6px 6px #bbb;
+  }
+
+  .myRoundTitle {
+    height: 140px;
+    width: 140px;
+    text-align: center;
+    padding-top: 50px;
+    background-image: radial-gradient(#F4511E, #D84315);
+    font-size: x-large;
+    border-radius: 100px;
+    margin: 0 auto;
+
+  }
+
+  .myTextCarouselSettings {
+    padding-top: 80px;
+    color: white;
+    bottom: 0px;
+    background-image: linear-gradient(to Bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+    width: 100%;
+    margin: 0px;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    padding-bottom: 0px;
+  }
+
+  .myContainerHeader {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  hr {
+    margin-top: 80px;
+  }
+
+  .row {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .parallax1 {
+    background-image: url("/images/ImageStatic/back_5.jpg");
+    font-size: 3em;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    font-weight: bold;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .parallax2 {
+    background-image: url("/images/ImageStatic/back_8.jpg");
+    font-size: 2em;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    font-weight: bold;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .parallax3 {
+    background-image: url("/images/ImageStatic/back_2.jpg");
+    font-size: 3em;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    font-weight: bold;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  #carouselExampleControls {
+    margin-top: 70px;
+  }
+
+  @media screen and (max-width: 767px) {
+
+
+    .parallax1 {
+      background-image: url("/images/ImageStatic/back_5.jpg");
+      padding-top: 150px;
+      padding-bottom: 150px;
+      font-size: 2em;
+      font-weight: bold;
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .parallax2 {
+      background-image: url("/images/ImageStatic/back_10.jpg");
+      padding-top: 150px;
+      padding-bottom: 150px;
+      font-size: 2em;
+      font-weight: bold;
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .parallax3 {
+      background-image: url("/images/ImageStatic/back_5.jpg");
+      padding-top: 150px;
+      padding-bottom: 150px;
+      font-size: 2em;
+      font-weight: bold;
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+</style>
