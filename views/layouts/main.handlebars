@@ -66,15 +66,15 @@
     <footer style=" background-color:#E0E0E0" id="foot">
         <div class="container-fluid">
             <h4 style="margin: 0 auto; width:100%; text-align:center; padding:50px;">Зв'яжіться з нами</h4>
-            <div class="row" style="padding-left: 10%; padding-right:10%;">
-                <div class="col-md-6" style="margin-bottom: 10px;">
-                    <div id="about-us" style="padding-left: 10px;">
-                        <p><i class="fa fa-instagram"></i> <a target="blank"
-                                href="https://instagram.com/my_plywood_house">my_plywood_house</a> </p>
-                        <p><i class="fa fa-facebook"></i> <a target="blank"
-                                href="https://facebook.com/my.plywood.house">my_plywood_house</a> </p>
-                        <p><i class="fa fa-envelope"></i>vasinahata.info@gmail.com</p>
-                        <p><i class="fa fa-phone"></i> 097 32 42 382 </p>
+            <div class="row" style="padding-left: 2%; padding-right:2%;">
+                <div class="col-md-6" tyle="margin-bottom: 10px;">
+                    <div id="about-us">
+                        <div class="myContainer"><i class="fa fa-instagram"></i> <a target="blank"
+                                href="https://instagram.com/my_plywood_house">my_plywood_house</a> </div>
+                        <div class="myContainer"><i class="fa fa-facebook"></i> <a target="blank"
+                                href="https://facebook.com/my.plywood.house">my_plywood_house</a> </div>
+                        <div class="myContainer"><i class="fa fa-envelope"></i>vasinahata.info@gmail.com</div>
+                        <div class="myContainer"><i class="fa fa-phone"></i> 097 32 42 382 </div>
                     </div>
                 </div>
                 <div class="col-md-6" style="margin-bottom: 10px;">
@@ -168,6 +168,24 @@
             }
         });
     </script>
+    <style>
+        .myContainer {
+            padding-left: 20%;
+            padding-right: 10%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        @media screen and (max-width: 767px) {
+
+            .myContainer {
+                padding-left: 3%;
+                padding-right: 3%;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+        }
+    </style>
 </body>
 
 </html>

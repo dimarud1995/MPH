@@ -169,8 +169,9 @@
                 axios.post("/setComment", comment).then(res => {
                     console.log(this.comments);
                     if (res.data.status == "ok")
-                        console.log(this.comments);
-                    this.comments = res.data.comment;
+                        this.comments = res.data.comments;
+                    console.log(this.comments);
+
                     this.text = "";
                     // alert(res.data);
 

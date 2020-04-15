@@ -1,26 +1,25 @@
-[
-    {
+[{
         "id": 1,
         "title": "My Plywood House",
         "subtitle": "це висока якість",
-        "imageUrl": "/images/main_page_slider/slide_1.jpg"
+        "imageUrl": "/images/main_page_slider/slide_1.png"
     },
     {
         "id": 2,
         "title": "My Plywood House",
         "subtitle": "це унікальні вироби",
-        "imageUrl": "/images/main_page_slider/slide_2.jpg"
+        "imageUrl": "/images/main_page_slider/slide_2.png"
     },
     {
         "id": 3,
         "title": "My Plywood House",
         "subtitle": "це демократична ціна",
-        "imageUrl": "/images/main_page_slider/slide_3.jpg"
+        "imageUrl": "/images/main_page_slider/slide_3.png"
     },
     {
         "id": 4,
         "title": "My Plywood House",
         "subtitle": "це оригінальні ідеї",
-        "imageUrl": "/images/main_page_slider/slide_4.jpg"
+        "imageUrl": "/images/main_page_slider/slide_4.png"
     }
 ]

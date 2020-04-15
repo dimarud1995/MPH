@@ -18,6 +18,9 @@ router.get('/', function (req, res, next) {
     })
 })
 
+router.get('/aboutus', function (req, res) {
+    res.render("aboutus");
+})
 router.get('/category/:category', function (req, res, next) {
     var categories = categories
     var catId = catsMap[req._parsedOriginalUrl.path]
@@ -36,21 +39,21 @@ router.get('/product/:id', function (req, res, next) {
     a.push(product);
     //  console.log(a);
     var pr = getInterestingProducts(a, 4);
-    console.log(pr);
+    //   console.log(pr);
     res.render('product', {
         product: product,
         products: pr
     })
 })
 router.post("/getInterestingProducts", function (req, res) {
-    console.log(req.body)
+    //  console.log(req.body)
     var product = getProductById(req.body.id)
     //  console.log(product);
     var a = [];
     a.push(product);
     //  console.log(a);
     var pr = getInterestingProducts(a, 4);
-    console.log(pr);
+    //  console.log(pr);
     return res.json(pr)
 });
 router.post('/cart', function (req, res, next) {
@@ -76,18 +79,20 @@ router.get('/order', function (req, res) {
 // COMMENTS
 
 router.post("/getComments", function (req, res) {
-    console.log(req.body.id);
+    // console.log(req.body.id);
     var c = getSmartComments(req.body.id, 20);
+    // console.log("comments:");
+    //   console.log(c);
     return res.json(c);
 })
 router.post("/setComment", function (req, res) {
     try {
         var c = req.body;
-        console.log(c);
+        //  console.log(c);
 
         c.date = getDate();
         if (comments.length != 0) c.id = comments[comments.length - 1].id + 1;
-        console.log(c);
+        //  console.log(c);
         comments.push(c);
         var json = JSON.stringify(comments);
         //  console.log(json);
@@ -95,9 +100,11 @@ router.post("/setComment", function (req, res) {
             if (err) return res.json(err.message);
             console.log('The file has been saved!');
         });
-
+        var r = QuickSort(comments);
+        console.log(r);
+        console.log("===========================================");
         return res.json({
-            comment: c,
+            comments: r,
             status: "ok"
         });
 
@@ -247,6 +254,8 @@ function getDate() {
     if (month.toString().length == 1) month = "0" + month;
     var year = d.getFullYear();
     var hour = d.getHours();
+    if (hour.toString().length == 1) hour = "0" + hour;
+
     var minute = d.getMinutes();
     if (minute.toString().length == 1) minute = "0" + minute;
     return day + "." + month + "." + year + "  " + hour + ":" + minute;
@@ -257,19 +266,29 @@ function getSmartComments(id, number) {
     var res = [];
     try {
         var temp = comments.filter(q => q.prodid == id);
-        if (tempp.length < number) {
+        // console.log("temp length: " + temp.length);
+        if (temp.length < number) {
             var prodByCategory = products.filter(w => w.catId == products.find(q => q.id == id).catId);
+            // console.log(prodByCategory);
             prodByCategory.forEach(e => {
+                if (id != e.prodid) {
+                    var item = comments.find(q => q.prodid == e.id);
+                    if (item)
+                        temp.push(item);
+                }
 
             });
         }
-        while (temp.length < number) {
-            var counter = Math.round(Math.random() * (comments.length - 1))
-            var item =
-                temp.push(item)
-        }
+        if (comments.length > number)
+            while (temp.length < number) {
+                var counter = Math.round(Math.random() * (comments.length - 1))
+                temp.push(comments[counter])
+            }
+        temp = comments;
 
-
+        //  console.log("length=" + temp.length);
+        res = QuickSort(temp);
+        console.log("successsssssssssssssssssssssssssss");
         return res;
     } catch (err) {
         return [{
@@ -280,5 +299,41 @@ function getSmartComments(id, number) {
             "date": getDate()
         }];
     }
+}
+
+
+function QuickSort(B) {
+    var A = Array.from(B);
+    //console.log(A);
+    var res = [];
+    while (A.length != 0) {
+        var max = MDC(A[0].date);
+        var maxi = 0;
+        //  console.log(maxi)
+        for (var i = 0; i < A.length; i++) {
+            //console.log("2")
+            var t = MDC(A[i].date);
+            //  console.log("if ----------all---t " + t)
+            if (max < t) {
+                max = t;
+                maxi = i;
+                //      console.log("if ----------------maxi " + maxi)
+                //    console.log("if ----------------t " + t)
+
+            }
+        }
+        res.push(A[maxi]);
+        A.splice(maxi, 1);
+
+    }
+    return res;
+}
+
+function MDC(date) {
+    return Number.parseInt(date.substring(0, 2)) * 86400 +
+        Number.parseInt(date.substring(3, 5)) * 31 * 86400 +
+        Number.parseInt(date.substring(6, 10)) * 365 * 31 * 86400 +
+        Number.parseInt(date.substring(12, 14)) * 3600 +
+        Number.parseInt(date.substring(15)) * 60;
 }
 module.exports = router
