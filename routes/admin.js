@@ -263,7 +263,7 @@ router.post("/setApproved", function (req, res) {
     });
     fs.writeFile('./data/approvedOrders.json', approvedO, (err) => {
       if (err) return res.json(err.message);
-      console.log('The file has been saved!');
+      console.error('The file has been saved!');
     });
     return res.json("ok");
   } catch (err) {
