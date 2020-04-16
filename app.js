@@ -1,4 +1,5 @@
 var createError = require('http-errors')
+var fs = require('fs');
 var express = require('express')
 var exphbs = require('express-handlebars')
 var axios = require('axios')
@@ -6,6 +7,8 @@ var fileUpload = require('express-fileupload');
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
+var https = require('https')
+
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
@@ -46,5 +49,6 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500)
     res.render('home')
 })
+
 
 module.exports = app
