@@ -261,18 +261,20 @@ router.post("/setApproved", function (req, res) {
   try {
     console.log(req.body);
     var d = req.body;
-    var newO = JSON.stringify(d.new);
-    var approvedO = JSON.stringify(d.approved);
-    console.log(d);
+    newOrders = d.new;
+    approvedOrders = d.approved;
+    var newO = JSON.stringify(newOrders);
+    var approvedO = JSON.stringify(approvedOrders);
+    //console.log(d);
     fs.writeFile('./data/newOrders.json', newO, (err) => {
       if (err) return res.json(err.message);
-      console.log('The file has been saved!');
+      console.log('The new orders has been saved!');
     });
     fs.writeFile('./data/approvedOrders.json', approvedO, (err) => {
       if (err) return res.json(err.message);
-      console.error('The file has been saved!');
+      console.error('The approved orders has been saved!');
     });
-    return res.json("ok");
+    return res.json(approved);
   } catch (err) {
     return res.json(err)
   }
@@ -281,9 +283,10 @@ router.post("/setDone", function (req, res) {
   try {
     console.log(req.body);
     var d = req.body;
-    var doneO = JSON.stringify(d.done);
-    var approvedO = JSON.stringify(d.approved);
-    console.log(d);
+    doneOrders = d.done;
+    approvedOrders = d.approved;
+    var doneO = JSON.stringify(doneOrders);
+    var approvedO = JSON.stringify(approvedOrders);
     fs.writeFile('./data/approvedOrders.json', approvedO, (err) => {
       if (err) return res.json(err.message);
       console.log('The file has been saved!');
@@ -302,7 +305,8 @@ router.post("/setSent", function (req, res) {
     console.log("sent ==================================================================")
     console.log(req.body);
     var d = req.body;
-    var doneO = JSON.stringify(d.done); //array
+    doneOrders = d.done;
+    var doneO = JSON.stringify(doneOrders); //array
     sentOrders.push(d.sent);
     var sentO = JSON.stringify(sentOrders); // one object received
 
