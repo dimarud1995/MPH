@@ -91,14 +91,17 @@ router.post('/save-new-product', function (req, res, next) {
     })
 
     console.log(products);
-    var json = JSON.stringify(products);
-    const data = new Uint8Array(Buffer.from(json));
+    var data = JSON.stringify(products);
+    // const data = new Uint8Array(Buffer.from(json));
     fs.writeFile('./data/products.json', data, (err) => {
-      if (err) return res.json(err.message);
+      if (err) {
+        return res.json(err.message);
+        console.log(err.message);
+
+      }
       console.log('The file has been saved!');
     });
-    fs.close();
-    return res.json("Ok");
+    return res.json("ok");
   } catch (err) {
     return res.json(err);
   }
@@ -133,8 +136,8 @@ router.post('/save-new-category', function (req, res, next) {
 
     })
     //console.log(categories);
-    var json = JSON.stringify(categories);
-    const data = new Uint8Array(Buffer.from(json));
+    var data = JSON.stringify(categories);
+    //const data = new Uint8Array(Buffer.from(json));
     fs.writeFile('./data/categories.json', data, (err) => {
       if (err) return res.json(err.message);
       console.log('The Categories has been saved!');
@@ -144,8 +147,8 @@ router.post('/save-new-category', function (req, res, next) {
     var key = '/category/' + newC.url;
     catsMap[key] = id;
     console.log(catsMap);
-    var json = JSON.stringify(catsMap);
-    const data2 = new Uint8Array(Buffer.from(json));
+    var data2 = JSON.stringify(catsMap);
+    // const data2 = new Uint8Array(Buffer.from(json));
     fs.writeFile('./data/catIdTitleMap.json', data2, (err) => {
       if (err) return res.json(err.message);
       console.log('The catsMap has been saved!');
@@ -185,8 +188,8 @@ router.post('/savePopularProducts', function (req, res) {
       e.description = resStr;
     })
     console.log(j);
-    var j2 = JSON.stringify(j);
-    const data = new Uint8Array(Buffer.from(j2));
+    var data = JSON.stringify(j);
+    //const data = new Uint8Array(Buffer.from(j2));
     fs.writeFile('./data/popularProducts.json', data, (err) => {
       if (err) return res.json(err.message);
       console.log('The Popular products has been saved!');
