@@ -79,7 +79,7 @@
                 </div>
                 <div class="col-md-6" style="margin-bottom: 10px;">
                     <div id="contact-us">
-                        <form style="text-align: right;" @submit="sendForm">
+                        <form style="text-align: right;">
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <input type="text" class="form-control" placeholder="Ім'я та прізвище"
@@ -97,12 +97,17 @@
                             </div>
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-8"
+                                    <div class="col-md-8" v-if="error.length==0"
                                         style="padding-top: 10px; padding-bottom:10px; text-align:left;">
                                         Залиште свої контакти і ми з вами зв'яжемося найближчим часом.
                                     </div>
-                                    <div class="col-md-4" style="text-align: right;">
-                                        <button type="submit" class="btn btn-primary m-3">Надіслати</button></div>
+                                    <div v-if="error.length!=0" style="margin:0 auto; color:red;  text-align:left;"
+                                        v-html="error">
+
+                                    </div>
+                                    <div class="col-md-4" style="text-align: right; color:white;">
+                                        <a type="button" @click="sendForm()" class="btn btn-primary m-3">Надіслати</a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -134,9 +139,10 @@
             methods: {
                 sendForm() {
                     this.error = "";
-                    if (this.name == null || this.name == "") this.error += "Будь ласка, ведіть ім'я. ";
-                    if (this.email == null || this.email == "") this.error += "Введіть адресу електронної пошти ";
-                    if (this.desc == null || this.desc == "") this.error += "Напишіть, що вас цікавить. ";
+                    if (this.name === "") this.error += "Будь ласка, ведіть ім'я. <br>";
+                    if (this.email === "") this.error += "Введіть адресу електронної пошти.<br> ";
+                    if (this.desc === "") this.error += "Напишіть, що вас цікавить. ";
+                    // alert(this.error);
                     if (this.error.length == 0) {
                         localStorage.userName = this.name;
                         localStorage.email = this.email;
@@ -160,7 +166,7 @@
                             }
                         });
                     } else {
-                        alert(error);
+                        //  alert(error);
                     }
 
 

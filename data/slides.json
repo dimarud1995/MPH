@@ -21,5 +21,11 @@
         "title": "My Plywood House",
         "subtitle": "це оригінальні ідеї",
         "imageUrl": "/images/main_page_slider/slide_4.png"
+    },
+    {
+        "id": 4,
+        "title": "My Plywood House",
+        "subtitle": "це оригінальні ідеї",
+        "imageUrl": "/images/main_page_slider/slide_5.png"
     }
 ]

@@ -21,6 +21,11 @@ router.get('/admin', function (req, res, next) {
     layout: 'admin'
   });
 });
+router.get('/edit', function (req, res) {
+  res.render("edit", {
+    layout: 'admin'
+  })
+});
 router.get("/getOrders", function (req, res) {
   var data = {
     newOrders,
@@ -40,7 +45,7 @@ router.get("/getNewFeedback", function (req, res) {
 //
 //main slider 
 router.get("/main-slider", function (req, res) {
-  return res.json("Поки не зробив");
+  return res.json("Поки не зробив. В теорії тут можна буде добавлять якісь нові слайди шоб юзери бачить тіпа з акціями, але я думаю це нахер не нада");
 });
 
 //CREATE PRODUCT
@@ -222,8 +227,7 @@ router.post('/newOrder', function (req, res) {
       second: 'numeric'
     };
     var date = new Date;
-    var id = 0
-    if (newOrders.length != 0) id = newOrders[newOrders.length - 1].id + 1;
+    var id = new Date().getTime();
     var r = {
       id: id,
       userName: d.userName,
