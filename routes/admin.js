@@ -239,7 +239,7 @@ router.post('/newOrder', function (req, res) {
       delivery: d.delivery,
       paymethod: d.paymethod,
       status: "new", //new, approved, done,sent
-      date: date.toLocaleString("ua", options),
+      date: date.toDateString(),
       // productsInOrder: productsInOrder
       productIdInOrder: d.productIdInCard
 
@@ -351,7 +351,7 @@ router.post("/newFeedback", function (req, res) {
       email: d.email,
       desc: d.desc,
       status: "new", //new viwed
-      date: date.toLocaleString("ua", options)
+      date: date.toDateString()
     }
 
     feedback.push(r);

@@ -74,6 +74,7 @@
     </div>
 
   </div>
+
   <div class="container-fluid ">
     <div class="container myContainerHeader">
       {{!-- <h3>Категорії</h3> --}}
@@ -127,9 +128,12 @@
     </div>
 
   </div>
-  <div class="container " style="position:relative; margin-top:30px;">
+  <div class="container " style="position:relative;">
     <div>
-      <h3 style="padding:20px;">Про нас</h3>
+      <div class="container myContainerHeader">
+
+        <h3>Про нас</h3>
+      </div>
       <p>
         «My Plywood House» - це молода компанія, що була створена в 2019 році, на базі виробничого підприємства з
         досвідом роботи більше 9 років. А уже в 2020 році на ваш результат працює штат працівників, що складається із
@@ -137,10 +141,8 @@
       </p>
       <p> Сама робота з деревом мене дуже захоплювала з дитинства, адже є щось магічно-неймовірне у цьому матеріалі на
         відміну від інших. Його структура є унікальною, як людські відбитки пальців. Такі вироби несуть таємничу
-        гармонію.</p>
-      <p>
-        Тому, коли мені власне випала нагода попрацювати на такому виробництві, що і стало початком зародження ідеї, я
-        відразу погодився. Це маленьке підприємство займалось виготовлення ...</p>
+        гармонію. Тому, коли мені власне випала нагода попрацювати на такому виробництві, що і стало початком зародження
+        ідеї, я відразу погодився. Це маленьке підприємство займалось виготовлення ...</p>
       <div class="bottomFading"></div>
     </div>
 
@@ -152,11 +154,12 @@
     <a class="btn btn-success " href="aboutus"
       style="text-decoration:none;border-radius:100px;  color:#333; z-index:2000; position:relative; color:white;">Читати
       далі </a>
+    <hr style="margin-top:30px;">
+
   </div>
 
 
   <div id="delivery" class="container myContainerHeader" style="margin-top:0px;">
-    <hr style="margin-top:30px;">
     <h3 style="margin-top:30px;">Доставка по всій Україні!</h3>
   </div>
   <div class="container">
@@ -208,6 +211,7 @@
     </div>
 
   </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -240,7 +244,7 @@
     bottom: 0px;
     height: 120px;
     z-index: 100;
-    width: 100%;
+    width: inherit;
     background-image: linear-gradient(0, #fafafa, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
   }
 
@@ -303,6 +307,7 @@
   .myContainerHeader {
     margin-top: 50px;
     margin-bottom: 50px;
+    padding-left: 35px;
   }
 
   hr {
