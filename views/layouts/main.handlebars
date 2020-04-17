@@ -30,28 +30,29 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/#hot-propositions"><i class="fa fa-star"></i> Популярне</a>
+                    <a class="nav-link" href="/#hot-propositions"><i class="fa fa-star d-lg-none"></i> Популярне</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/#menu-cat"><i class="fa fa-book"></i> Категорії</a>
+                    <a class="nav-link " href="/#menu-cat"><i class="fa fa-book d-lg-none"></i> Категорії</a>
                 </li>
                 {{!-- <li class="nav-item">
                 <a class="nav-link" href="/order" >Замовити</a>
             </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/#contact-us"><i class="fa fa-address-card"></i> Контакти</a>
+                    <a class="nav-link" href="/#contact-us"><i class="fa fa-address-card d-lg-none"></i> Контакти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/#about-us"><i class="fa fa-pagelines"></i> Про нас</a>
+                    <a class="nav-link" href="/#about-us"><i class="fa fa-pagelines d-lg-none"></i> Про нас</a>
                 </li>
 
                 <li>
                     <form name="cartBtnForm" method="POST" action="/cart">
                         <div id="cartBtn" class="cart">
                             <div id="cart-counter" class="badge badge-danger"></div>
-                            <span class="d-lg-none">Кошик</span>
+
                             <i class="fa fa-shopping-cart fa-lg d-none d-lg-block"></i>
                             <i class="fa fa-shopping-cart d-lg-none"></i>
+                            <span class="d-lg-none">Кошик</span>
                         </div>
                         <input id="prodIds" name="prodIds" type="text" hidden>
                         <input id="cartSubmit" type="submit" hidden>

@@ -57,10 +57,12 @@ router.post("/getInterestingProducts", function (req, res) {
     return res.json(pr)
 });
 router.post('/cart', function (req, res, next) {
+    console.log("1");
     var products = products
     var ids = req.body.prodIds.split(',')
     var bookedProducts = getProductsByIds(ids)
     var sum = getSum(bookedProducts)
+    console.log("2");
 
     res.render('cart', {
         products: bookedProducts,

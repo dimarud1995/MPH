@@ -64,21 +64,21 @@ router.post('/save-new-product', function (req, res, next) {
     console.log("========================");
     var mainImagePath = ""; //req.body.mainImage;
     var imagesPath = []; // req.body.images;
+    var id = new Date().getTime();
     Object.values(req.files).forEach(f => {
-      const uuid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-      if (mainImagePath == "") mainImagePath = "/images/products/" + uuid + "_" + f.name;
+      if (mainImagePath == "") mainImagePath = "/images/products/" + id + "_" + f.name;
       else {
-        imagesPath.push("/images/products/" + uuid + "_" + f.name);
+        imagesPath.push("/images/products/" + id + "_" + f.name);
       }
-      f.mv('./public/images/products/' + uuid + "_" + f.name);
+      f.mv('./public/images/products/' + id + "_" + f.name);
 
     });
-    var id = 1;
-    if (products.length > 0) id = products[products.length - 1].id + 1;
+
     var categoryNum = Number.parseInt(newP.category);
     var categoryName = categories.find(q => q.id == categoryNum).url.replace("/category/", "");
     console.log(categoryName);
     var desc = generateMegaDescription(newP.description);
+
     products.push({
       "id": id,
       "category": categoryNum,
@@ -90,14 +90,13 @@ router.post('/save-new-product', function (req, res, next) {
       "images": imagesPath
     })
 
-    console.log(products);
+    // console.log(products);
+    console.log("ХУЙ");
     var data = JSON.stringify(products);
     // const data = new Uint8Array(Buffer.from(json));
     fs.writeFile('./data/products.json', data, (err) => {
       if (err) {
-        return res.json(err.message);
-        console.log(err.message);
-
+        return res.json(err);
       }
       console.log('The file has been saved!');
     });

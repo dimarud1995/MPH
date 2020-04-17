@@ -128,7 +128,6 @@
          toPopular(id) {
             if (this.popularProducts == null) this.popularProducts = [];
             var pp = this.products[id];
-            pp.id = new Date().getTime();
             this.popularProducts.push(pp);
             console.log(this.popularProducts);
          },
