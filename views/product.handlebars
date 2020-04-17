@@ -87,19 +87,24 @@
                 <div v-for="(c,i) in comments" style="width:100%; " class="container-fluid">
                     <div class="row" style=" background-color:#f3f3f3; margin:10px 0; padding:5px;">
                         <div class="col-md-6">
-                            \{{c.name}}:
+                            \{{c.name}} \{{c.about}}:
                         </div>
 
-                        <div class="col-md-6" style="text-align: end;">
-                            \{{c.date}}
-                        </div>
+
                     </div>
                     <div class="row">
-                        <div style="margin:20px 40px; width:100%;">
+                        <div style="margin:2% 40px; width:100%;">
                             "\{{c.text}}"
                         </div>
                     </div>
+                    <div class="row">
 
+                        <div class="col"
+                            style="text-align: end; margin-right:2%; font-size:0.9em; color:rgba(0,0,0,0.5)">
+
+                            \{{c.date}}
+                        </div>
+                    </div>
                     <hr>
                 </div>
                 <div style="padding:5px; width:100%; margin-bottom:0px;">

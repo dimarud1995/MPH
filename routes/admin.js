@@ -31,7 +31,7 @@ router.get("/getOrders", function (req, res) {
     newOrders,
     approvedOrders,
     doneOrders,
-    sentOrders
+    sentOrders: QuickSort(sentOrders)
   }
   return res.json(data);
 });
@@ -173,11 +173,9 @@ router.get('/popular-products', function (req, res) {
 });
 router.post('/savePopularProducts', function (req, res) {
   try {
-    var j = [];
-    if (req.body == null || req.body == '') j = [];
-    else j = req.body;
-    //  console.log(j)
-    j.forEach(e => {
+    if (req.body == null || req.body == '') popularProducts = [];
+    else popularProducts = req.body;
+    popularProducts.forEach(e => {
       var resStr = "";
       var words = e.description.split(" ");
       if (words.length > 40) words.splice(40, words.length - 41);
@@ -187,9 +185,8 @@ router.post('/savePopularProducts', function (req, res) {
       resStr += "...";
       e.description = resStr;
     })
-    console.log(j);
-    var data = JSON.stringify(j);
-    //const data = new Uint8Array(Buffer.from(j2));
+
+    var data = JSON.stringify(popularProducts);
     fs.writeFile('./data/popularProducts.json', data, (err) => {
       if (err) return res.json(err.message);
       console.log('The Popular products has been saved!');
@@ -206,30 +203,28 @@ router.get('/getPopularProducts', function (req, res) {
 });
 //
 // Card getOrders
-
+router.post('/declineOrder', function (req, res) {
+  try {
+    console.log(req.body);
+    var d = req.body;
+    newOrders = d.new;
+    var newO = JSON.stringify(newOrders);
+    fs.writeFile('./data/newOrders.json', newO, (err) => {
+      if (err) return res.json(err.message);
+      console.log('Order deleted!');
+    });
+    return res.json("ok");
+  } catch (err) {
+    return res.json(err)
+  }
+});
 router.post('/newOrder', function (req, res) {
   try {
 
 
     console.log(req.body)
     var d = req.body;
-    // var productsInOrder = [];
-    //  var prId = d.productIdInCard;
-    // prId.forEach(id => {
-    //   productsInOrder.push(products.find(q => q.id == id));
-    // });
-    var options = {
-      era: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      weekday: 'long',
-      timezone: 'UTC',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric'
-    };
-    var date = new Date;
+
     var id = new Date().getTime();
     var r = {
       id: id,
@@ -239,7 +234,7 @@ router.post('/newOrder', function (req, res) {
       delivery: d.delivery,
       paymethod: d.paymethod,
       status: "new", //new, approved, done,sent
-      date: date.toDateString(),
+      date: getDate(),
       // productsInOrder: productsInOrder
       productIdInOrder: d.productIdInCard
 
@@ -330,18 +325,6 @@ router.post("/newFeedback", function (req, res) {
   try {
     console.log(req.body)
     var d = req.body;
-    var options = {
-      era: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      weekday: 'long',
-      timezone: 'UTC',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric'
-    };
-    var date = new Date;
     var id = 0;
     if (feedback.length == 0) id = 0;
     else id = (feedback[feedback.length - 1].id + 1);
@@ -351,7 +334,7 @@ router.post("/newFeedback", function (req, res) {
       email: d.email,
       desc: d.desc,
       status: "new", //new viwed
-      date: date.toDateString()
+      date: getDate()
     }
 
     feedback.push(r);
@@ -423,5 +406,55 @@ function generateMegaDescription(string) {
 
 
 
+function QuickSort(B) {
+  var A = Array.from(B);
+  //console.log(A);
+  var res = [];
+  while (A.length != 0) {
+    var max = MDC(A[0].date);
+    var maxi = 0;
+    //  console.log(maxi)
+    for (var i = 0; i < A.length; i++) {
+      //console.log("2")
+      var t = MDC(A[i].date);
+      //  console.log("if ----------all---t " + t)
+      if (max < t) {
+        max = t;
+        maxi = i;
+        //      console.log("if ----------------maxi " + maxi)
+        //    console.log("if ----------------t " + t)
+
+      }
+    }
+    res.push(A[maxi]);
+    A.splice(maxi, 1);
+
+  }
+  return res;
+}
+
+function MDC(date) {
+  return Number.parseInt(date.substring(0, 2)) * 86400 +
+    Number.parseInt(date.substring(3, 5)) * 31 * 86400 +
+    Number.parseInt(date.substring(6, 10)) * 365 * 31 * 86400 +
+    Number.parseInt(date.substring(12, 14)) * 3600 +
+    Number.parseInt(date.substring(15)) * 60;
+}
+
+function getDate() {
+  var d = new Date;
+  var day = d.getDate();
+  if (day.toString().length == 1) day = "0" + day;
+  var month = d.getMonth();
+  if (month.toString().length == 1) month = "0" + month;
+  var year = d.getFullYear();
+  var hour = d.getHours();
+  if (hour.toString().length == 1) hour = "0" + hour;
+
+  var minute = d.getMinutes();
+  if (minute.toString().length == 1) minute = "0" + minute;
+  return day + "." + month + "." + year + "  " + hour + ":" + minute;
+
+}
 
 module.exports = router;

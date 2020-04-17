@@ -104,6 +104,7 @@
             .then(res => {
                this.products = [];
                this.products = res.data;
+               console.log(this.products);
             });
          axios.get('/admin/getPopularProducts')
             .then(res => {
@@ -126,21 +127,15 @@
       methods: {
          toPopular(id) {
             if (this.popularProducts == null) this.popularProducts = [];
-            this.popularProducts.push(this.products[id]);
+            var pp = this.products[id];
+            pp.id = new Date().getTime();
+            this.popularProducts.push(pp);
             console.log(this.popularProducts);
          },
          fromPopular(id) {
             this.popularProducts.splice(id, 1);
             console.log(this.popularProducts);
 
-         },
-         selectionChange(editor, range) {
-            if (range) {
-               if (range.start !== range.end) {
-                  this.selectedText = editor.getText(range.start, range.end)
-                  editor.formatText(range, 'custom', 'hello world')
-               }
-            }
          },
          onSave() {
             var Data = new FormData();

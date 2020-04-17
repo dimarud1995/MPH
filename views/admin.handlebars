@@ -1,4 +1,5 @@
-<div id="app" class="container" style="margin-top: 120px; margin-bottom:50px;">
+<div id="app" class="container"
+   style="margin-top: 120px; margin-bottom:50px;margin-left:10px; margin-right:10px; position:relative; width:auto;">
    <div v-if="newFeedback.length==0&&newOrders==0&&approvedOrders==0&&doneOrders==0">
       <h3>Немає нових замовлень</h3>
    </div>
@@ -63,8 +64,10 @@
                            Доставка: <b>\{{e.delivery}}</b><br>
                            Оплата: <b>\{{e.paymethod}}</b><br>
                            Дата: <b>\{{e.date}}</b><br>
+                           <button class="btn btn-outline-success" style="margin-top: 5px;"
+                              @click="approve(i)">Прийняти</button>
                            <button class="btn btn-outline-danger" style="margin-top: 5px;"
-                              @click="approve(i)">Відправлено</button>
+                              @click="decline(i)">Відхилити</button>
                         </td>
                      </tr>
 
@@ -100,8 +103,8 @@
                            Доставка: <b>\{{e.delivery}}</b><br>
                            Оплата: <b>\{{e.paymethod}}</b><br>
                            Дата: <b>\{{e.date}}</b><br>
-                           <button class="btn btn-outline-danger" style="margin-top: 5px;"
-                              @click="done(i)">Відправлено</button>
+                           <button class="btn btn-outline-warning" style="margin-top: 5px;"
+                              @click="done(i)">Зроблено</button>
                         </td>
                      </tr>
 
@@ -219,11 +222,15 @@
 
                      <tr>
                         <td>\{{e.userName}}</td>
-                        <td>tel: \{{e.tel}}<br>\{{e.email}}</td>
+                        <td>\{{e.tel}}<br v-if="e.tel">\{{e.email}}</td>
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>
-                        <td><button class="btn btn-outline-success" @click="approve(i)">Прийняти</button></td>
+                        <td>
+                           <button class="btn btn-outline-success" @click="approve(i)">Прийняти</button>
+                           <button class="btn btn-outline-danger" @click="decline(i)"
+                              style="margin-top: 5px;">Відхилити</button>
+                        </td>
                      </tr>
 
                   </tbody>
@@ -252,7 +259,7 @@
 
                      <tr>
                         <td>\{{e.userName}}</td>
-                        <td>tel: \{{e.tel}}<br>\{{e.email}}</td>
+                        <td>\{{e.tel}}<br v-if="e.tel">\{{e.email}}</td>
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>
@@ -285,11 +292,11 @@
 
                      <tr>
                         <td>\{{e.userName}}</td>
-                        <td>tel: \{{e.tel}}<br>\{{e.email}}</td>
+                        <td>\{{e.tel}}<br v-if="e.tel">\{{e.email}}</td>
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>
-                        <td><button class="btn btn-outline-warning" @click="sent(i)">Зроблено</button></td>
+                        <td><button class="btn btn-outline-danger" @click="sent(i)">Зроблено</button></td>
                      </tr>
 
                   </tbody>
@@ -348,6 +355,18 @@
          });
       },
       methods: {
+         decline(i) {
+            console.log(i);
+            var order = this.newOrders[i];
+            this.newOrders.splice(i, 1);
+            console.log(order);
+            var data = {
+               new: this.newOrders,
+            }
+            axios.post("/admin/declineOrder", data).then(res => {
+               console.log(res.data);
+            });
+         },
          approve(i) {
             console.log(i);
             var order = this.newOrders[i];

@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="/javascripts/jquery.min.js"></script>
@@ -31,19 +30,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/#hot-propositions">Популярне</a>
+                    <a class="nav-link" href="/#hot-propositions"><i class="fa fa-star"></i> Популярне</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/#menu-cat">Категорії</a>
+                    <a class="nav-link " href="/#menu-cat"><i class="fa fa-book"></i> Категорії</a>
                 </li>
                 {{!-- <li class="nav-item">
                 <a class="nav-link" href="/order" >Замовити</a>
             </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/#contact-us">Контакти</a>
+                    <a class="nav-link" href="/#contact-us"><i class="fa fa-address-card"></i> Контакти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/#about-us">Про нас</a>
+                    <a class="nav-link" href="/#about-us"><i class="fa fa-pagelines"></i> Про нас</a>
                 </li>
 
                 <li>
@@ -64,7 +63,7 @@
 
     {{{body}}}
     <footer style=" background-color:#E0E0E0" id="foot">
-        <div class="container-fluid">
+        <div class="container-fluid" id="contact-us">
             <h4 style="margin: 0 auto; width:100%; text-align:center; padding:50px;">Зв'яжіться з нами</h4>
             <div class="row" style="padding-left: 2%; padding-right:2%;">
                 <div class="col-md-6" tyle="margin-bottom: 10px;">
@@ -78,7 +77,7 @@
                     </div>
                 </div>
                 <div class="col-md-6" style="margin-bottom: 10px;">
-                    <div id="contact-us">
+                    <div>
                         <form style="text-align: right;">
                             <div class="row">
                                 <div class="col-md-6 form-group">
@@ -117,13 +116,25 @@
                 </div>
             </div>
             <div class="row"
-                style="margin:0px;padding: 20px; background-color:#616161; position: absolute;width: 100%; left: 0px;">
-                <p style="margin:0 auto; color:#ffffff;">2019-2020 My Plywood House</p>
+                style="margin:0px;padding-top: 20px; padding-bottom: 20px; background-color:#616161; text-align:center; color:#ffffff; position: absolute;width: 100%; left: 0px;">
+                <div style="position: relative; margin:0 auto;">2019-2020 My Plywood House</div>
             </div>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+
+        $(function () {
+            var navMain = $(".navbar-collapse"); // avoid dependency on #id
+            // "a:not([data-toggle])" - to avoid issues caused
+            // when you have dropdown inside navbar
+            navMain.on("click", "a:not([data-toggle])", null, function () {
+                navMain.collapse('hide');
+            });
+        });
+
+
+
         var foot = new Vue({
             el: '#foot',
             data: {

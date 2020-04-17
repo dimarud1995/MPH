@@ -80,7 +80,7 @@ router.get('/order', function (req, res) {
 
 router.post("/getComments", function (req, res) {
     // console.log(req.body.id);
-    var c = getSmartComments(req.body.id, 20);
+    var c = getSmartComments(req.body.id, 10);
     // console.log("comments:");
     //   console.log(c);
     return res.json(c);
@@ -93,6 +93,7 @@ router.post("/setComment", function (req, res) {
         c.date = getDate();
         if (comments.length != 0) c.id = comments[comments.length - 1].id + 1;
         //  console.log(c);
+        c.about = " про цей виріб";
         comments.push(c);
         var json = JSON.stringify(comments);
         //  console.log(json);
@@ -273,8 +274,11 @@ function getSmartComments(id, number) {
             prodByCategory.forEach(e => {
                 if (id != e.prodid) {
                     var item = comments.find(q => q.prodid == e.id);
-                    if (item)
+                    if (item) {
+                        item.about = " про категорію товарів";
                         temp.push(item);
+
+                    }
                 }
 
             });
@@ -282,7 +286,9 @@ function getSmartComments(id, number) {
         if (comments.length > number)
             while (temp.length < number) {
                 var counter = Math.round(Math.random() * (comments.length - 1))
-                temp.push(comments[counter])
+                var item = comments[counter];
+                item.about = " про компанію";
+                temp.push(item);
             }
         temp = comments;
 
