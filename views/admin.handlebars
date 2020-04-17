@@ -55,22 +55,25 @@
                <table class="table table-bordered table-hover">
 
                   <tbody v-for="(e,i) in newOrders">
-
-                     <tr>
-                        <td>
-                           Ім'я: <b> \{{e.userName}}</b><br>
-                           Тел.: <b>\{{e.tel}}</b><br>
-                           Пошта: <b>\{{e.email}}</b><br>
-                           Доставка: <b>\{{e.delivery}}</b><br>
-                           Оплата: <b>\{{e.paymethod}}</b><br>
-                           Дата: <b>\{{e.date}}</b><br>
-                           <button class="btn btn-outline-success" style="margin-top: 5px;"
-                              @click="approve(i)">Прийняти</button>
-                           <button class="btn btn-outline-danger" style="margin-top: 5px;"
-                              @click="decline(i)">Відхилити</button>
-                        </td>
-                     </tr>
-
+                     <a href="/adminorder">
+                        <tr>
+                           <td>
+                              Ім'я: <b> \{{e.userName}}</b><br>
+                              Тел.: <b>\{{e.tel}}</b><br>
+                              Пошта: <b>\{{e.email}}</b><br>
+                              Доставка: <b>\{{e.delivery}}</b><br>
+                              Оплата: <b>\{{e.paymethod}}</b><br>
+                              Дата: <b>\{{e.date}}</b><br>
+                              <button class="btn btn-outline-success" style="margin-top: 5px;" @click="approve(i)"><i
+                                    class="fa fa-check-circle"></i></button>
+                              <button class="btn btn-outline-danger" style="margin-top: 5px;" @click="decline(i)"><i
+                                    class="fa fa-minus-circle"></i></button>
+                              <a class="btn btn-outline-primary" style="margin-top: 5px;"
+                                 :href="'/admin/adminorder/' +e.id">
+                                 <i class="fa fa-eye"></i></a>
+                           </td>
+                        </tr>
+                     </a>
                   </tbody>
                </table>
             </div>
@@ -103,8 +106,11 @@
                            Доставка: <b>\{{e.delivery}}</b><br>
                            Оплата: <b>\{{e.paymethod}}</b><br>
                            Дата: <b>\{{e.date}}</b><br>
-                           <button class="btn btn-outline-warning" style="margin-top: 5px;"
-                              @click="done(i)">Зроблено</button>
+                           <button class="btn btn-outline-warning" style="margin-top: 5px;" @click="done(i)"><i
+                                 class="fa fa-check-circle"></i></button>
+                           <a class="btn btn-outline-primary" style="margin-top: 5px;"
+                              :href="'/admin/adminorder/' +e.id">
+                              <i class="fa fa-eye"></i></a>
                         </td>
                      </tr>
 
@@ -140,8 +146,11 @@
                            Доставка: <b>\{{e.delivery}}</b><br>
                            Оплата: <b>\{{e.paymethod}}</b><br>
                            Дата: <b>\{{e.date}}</b><br>
-                           <button class="btn btn-outline-danger" style="margin-top: 5px;"
-                              @click="sent(i)">Відправлено</button>
+                           <button class="btn btn-outline-danger" style="margin-top: 5px;" @click="sent(i)"><i
+                                 class="fa fa-check-circle"></i></button>
+                           <a class="btn btn-outline-primary" style="margin-top: 5px;"
+                              :href="'/admin/adminorder/' +e.id">
+                              <i class="fa fa-eye"></i></a>
                         </td>
                      </tr>
 
@@ -221,16 +230,22 @@
                   <tbody v-for="(e,i) in newOrders">
 
                      <tr>
+
                         <td>\{{e.userName}}</td>
                         <td>\{{e.tel}}<br v-if="e.tel">\{{e.email}}</td>
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>
                         <td>
-                           <button class="btn btn-outline-success" @click="approve(i)">Прийняти</button>
-                           <button class="btn btn-outline-danger" @click="decline(i)"
-                              style="margin-top: 5px;">Відхилити</button>
+
+                           <button class="btn btn-outline-success" @click="approve(i)"><i
+                                 class="fa fa-check-circle"></i></button>
+                           <button class="btn btn-outline-danger" @click="decline(i)"><i
+                                 class="fa fa-minus-circle"></i></button>
+                           <a class="btn btn-outline-primary" :href="'/admin/adminorder/' +e.id">
+                              <i class="fa fa-eye"></i></a>
                         </td>
+
                      </tr>
 
                   </tbody>
@@ -263,7 +278,11 @@
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>
-                        <td><button class="btn btn-outline-warning" @click="done(i)">Зроблено</button></td>
+                        <td><button class="btn btn-outline-warning" @click="done(i)"><i
+                                 class="fa fa-check-circle"></i></button>
+                           <a class="btn btn-outline-primary" :href="'/admin/adminorder/' +e.id">
+                              <i class="fa fa-eye"></i></a>
+                        </td>
                      </tr>
 
                   </tbody>
@@ -296,7 +315,10 @@
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>
-                        <td><button class="btn btn-outline-danger" @click="sent(i)">Відправлено</button></td>
+                        <td><button class="btn btn-outline-danger" @click="sent(i)"><i
+                                 class="fa fa-check-circle"></i></button>
+                           <a class="btn btn-outline-primary" :href="'/admin/adminorder/' +e.id">
+                              <i class="fa fa-eye"></i></a></td>
                      </tr>
 
                   </tbody>

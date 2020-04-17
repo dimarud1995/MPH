@@ -1,8 +1,52 @@
 <div class="container" id="app">
+    <div style="margin:100px 5%;">
+        <div class="row">
+            Name: {{order.userName}}
+        </div>
+        <div class="row">
+            Tel: {{order.tel}}
+        </div>
+        <div class="row">
+            Email: {{order.email}}
+        </div>
+        <div class="row">
+            Delivery: {{order.delivery}}
+        </div>
+        <div class="row">
+            Pay: {{order.paymethod}}
+        </div>
+        <div class="row">
+            Date: {{order.date}}
+        </div>
+        <div class="row" style="margin:20px 0; border:1px solid grey; border-radius:10px;">
+            {{#each order.productInOrder}}
+            <div class=" col-6 col-sm-6 col-md-4 card-wrapper" style="padding:0px;">
+                <div class="category ply-card" style="margin:10px;">
+                    <a href="/product/{{this.id}}">
+                        <div class="card">
+                            <img class="card-img-top " src="{{this.mainImage}}">
+                            <div class="card-body">
+                                <h5 class="card-title" style="margin-top:0px;">{{this.title}}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
 
+        },
+        methods: {
+
+        }
+    });
 </script>

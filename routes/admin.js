@@ -21,11 +21,43 @@ router.get('/admin', function (req, res, next) {
     layout: 'admin'
   });
 });
+
 router.get('/edit', function (req, res) {
   res.render("edit", {
     layout: 'admin'
   })
 });
+
+router.get("/adminorder/:id", function (req, res) {
+  console.log(req.params.id)
+  var newO = newOrders.find(p => p.id == req.params.id);
+  var approvedO = approvedOrders.find(p => p.id == req.params.id);
+  var doneO = doneOrders.find(p => p.id == req.params.id);
+  var O = null;
+
+
+  if (newO) O = newO;
+  if (approvedO) O = approvedO;
+  if (doneO) O = doneO;
+  //console.log(O);
+
+  var temp = [];
+  O.productIdInOrder.forEach(e => {
+    var p = products.find(p => p.id == e);
+    if (p) {
+      temp.push(p);
+    }
+  })
+  O.productInOrder = temp;
+  console.log(O);
+  res.render("adminorder", {
+    order: O,
+    layout: 'admin'
+
+
+  })
+});
+
 router.get("/getOrders", function (req, res) {
   var data = {
     newOrders,
