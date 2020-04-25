@@ -1,11 +1,1 @@
-[{
-    "id": 1587140299661,
-    "userName": "dasdas",
-    "tel": "",
-    "email": "salo@salo.ua",
-    "delivery": "new_post",
-    "paymethod": "privatbank",
-    "status": "new",
-    "date": "17.03.2020  19:18",
-    "productIdInOrder": ["1587137877654"]
-}]
+[{"id":1587807481039,"userName":"dasdas","tel":"(224) 242-42-43","email":"salo@salo.ua","paymethod":"privatbank","delivery":"new_post","city":"Костопіл","warhouse":{"Description":"Відділення №1: вул. Рівненська, 107","SettlementDescription":"Костопіль","SettlementAreaDescription":"Рівненська область","SettlementRegionsDescription":"Костопільський р-н"},"status":"new","date":"25.03.2020  12:38","productIdInOrder":["1587137877654","1587137877654","1587137877654"],"productInOrder":[{"id":1587137877654,"category":1,"categoryName":"clocks","title":"qweq","description":"qweqw","price":"123","mainImage":"/images/products/1587137877654_new_york_taxi_list.jpg","images":["/images/products/1587137877654_minimalizm-oboi-nindzia.jpg","/images/products/1587137877654_new_york_taxi_list.jpg"]},{"id":1587137877654,"category":1,"categoryName":"clocks","title":"qweq","description":"qweqw","price":"123","mainImage":"/images/products/1587137877654_new_york_taxi_list.jpg","images":["/images/products/1587137877654_minimalizm-oboi-nindzia.jpg","/images/products/1587137877654_new_york_taxi_list.jpg"]},{"id":1587137877654,"category":1,"categoryName":"clocks","title":"qweq","description":"qweqw","price":"123","mainImage":"/images/products/1587137877654_new_york_taxi_list.jpg","images":["/images/products/1587137877654_minimalizm-oboi-nindzia.jpg","/images/products/1587137877654_new_york_taxi_list.jpg"]}]}]

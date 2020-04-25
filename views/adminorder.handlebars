@@ -1,22 +1,69 @@
 <div class="container" id="app">
     <div style="margin:100px 5%;">
         <div class="row">
-            Name: {{order.userName}}
+            <div class="col-md-2">
+                Name:
+            </div>
+            <div class="col-md-10">
+                <span style="color:green;">{{order.userName}}</span>
+            </div>
+
         </div>
+        <hr>
         <div class="row">
-            Tel: {{order.tel}}
+            <div class="col-md-2">
+
+                Tel:</div>
+            <div class="col-md-10"> <span style="color:red;">{{order.tel}}</span>
+            </div>
         </div>
+        <hr>
+
         <div class="row">
-            Email: {{order.email}}
+            <div class="col-md-2">
+
+                Email:</div>
+            <div class="col-md-10"> <span style="color:green;">{{order.email}}</span>
+            </div>
         </div>
+        <hr>
+
         <div class="row">
-            Delivery: {{order.delivery}}
+            <div class="col-md-2">
+
+                Delivery:</div>
+            <div class="col-md-10"><span style="color:green;">{{order.delivery}}</span>
+            </div>
         </div>
+        <hr>
+
         <div class="row">
-            Pay: {{order.paymethod}}
+            <div class="col-md-2">
+
+                Pay:</div>
+            <div class="col-md-10"><span style="color:green;">{{order.paymethod}}</span>
+            </div>
         </div>
+        <hr>
+
         <div class="row">
-            Date: {{order.date}}
+            <div class="col-md-2">
+
+                Date:</div>
+            <div class="col-md-10"><span style="color:green;">{{order.date}}</span>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-2"> Address:
+            </div>
+            <div class="col-md-10">
+                <span style="color:red;">
+                    {{order.warhouse.Description}} ,
+                    {{order.warhouse.SettlementDescription}},
+                    {{order.warhouse.SettlementRegionsDescription}},
+                    {{order.warhouse.SettlementAreaDescription}}</span></div>
         </div>
         <div class="row" style="margin:20px 0; border:1px solid grey; border-radius:10px;">
             {{#each order.productInOrder}}

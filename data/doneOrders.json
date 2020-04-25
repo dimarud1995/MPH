@@ -1,11 +1,1 @@
-[{
-    "id": 1587138507736,
-    "userName": "dasdas",
-    "tel": "",
-    "email": "salo@salo.ua",
-    "delivery": "new_post",
-    "paymethod": "privatbank",
-    "status": "new",
-    "date": "17.03.2020  18:48",
-    "productIdInOrder": ["1587137877654", "1587137877654", "1587137877654"]
-}]
+[{"id":1587138507736,"userName":"dasdas","tel":"","email":"salo@salo.ua","delivery":"new_post","paymethod":"privatbank","status":"new","date":"17.03.2020  18:48","productIdInOrder":["1587137877654","1587137877654","1587137877654"]},{"id":1587140278639,"userName":"dasdas","tel":"","email":"salo@salo.ua","delivery":"new_post","paymethod":"privatbank","status":"new","date":"17.03.2020  19:17","productIdInOrder":["1587137877654","1587137910164","1587137910164"]}]

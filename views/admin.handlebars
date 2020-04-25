@@ -59,7 +59,7 @@
                         <tr>
                            <td>
                               Ім'я: <b> \{{e.userName}}</b><br>
-                              Тел.: <b>\{{e.tel}}</b><br>
+                              Тел.: <b><span style="color:red;">\{{e.tel}}</span></b><br>
                               Пошта: <b>\{{e.email}}</b><br>
                               Доставка: <b>\{{e.delivery}}</b><br>
                               Оплата: <b>\{{e.paymethod}}</b><br>
@@ -101,7 +101,7 @@
                      <tr>
                         <td>
                            Ім'я: <b>\{{e.userName}}</b><br>
-                           Тел.: <b>\{{e.tel}}</b><br>
+                           Тел.: <b><span style="color:red;">\{{e.tel}}</span></b><br>
                            Пошта: <b>\{{e.email}}</b><br>
                            Доставка: <b>\{{e.delivery}}</b><br>
                            Оплата: <b>\{{e.paymethod}}</b><br>
@@ -141,7 +141,7 @@
                      <tr>
                         <td>
                            Ім'я: <b>\{{e.userName}}</b><br>
-                           Тел.: <b>\{{e.tel}}</b><br>
+                           Тел.: <b><span style="color:red;">\{{e.tel}}</span></b><br>
                            Пошта: <b>\{{e.email}}</b><br>
                            Доставка: <b>\{{e.delivery}}</b><br>
                            Оплата: <b>\{{e.paymethod}}</b><br>
@@ -232,7 +232,7 @@
                      <tr>
 
                         <td>\{{e.userName}}</td>
-                        <td>\{{e.tel}}<br v-if="e.tel">\{{e.email}}</td>
+                        <td><span style="color:red;">\{{e.tel}}</span><br v-if="e.tel">\{{e.email}}</td>
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>
@@ -274,7 +274,7 @@
 
                      <tr>
                         <td>\{{e.userName}}</td>
-                        <td>\{{e.tel}}<br v-if="e.tel">\{{e.email}}</td>
+                        <td><span style="color:red;">\{{e.tel}}</span><br v-if="e.tel">\{{e.email}}</td>
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>
@@ -311,7 +311,7 @@
 
                      <tr>
                         <td>\{{e.userName}}</td>
-                        <td>\{{e.tel}}<br v-if="e.tel">\{{e.email}}</td>
+                        <td><span style="color:red;">\{{e.tel}}</span><br v-if="e.tel">\{{e.email}}</td>
                         <td>\{{e.delivery}}</td>
                         <td>\{{e.paymethod}}</td>
                         <td>\{{e.date}}</td>

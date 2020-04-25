@@ -10,6 +10,7 @@ var doneOrders = require('../data/doneOrders.json');
 var sentOrders = require('../data/sentOrders.json');
 var feedback = require('../data/feedback.json');
 var popularProducts = require('../data/popularProducts.json');
+var newPostWarhouses = require('../data/newPostWarhouses.json');
 var multer = require('multer');
 const uuid = require('uuid');
 var fs = require('fs');
@@ -33,12 +34,14 @@ router.get("/adminorder/:id", function (req, res) {
   var newO = newOrders.find(p => p.id == req.params.id);
   var approvedO = approvedOrders.find(p => p.id == req.params.id);
   var doneO = doneOrders.find(p => p.id == req.params.id);
+  var sentO = sentOrders.find(p => p.id == req.params.id);
   var O = null;
 
 
   if (newO) O = newO;
   if (approvedO) O = approvedO;
   if (doneO) O = doneO;
+  if (sentO) O = sentO;
   //console.log(O);
 
   var temp = [];
@@ -257,13 +260,25 @@ router.post('/newOrder', function (req, res) {
     var d = req.body;
 
     var id = new Date().getTime();
+    var warhouse = newPostWarhouses.data.filter(q => q.SiteKey == d.warhouse).map(function (q) {
+      var obj = {
+        Description: q.Description,
+        SettlementDescription: q.SettlementDescription,
+        SettlementAreaDescription: q.SettlementAreaDescription,
+        SettlementRegionsDescription: q.SettlementRegionsDescription
+      }
+      return obj
+    })
+    console.log(warhouse);
     var r = {
       id: id,
       userName: d.userName,
       tel: d.tel,
       email: d.email,
-      delivery: d.delivery,
       paymethod: d.paymethod,
+      delivery: d.delivery,
+      city: d.city,
+      warhouse: warhouse[0],
       status: "new", //new, approved, done,sent
       date: getDate(),
       // productsInOrder: productsInOrder

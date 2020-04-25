@@ -22,17 +22,19 @@
                             <td>Спосіб доставки</td>
                             <td>Спосіб оплати</td>
                             <td>Дата замовлення</td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody v-for="(e,i) in sentOrders">
 
                         <tr>
                             <td>\{{e.userName}}</td>
-                            <td>\{{e.tel}}<br v-if="e.tel">\{{e.email}}</td>
+                            <td><span style="color:red;">\{{e.tel}}</span><br v-if="e.tel">\{{e.email}}</td>
                             <td>\{{e.delivery}}</td>
                             <td>\{{e.paymethod}}</td>
                             <td>\{{e.date}}</td>
-
+                            <td><a class="btn btn-outline-primary" :href="'/admin/adminorder/' +e.id">
+                                    <i class="fa fa-eye"></i></a></td>
                         </tr>
 
                     </tbody>
@@ -62,11 +64,14 @@
                         <tr>
                             <td>
                                 Ім'я: <b>\{{e.userName}}</b><br>
-                                Тел: <b>\{{e.tel}}</b><br>
+                                Тел: <b><span style="color:red;">\{{e.tel}}</span></b><br>
                                 Пошта: <b>\{{e.email}}</b><br>
                                 Доставка: <b>\{{e.delivery}}</b><br>
                                 Оплата: <b>\{{e.paymethod}}</b><br>
-                                Дата: <b>\{{e.date}}</b>
+                                Дата: <b>\{{e.date}}</b><br>
+                                <a class="btn btn-outline-primary" :href="'/admin/adminorder/' +e.id">
+                                    <i class="fa fa-eye"></i></a>
+
                             </td>
 
                         </tr>

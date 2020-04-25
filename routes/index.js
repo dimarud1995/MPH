@@ -8,6 +8,8 @@ var catsMap = require('../data/catIdTitleMap.json')
 var products = require('../data/products.json')
 var comments = require('../data/comments.json')
 var popularProducts = require('../data/popularProducts.json')
+var newPostWarhouses = require('../data/newPostWarhouses.json');
+
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -116,8 +118,41 @@ router.post("/setComment", function (req, res) {
     }
 })
 
+router.post("/get-cities", function (req, res) {
+    console.log(req.body.name);
 
+    var temp = newPostWarhouses.data.filter(q => q.SettlementDescription.includes(req.body.name)).map(function (w) {
+        var obj = {
+            SiteKey: w.SiteKey,
+            city: w.CityDescription,
+            cityRu: w.CityDescriptionRu,
+        }
+        return obj;
+    })
+    var temp2 = temp.filter((item, index) => temp.indexOf(item) === index);
+    // console.log(temp2);
+    return res.json(temp2)
+});
 
+router.post("/get-warhouses", function (req, res) {
+    console.log(req.body.name);
+
+    var temp = newPostWarhouses.data.filter(q => q.SettlementDescription.includes(req.body.name)).map(function (w) {
+        var obj = {
+            SiteKey: w.SiteKey,
+            Description: w.Description,
+            ShortAddress: w.ShortAddress,
+            SettlementDescription: w.SettlementDescription,
+            SettlementAreaDescription: w.SettlementAreaDescription,
+            SettlementRegionsDescription: w.SettlementRegionsDescription,
+
+        }
+        //    console.log(obj);
+        return obj;
+
+    })
+    return res.json(temp)
+});
 ///
 // support functions
 function getSum(bookedProducts) {

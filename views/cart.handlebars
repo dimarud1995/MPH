@@ -47,19 +47,26 @@
 
 
         <hr>
-        <div class="row form-group">
+        <div class="form-group">
             <label for="name" class="form-control-lable">Ваше ім'я:</label>
             <input class="form-control" id="name" v-model="name">
         </div>
-        <div class="row form-group">
+        <div class="form-group">
             <label for="tel" class="form-control-lable">Телефон:</label>
-            <input class="form-control" id="tel" v-model="tel" type="tel">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-tel">+38</span>
+                </div>
+                <input type="text" class="form-control" id="tel" v-model="tel" aria-describedby="basic-tel"
+                    @input="changeTel()">
+            </div>
         </div>
-        <div class="row form-group">
+
+        <div class=" form-group">
             <label for="email" class="form-control-lable">Поштова скринька:</label>
             <input class="form-control" id="email" v-model="email" type="email">
         </div>
-        <div class="row form-group">
+        <div class=" form-group">
             <label for="paymethod" class="form-control-lable">Спосіб оплати:</label>
             <select name="paymethod" id="paymethod" v-model="paymethod" class="form-control">
                 <option value="privatbank">Приват банк</option>
@@ -67,12 +74,42 @@
                 <option value="paypal">PayPal</option>
             </select>
         </div>
-        <div class="row  form-group">
+
+
+        <div class="  form-group">
             <label for="delivery" class="form-control-lable">Спосіб доставки:</label>
             <select name="delivery" id="delivery" v-model="delivery" class="form-control">
                 <option value="new_post">Нова пошта</option>
                 <option value="ukrpost">Укрпошта</option>
             </select>
+        </div>
+        <div class="form-group" v-if="delivery=='new_post'">
+            <label for="city" class="form-control-lable">Вкажіть ваш населений пункт:</label>
+            <input class="form-control" id="city" v-model="city" type="text" @input="getCities()"
+                style="text-transform:capitalize;">
+        </div>
+        <div class=" form-group" v-if="recAboutCity.length>0" style="color:#1E88E5; padding:10px;">
+            \{{recAboutCity}}
+        </div>
+
+        <div class=" form-group" v-if="warhouses.length>0">
+            <label for="warhouse" class="form-control-lable">Виберіть поштове відділення: </label>
+            <div v-if="warhouses.length" style="color:#1E88E5; padding-bottom:10px; padding-left:10px;"> Поштових
+                відділень біля вас:
+                \{{warhouses.length}}
+            </div>
+            <select v-model="warhouse" class="form-control" name="warhouse" id="warhouse">
+                <option :value="i.SiteKey" v-for="i in warhouses">\{{i.Description}}
+                    (\{{i.SettlementRegionsDescription}},\{{i.SettlementAreaDescription}})
+                </option>
+            </select>
+
+
+        </div>
+        <div class="row" v-if="error.length!=0">
+            <h6 style="color:red;" v-html="error">
+            </h6>
+
         </div>
         <div class="row" style="padding-top:10px; text-align:end; display:block;">
             <button class="btn btn-success" @click="sendOrder()">Відправити</button>
@@ -80,10 +117,7 @@
         </div>
         <hr>
 
-        <div class="row" v-if="error.length!=0">
-            <h6 style="color:red;">\{{error}}</h5>
 
-        </div>
     </div>
     <div>
         <div class="row">
@@ -95,11 +129,11 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-
     $(document).ready(() => {
         console.log("count sum");
         countSum();
     });
+
 
     var app = new Vue({
         el: '#app',
@@ -107,20 +141,94 @@
             sum: 0,
             showOrderInfo: true,
             tel: "",
+            finalTel: "",
             email: "",
             name: "",
             error: "",
             paymethod: "privatbank",
             delivery: "new_post",
-            productIdInCard: []
+            address: "",
+            city: "",
+            postOffice: "",
+            productIdInCard: [],
+            cities: [],
+            warhouses: [],
+            warhouse: "",
+            selectedCity: null,
+            recAboutCity: ""
 
         },
+
+
         mounted() {
             if (localStorage.userName != null && localStorage.userName != "") this.name = localStorage.userName;
             if (localStorage.tel != null && localStorage.tel != "") this.tel = localStorage.tel;
             if (localStorage.email != null && localStorage.email != "") this.email = localStorage.email;
         },
         methods: {
+
+            changeTel() {
+                if (this.tel != "") {
+                    valOnlyDec = [];
+                    var value = Array.from(this.tel)
+                    console.log(value);
+                    var temp = "";
+                    for (var i = 0; i < value.length; i++) {
+                        if (this.isDec(value[i]))
+                            if (i == 0) {
+                                if (value[i] != "(") temp += "(" + value[i];
+                                else temp += value[i];
+                            } else if (i == 4) {
+                                if (value[i] != ")") temp += ")" + " " + value[i];
+                                else temp += value[i];
+                            } else if (i == 9 || i == 12) {
+                                if (value[i] != "-") temp += "-" + value[i];
+                                else temp += value[i];
+                            } else if (i < 15) {
+                                temp += value[i];
+                            }
+
+
+                    }
+
+                    this.tel = temp;
+                }
+
+                //  console.log(val);
+            },
+            getCities() {
+                this.city = this.city.charAt(0).toUpperCase() + this.city.slice(1);
+                var data = {
+                    name: this.city
+                }
+                axios.post("/get-cities", data).then(
+                    res => {
+                        console.log(res.data)
+                        this.cities = res.data;
+                        console.log(this.cities.length);
+                        if (this.cities.length > 0) {
+                            this.recAboutCity = "";
+                            this.getWarhouses();
+
+                        } else {
+                            this.cities = [];
+                            this.warhouses = [];
+                            this.recAboutCity = "Якщо ви впевні, що поблизу вас є відділення Нової Пошти, а система не знаходить - спробуйте вказати населений пункт українською мовою"
+                        }
+                    }
+                )
+            },
+            getWarhouses() {
+                var data = {
+                    name: this.city
+                }
+                axios.post("/get-warhouses", data).then(
+                    res => {
+                        console.log(res.data)
+                        this.warhouses = res.data;
+                    }
+                )
+            },
             createOrder() {
                 this.sum = Number.parseInt($('#sum').text());
                 console.log(this.sum);
@@ -131,11 +239,22 @@
                 var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return re.test(email);
             },
+            validTel: function (tel) {
+                var re = /^\(\d\d\d\)\s\d\d\d-\d\d-\d\d$/;
+                return re.test(tel);
+            },
+            isDec: function (char) {
+                var re = /^[\d()-\s]$/;
+                return re.test(char);
+            },
             sendOrder() {
                 this.error = "";
                 var validMail = this.validEmail(this.email);
-                if (this.tel === "" && this.email === "") this.error = "Вкажіть телефон або електронну адресу!";
-                if (!validMail && this.email.length > 0) this.error += "Вкажіть правильно емейл адресу!"
+                var validTel = this.validTel(this.tel);
+                if (this.tel === "") this.error = "Вкажіть телефон <br>";
+                if (!validTel && this.tel.length > 0) { this.error += "Вкажіть телефон коректно  <br>"; }
+                if (!validMail && this.email.length > 0) this.error += "Вкажіть правильно емейл адресу!  <br>"
+                if (this.delivery == "new_post" && (this.city == "" || this.warhouse == "")) this.error += "Вкажіть відділення Нової Пошти!  <br>"
                 console.log("this.error");
 
                 console.log(this.error);
@@ -148,8 +267,10 @@
                         userName: this.name,
                         tel: this.tel,
                         email: this.email,
-                        delivery: this.delivery,
                         paymethod: this.paymethod,
+                        delivery: this.delivery,
+                        city: this.city,
+                        warhouse: this.warhouse,
                         productIdInCard: ids
 
                     }
