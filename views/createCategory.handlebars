@@ -1,6 +1,6 @@
 <div id="app" class="container" style="margin-top: 100px; margin-bottom:50px;">
    <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6" style="margin-bottom:20px;">
          <div class="card">
             <div class="card-header">
                <div class="row">
@@ -42,7 +42,33 @@
             </div>
          </div>
       </div>
+      <div class="col-md-6">
+         <div class="card">
+            <div class="card-header">
+               <div class="row">
+                  <div class="col">
+                     Нова категорія
+                  </div>
 
+               </div>
+            </div>
+            <div class="form">
+               <div class="card-body">
+                  <div style="margin:30px; color:red;"> \{{error2}}</div>
+                  <div class="container-fluid">
+                     <div class="form-group">
+                        <label for="title" class="form-control-label">Щоб видалити категорію введіь її назву!</label>
+                        <input type="text" class="form-control" id="cTitle" name="cTitle" v-model="cTitle">
+                     </div>
+                     <button class="btn btn-success btn-block" @click="onSubmitDelete()"
+                        style="margin-top:10px;margin-bottom:10px;">Видалити</button>
+                  </div>
+
+
+               </div>
+            </div>
+         </div>
+      </div>
    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -55,11 +81,25 @@
          title: "",
          url: "",
          imageUrl: null,
-         error: ""
+         error: "",
+         error2: "",
+         cTitle: ""
 
       },
 
       methods: {
+         onSubmitDelete() {
+            this.error2 = "";
+            if (this.cTitle == "") this.error2 += "Ви не ввели назву категорії!";
+            if (this.error2 == "") {
+               var data = {
+                  category: this.cTitle
+               }
+               axios.post('/admin/delete-category', data).then(res => {
+                  alert(res.data);
+               });
+            }
+         },
          onSubmit() {
             this.error = ""
             if (this.title == "") this.error += "Введіть назву! ";

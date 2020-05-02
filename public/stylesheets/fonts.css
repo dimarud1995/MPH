@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "ColorTube";
+    src: url("../fonts/ColorTube-Regular.otf");
+    src: url("../fonts/ColorTube-Regular.ttf");
+    src: url("../fonts/ColorTube.otf");
+}
+
+@font-face {
+    font-family: "Bebas";
+    src: url("../fonts/Bebas_Neue_Cyrillic.ttf");
+}
+
+@font-face {
+    font-family: 'AdonisC';
+    src: url("../fonts/AdonisC.ttf");
+}

@@ -1,6 +1,28 @@
 body {
-    font-family: 'Montserrat', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #fafafa;
+}
+
+.bebas,
+h1,
+h2 {
+    font-family: 'Bebas';
+}
+
+a {
+    cursor: pointer;
+}
+
+.fade {
+    opacity: 1 !important;
+    z-index: 101 !important;
+    transition: all 0.2s;
+}
+
+.prod-title {
+    font-family: 'Bebas';
 }
 
 .navbar {
@@ -115,7 +137,6 @@ footer i {
     margin-bottom: 400px;
 }
 
-#products,
 #product,
 #cartPage {
     margin-top: 80px;

@@ -47,6 +47,19 @@ router.get('/product/:id', function (req, res, next) {
         products: pr
     })
 })
+router.post("/get-last-viewed", function (req, res) {
+    var prod = [];
+    console.log(req.body);
+    req.body.lastViewedId.forEach(q => {
+        prod.push(products.find(w => w.id == q));
+    })
+    return res.json(prod);
+});
+router.post("/getRandomProducts", function (req, res) {
+
+    var prod = getRandomProducts(6);
+    return res.json(prod);
+});
 router.post("/getInterestingProducts", function (req, res) {
     //  console.log(req.body)
     var product = getProductById(req.body.id)
@@ -54,7 +67,7 @@ router.post("/getInterestingProducts", function (req, res) {
     var a = [];
     a.push(product);
     //  console.log(a);
-    var pr = getInterestingProducts(a, 4);
+    var pr = getInterestingProducts(a, 6);
     //  console.log(pr);
     return res.json(pr)
 });
@@ -69,8 +82,8 @@ router.post('/cart', function (req, res, next) {
     res.render('cart', {
         products: bookedProducts,
         sum: sum,
-        interestingProducts: getInterestingProducts(bookedProducts, 4),
-        interestingCategories: getInterestingCategories(bookedProducts, 4)
+        interestingProducts: getInterestingProducts(bookedProducts, 6),
+        interestingCategories: getInterestingCategories(bookedProducts, 6)
     })
 })
 router.get('/about-us', function (req, res) {
@@ -218,6 +231,16 @@ function getInterestingProducts(bookedPr, number) {
     }
     return res;
 };
+
+function getRandomProducts(number) {
+    var res = [];
+    while (res.length < number) {
+        var i = Math.round(Math.random() * (products.length - 1));
+        var p = products[i]
+        if (!res.includes(p)) res.push(p);
+    }
+    return res;
+}
 
 function getInterestingCategories(bookedPr, number) {
     var tempRes = [];

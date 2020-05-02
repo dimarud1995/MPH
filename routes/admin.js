@@ -51,6 +51,8 @@ router.get("/adminorder/:id", function (req, res) {
       temp.push(p);
     }
   })
+  var post = O.delivery == "new_post" ? true : false;
+  O["post"] = post;
   O.productInOrder = temp;
   console.log(O);
   res.render("adminorder", {
@@ -194,6 +196,37 @@ router.post('/save-new-category', function (req, res, next) {
     return res.json(err);
   }
 
+});
+router.post('/delete-category', function (req, res) {
+  try {
+    var cat = req.body.category;
+    console.log(cat);
+    var curCat = categories.filter(q => q.title == cat);
+    if (curCat.length == 0) return res.send("Такої категорії не існує!")
+    else {
+      var curCatProd = products.filter(q => q.category == curCat[0].id);
+      if (curCatProd.length > 0) return res.send("Ви не можете видалити категорю поки в ніє є продукти!")
+      else {
+        var index = categories.indexOf(curCat[0]);
+        categories.splice(index);
+        var data = JSON.stringify(categories);
+        fs.writeFile('./data/categories.json', data, (err) => {
+          if (err) return res.json(err.message);
+          console.log('The Categories has been saved!');
+        });
+        var key = curCat[0].url;
+        delete catsMap[key];
+        var data2 = JSON.stringify(catsMap);
+        fs.writeFile('./data/catIdTitleMap.json', data2, (err) => {
+          if (err) return res.json(err.message);
+          console.log('The catsMap has been saved!');
+        });
+        return res.send("Ok");
+      }
+    }
+  } catch (e) {
+    return res.send(e);
+  }
 });
 //
 // POPULAR PRODUCTS

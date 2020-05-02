@@ -1,11 +1,15 @@
 {
-    "/category/clocks": 1,
-    "/category/dishes": 2,
-    "/category/toppers": 3,
-    "/category/frames": 4,
-    "/category/wares": 5,
-    "/category/doors": 6,
-    "/category/taburetki": 7,
-    "/category/salo": 8,
-    "/category/testtest": 9
+    "/category/souvenirs": 1,
+    "/category/home-accessories": 2,
+    "/category/wood-kitchen-accessories": 3,
+    "/category/photoframes": 4,
+    "/category/clocks": 5,
+    "/category/toppers": 6,
+    "/category/doors": 7,
+    "/category/lamps": 8,
+    "/category/wedding-decor": 9,
+    "/category/for-kids": 10,
+    "/category/with-names": 11,
+    "/category/decor": 12
+
 }

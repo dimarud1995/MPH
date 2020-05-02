@@ -1,6 +1,6 @@
 <div id="app" class="container" style="margin-top: 100px; margin-bottom:50px;">
    <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6" style="margin-gottom:20px;">
          <div class="card">
             <div class="card-header">
                <div class="row">
@@ -14,7 +14,9 @@
                <div class="card-body">
                   <div style="margin:30px; color:red;"> \{{error}}</div>
                   <div class="container-fluid">
-
+                     <div class="form-group">
+                        <button class="btn btn-outline-danger btn-block">Стерти</button>
+                     </div>
                      <div class="form-group">
                         <label for="category" class="form-control-label">Категорія:</label>
                         <select name="category" id="category" class="form-control" v-model="category">
@@ -24,7 +26,8 @@
                         </select>
                      </div>
                      <div class="form-group">
-                        <label for="title" class="form-control-label">Заголовок:</label>
+                        <label for="title" class="form-control-label">Заголовок:
+                           <span>(\{{40-title.length }})</span></label>
                         <input type="text" class="form-control" id="title" name="title" v-model="title">
                      </div>
                      <div class="form-group">
@@ -36,7 +39,7 @@
                         <label for="price" class="form-control-label">Ціна:</label>
                         <input type="number" class="form-control" id="price" name="price" v-model="price">
                      </div>
-                     <label for="allImages" class="form-control-label">Картинки:</label>
+                     <label for=" allImages" class="form-control-label">Картинки:</label>
                      <div id="allImages">
                         <div class="custom-file" style="margin-bottom:10px;">
                            <label for="mainImage" class="custom-file-label">Головна картинка</label>
@@ -44,7 +47,7 @@
                               accept="image/jpeg,image/png,image/gif" @change="getMainImage()">
                         </div>
                         <div class="custom-file" style="margin-top:10px;margin-bottom:10px;">
-                           <label for="" class="custom-file-label">Картинки</label>
+                           <label for="" class="custom-file-label" style="overflow: hidden;">Картинки</label>
                            <input type="file" class="custom-file-input" id="images" name="images" multiple ref="images"
                               accept="image/jpeg,image/png,image/gif" @change=" getImages()">
                         </div>
@@ -143,6 +146,7 @@
                }).then(res => {
                   console.log(res.data);
                   alert(res.data);
+
                });
             }
 

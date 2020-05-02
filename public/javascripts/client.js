@@ -1,10 +1,17 @@
 function buy(event) {
+
     var id = event.currentTarget.id
+    var el = document.getElementById('girl' + id);
 
     event.preventDefault()
 
     sessionStorage.setItem(Math.random(), id)
     setCounter()
+    el.classList.toggle("fade");
+
+    setTimeout(() => {
+        el.classList.toggle("fade")
+    }, 2000);
 }
 
 function removeProdyctFromCart(event) {

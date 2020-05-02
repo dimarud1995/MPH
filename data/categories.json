@@ -1,46 +1,64 @@
 [{
-    "id": 1,
-    "title": "Годинники",
-    "url": "/category/clocks",
-    "imageUrl": "/images/categories/category1.png"
-}, {
-    "id": 2,
-    "title": "Посуд",
-    "url": "/category/dishes",
-    "imageUrl": "/images/categories/category2.png"
-}, {
-    "id": 3,
-    "title": "Топпери",
-    "url": "/category/toppers",
-    "imageUrl": "/images/categories/category3.png"
-}, {
-    "id": 4,
-    "title": "Рамки та метрики",
-    "url": "/category/frames",
-    "imageUrl": "/images/categories/category4.png"
-}, {
-    "id": 5,
-    "title": "Фанерні вироби",
-    "url": "/category/wares",
-    "imageUrl": "/images/categories/category5.png"
-}, {
-    "id": 6,
-    "title": "Жалюзійні двері",
-    "url": "/category/doors",
-    "imageUrl": "/images/categories/category6.png"
-}, {
-    "id": 7,
-    "title": "Табуретки",
-    "url": "/category/taburetki",
-    "imageUrl": "/images/categories/4d69072f-15aa-413a-fb78-15da2b2cd781_minimalizm-oboi-nindzia.jpg"
-}, {
-    "id": 8,
-    "title": "salo",
-    "url": "/category/salo",
-    "imageUrl": "/images/categories/8b501e91-3883-4a47-1dd4-170a5857d1c0_new_york_taxi_list.jpg"
-}, {
-    "id": 9,
-    "title": "testova kategoriiya",
-    "url": "/category/testtest",
-    "imageUrl": "/images/categories/80b5c721-0391-4c77-6787-062b149d34ec_new_york_taxi_list.jpg"
-}]
+        "id": 1,
+        "title": "Сувеніри",
+        "url": "/category/souvenirs",
+        "imageUrl": "/images/categories/c_souvenirs_2.jpg"
+    }, {
+        "id": 2,
+        "title": "Аксесуари для дому",
+        "url": "/category/home-accessories",
+        "imageUrl": "/images/categories/c_home_accessories_2.jpg"
+    }, {
+        "id": 3,
+        "title": "Кухонні приналежності",
+        "url": "/category/wood-kitchen-accessories",
+        "imageUrl": "/images/categories/c_kitchen.jpg"
+    }, {
+        "id": 4,
+        "title": "Фоторамки",
+        "url": "/category/photoframes",
+        "imageUrl": "/images/categories/c_photoframes.jpg"
+    }, {
+        "id": 5,
+        "title": "Годинники",
+        "url": "/category/clocks",
+        "imageUrl": "/images/categories/c_clocks.jpg"
+    },
+    {
+        "id": 6,
+        "title": "Топпери",
+        "url": "/category/toppers",
+        "imageUrl": "/images/categories/c_toppers.jpg"
+    },
+    {
+        "id": 7,
+        "title": "Двері жалюзі",
+        "url": "/category/doors",
+        "imageUrl": "/images/categories/c_doors.jpg"
+    }, {
+        "id": 8,
+        "title": "Лампи",
+        "url": "/category/lamps",
+        "imageUrl": "/images/categories/c_lamps.jpg"
+    }, {
+        "id": 9,
+        "title": "Весільний декор",
+        "url": "/category/wedding-decor",
+        "imageUrl": "/images/categories/c_weddings.jpg"
+    }, {
+        "id": 10,
+        "title": "Для дітей",
+        "url": "/category/for-kids",
+        "imageUrl": "/images/categories/c_forkids.jpg"
+    }, {
+        "id": 11,
+        "title": "Іменні вироби",
+        "url": "/category/with-names",
+        "imageUrl": "/images/categories/c_withnames.png"
+    }, {
+        "id": 12,
+        "title": "Декорації",
+        "url": "/category/decor",
+        "imageUrl": "/images/categories/c_decor.jpg"
+    }
+]

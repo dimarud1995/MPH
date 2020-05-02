@@ -16,6 +16,16 @@ var adminRouter = require('./routes/admin')
 var statisticRouter = require('./routes/statistic')
 var new_post_api_router = require('./routes/new_post_api')
 
+
+
+var categories = require('./data/categories.json')
+var slides = require('./data/slides.json')
+var catsMap = require('./data/catIdTitleMap.json')
+var products = require('./data/products.json')
+var comments = require('./data/comments.json')
+var popularProducts = require('./data/popularProducts.json')
+var newPostWarhouses = require('./data/newPostWarhouses.json');
+
 var app = express()
 
 // view engine setup
@@ -51,7 +61,11 @@ app.use(function (err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500)
-    res.render('home')
+    res.render('home', {
+        slides: slides,
+        categories: categories,
+        popularProducts: popularProducts,
+    })
 })
 
 

@@ -49,12 +49,15 @@
         <div class="row">
             <div class="col-md-2">
 
+
                 Date:</div>
             <div class="col-md-10"><span style="color:green;">{{order.date}}</span>
             </div>
         </div>
-        <hr>
 
+        {{#if order.post}}
+
+        <hr>
         <div class="row">
             <div class="col-md-2"> Address:
             </div>
@@ -65,6 +68,18 @@
                     {{order.warhouse.SettlementRegionsDescription}},
                     {{order.warhouse.SettlementAreaDescription}}</span></div>
         </div>
+        {{else}}
+        <hr>
+        <div class="row">
+            <div class="col-md-2">
+
+                Address:</div>
+            <div class="col-md-10"><span style="color:red;">{{order.city}}</span>
+            </div>
+        </div>
+        {{/if}}
+
+        <hr>
         <div class="row" style="margin:20px 0; border:1px solid grey; border-radius:10px;">
             {{#each order.productInOrder}}
             <div class=" col-6 col-sm-6 col-md-4 card-wrapper" style="padding:0px;">
