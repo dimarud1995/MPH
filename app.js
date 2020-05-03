@@ -40,6 +40,7 @@ app.use(express.urlencoded({
 
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public'), {
+    etag: true,
     maxAge: cacheTime
 }))
 app.use(fileUpload({
