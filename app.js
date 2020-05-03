@@ -27,6 +27,7 @@ var popularProducts = require('./data/popularProducts.json')
 var newPostWarhouses = require('./data/newPostWarhouses.json');
 
 var app = express()
+const cacheTime = 86400000 * 30;
 
 // view engine setup
 app.engine('handlebars', exphbs())
@@ -38,7 +39,9 @@ app.use(express.urlencoded({
 }))
 
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: cacheTime
+}))
 app.use(fileUpload({
     createParentPath: true
 }));
