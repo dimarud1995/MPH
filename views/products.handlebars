@@ -113,12 +113,12 @@
         var $sidebarTop = $sidebar.position().top;
         var $sidebarHeight = $sidebar.height();
         var $i = $('.interestingProps');
-        var $iTop = $i.position().top;
 
         $window.scroll(function (event) {
             //  $sidebar.addClass("fixed");
             var $scrollTop = $window.scrollTop();
 
+            var $iTop = $i.position().top;
 
             if ($scrollTop + $sidebarHeight + 100 > $iTop) {
                 $sidebar.css("opacity", 0);
