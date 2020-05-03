@@ -1,7 +1,6 @@
 <div id="app">
 
-    <div class="sidebar" v-if="!isMobile()"
-        style="position: absolute; padding-top:30px; height:auto; width:260px; top:70px;  z-index:1;">
+    <div class="mySidebar" v-if="!isMobile()" style="position: fixed; top:70;  height:auto; width:260px;   z-index:1;">
         <ul>
             <li><a href="/category/souvenirs" class="myA">Сувеніри</a></li>
             <li><a href="/category/home-accessories" class="myA">Аксесуари для дому</a></li>
@@ -33,7 +32,7 @@
                         <div class="product ply-card">
                             <a href="/product/{{this.id}}">
                                 <div class="card">
-                                    <img class="card-img-top" src="{{this.mainImage}}">
+                                    <img loading="lazy" class="card-img-top" src="{{this.mainImage}}">
                                     <div style="padding: 5%;">
                                         <h5>{{this.title}}
                                         </h5>
@@ -68,7 +67,7 @@
 
     </div>
 
-    <div class="container">
+    <div class="container interestingProps">
         <hr>
         <h5 style="margin-bottom:20px;">Цікаві пропозиції:</h5>
         <div class="row">
@@ -103,6 +102,36 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
+    // $(document).ready(function () {
+    //     var sidebar = $(".sidebar");
+    //})
+
+    $(function () {
+        var $window = $(window);
+        var $sidebar = $(".mySidebar");
+        var $sidebarTop = $sidebar.position().top;
+        var $sidebarHeight = $sidebar.height();
+        var $i = $('.interestingProps');
+        var $iTop = $i.position().top;
+
+        $window.scroll(function (event) {
+            //  $sidebar.addClass("fixed");
+            var $scrollTop = $window.scrollTop();
+
+
+            if ($scrollTop + $sidebarHeight + 100 > $iTop) {
+                $sidebar.css("opacity", 0);
+            } else {
+                $sidebar.css("top", 70);
+                $sidebar.css("opacity", 1);
+            }
+            console.log($scrollTop);
+            //  var $topPosition = Math.max(80, $scrollTop - $sidebarTop + 100);
+
+            //  $sidebar.css("top", $topPosition);
+        });
+    });
     var mixinDetictingMobile = {
         methods: {
             isMobile: function () {
@@ -156,6 +185,14 @@
 
 </script>
 <style>
+    .mySidebar {
+        height: ;
+        z-index: 1;
+        top: 70px;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+
     ul {
         list-style-type: none;
     }

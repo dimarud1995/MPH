@@ -35,6 +35,7 @@
                         <textarea type="text" class="form-control" id="description" name="description"
                            v-model="description"></textarea>
                      </div>
+
                      <div class="form-group">
                         <label for="price" class="form-control-label">Ціна:</label>
                         <input type="number" class="form-control" id="price" name="price" v-model="price">
@@ -81,7 +82,10 @@
          category: 1,
          title: "",
          description: "",
-         price: 0,
+         material: [],
+         size: [],
+
+         price: [],
          mainImage: null,
          images: [],
          error: ""
