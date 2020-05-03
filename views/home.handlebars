@@ -44,7 +44,7 @@
       <div class="col-6 col-sm-4 col-md-4 col-lg-2 myC " style="margin:0px; padding:0.5%; rosition:relative;"
         v-for="(e,i) in lastViewed">
         <a :href="'/product/'+e.id" style="display: block; float:left; text-decoration:none; color:#313131">
-          <img class="img-fluid " :src="e.mainImage">
+          <img class="img-fluid " :src="e.mainImage" loading="lazy">
           <h6 class="titleC align-middle" style="text-align: center; font-size:1.5em;"> <span style="  margin: 0;   position: absolute;    top: 50%;                        
                   transform: translate(-50%, -50%);">
               \{{e.title}}
@@ -76,7 +76,7 @@
         <div class="card myT">
           <a :href="'/product/'+e.id" style=" color:black; text-decoration:none;">
 
-            <img class="img-fluid" :src="e.mainImage">
+            <img loading="lazy" class="img-fluid" :src="e.mainImage">
             <div style="padding: 5%;">
               <h4>\{{e.title}}</h4>
               <h5><span style="color:red;">\{{e.price}}<span style="font-size:0.7em;"> ₴</span></span></span></h5>
@@ -121,7 +121,7 @@
         <div class="card myT">
           <a href="/product/{{this.id}}" style=" color:black; text-decoration:none;">
 
-            <img class="img-fluid" src="{{this.mainImage}}">
+            <img loading="lazy" class="img-fluid" src="{{this.mainImage}}">
             <div style="padding: 5%;">
               <h4>{{this.title}}</h4>
               <h5><span style="color:red;">{{this.price}}<span style="font-size:0.7em;"> ₴</span></span></span></h5>
@@ -196,7 +196,7 @@
 
       <div class="col-6 col-sm-4 col-md-3 col-lg-3 myC" style="margin:0px; padding:0px; rosition:relative;">
         <a href="{{this.url}}" style="display: block; float:left; text-decoration:none; color:#313131">
-          <img class="img-fluid " src="{{this.imageUrl}}">
+          <img loading="lazy" class="img-fluid " src="{{this.imageUrl}}">
           <h5 class="titleC align-middle" style="text-align: center;"> <span style="  margin: 0;   position: absolute;    top: 50%;                        
                   transform: translate(-50%, -50%);">{{this.title}}</span></h5>
         </a>
@@ -216,7 +216,7 @@
                 <div class="category ply-card" style="margin:10px;">
                   <a href="{{this.url}}">
                     <div class="card">
-                      <img class="card-img-top " src="{{this.imageUrl}}">
+                      <img loading="lazy" class="card-img-top " src="{{this.imageUrl}}">
                       <div class="card-body">
                         <h5 class="card-title" style="margin-top:0px;">{{this.title}}</h5>
                       </div>
@@ -271,7 +271,7 @@
           style="margin:20px;font-family: 'Bebas'; font-size:2em; padding:10px 70px;  border-radius:300px;">тут</a>
       </div>
       <div class="col-md-7 col-lg-5" style="">
-        <img src="images/ImageStatic/m_static_2.jpeg" class="img-fluid">
+        <img loading="lazy" src="images/ImageStatic/m_static_2.jpeg" class="img-fluid">
       </div>
     </div>
     <hr>
@@ -298,7 +298,8 @@
       </h5>
     </div>
     <div class="row" style="margin-bottom: 50px;">
-      <img src="/images/ImageStatic/ua.png" alt="" class="img-fluid" style="margin:0 auto; height:250px;">
+      <img loading="lazy" src="/images/ImageStatic/ua.png" alt="" class="img-fluid"
+        style="margin:0 auto; height:250px;">
     </div>
     <hr>
     <div class="row" style="margin-bottom: 50px;">
@@ -306,10 +307,12 @@
     </div>
     <div class="row">
       <div class="col-md-6" style="text-align: center;">
-        <img src="/images/ImageStatic/NovaPoshta.png" alt="" class="img-fluid" style="margin:10px auto; height:60px;">
+        <img loading="lazy" src="/images/ImageStatic/NovaPoshta.png" alt="" class="img-fluid"
+          style="margin:10px auto; height:60px;">
       </div>
       <div class="col-md-6" style="text-align: center;">
-        <img src="/images/ImageStatic/Ukrposhta.png" alt="" class="img-fluid" style="margin:10px auto; height:60px;">
+        <img loading="lazy" src="/images/ImageStatic/Ukrposhta.png" alt="" class="img-fluid"
+          style="margin:10px auto; height:60px;">
       </div>
     </div>
     <hr>
@@ -321,15 +324,18 @@
     <div class="row" style="margin-bottom: 50px;">
 
       <div class="col-md-4" style="text-align: center; margin-top:20px;margin-bottom:20px;">
-        <img src="/images/ImageStatic/Mono.png" alt="" class="img-fluid" style="margin:10px auto; height:40px;">
+        <img loading="lazy" src="/images/ImageStatic/Mono.png" alt="" class="img-fluid"
+          style="margin:10px auto; height:40px;">
 
       </div>
       <div class="col-md-4" style="text-align: center;margin-top:20px;margin-bottom:20px;">
-        <img src="/images/ImageStatic/PryvatBank.png" alt="" class="img-fluid" style="margin:10px auto; height:40px;">
+        <img loading="lazy" src="/images/ImageStatic/PryvatBank.png" alt="" class="img-fluid"
+          style="margin:10px auto; height:40px;">
 
       </div>
       <div class="col-md-4" style="text-align: center; margin-top:20px;margin-bottom:20px;">
-        <img src="/images/ImageStatic/PayPal.png" alt="" class="img-fluid" style="margin:10px auto; height:40px;">
+        <img loading="lazy" src="/images/ImageStatic/PayPal.png" alt="" class="img-fluid"
+          style="margin:10px auto; height:40px;">
 
       </div>
     </div>
