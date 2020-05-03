@@ -52,13 +52,13 @@
         "imageUrl": "/images/categories/c_forkids.jpg"
     }, {
         "id": 11,
-        "title": "Іменні вироби",
-        "url": "/category/with-names",
-        "imageUrl": "/images/categories/c_withnames.png"
-    }, {
-        "id": 12,
         "title": "Декорації",
         "url": "/category/decor",
         "imageUrl": "/images/categories/c_decor_2.jpg"
+    }, {
+        "id": 12,
+        "title": "Іменні вироби",
+        "url": "/category/with-names",
+        "imageUrl": "/images/categories/c_withnames.png"
     }
 ]

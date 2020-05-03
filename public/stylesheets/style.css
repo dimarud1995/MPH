@@ -37,11 +37,20 @@ a {
 
 .navbar li {
     margin-right: 40px;
+    z-index: 100;
+}
+
+.navbar li a {
+    z-index: 100;
 }
 
 .navbar .cart {
     position: relative;
     cursor: pointer;
+}
+
+.nav-item {
+    z-index: 100 !important;
 }
 
 .navbar #cart-counter {
@@ -89,6 +98,8 @@ a {
 
 .ply-card:hover {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
 #categories .category .img {
@@ -151,6 +162,8 @@ footer i {
 .card,
 .ply-card {
     height: 100% !important;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
 .card-wrapper {

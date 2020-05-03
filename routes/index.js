@@ -51,7 +51,10 @@ router.post("/get-last-viewed", function (req, res) {
     var prod = [];
     console.log(req.body);
     req.body.lastViewedId.forEach(q => {
-        prod.push(products.find(w => w.id == q));
+        var p = products.find(w => w.id == q);
+        if (p != null) {
+            prod.push(p);
+        }
     })
     return res.json(prod);
 });

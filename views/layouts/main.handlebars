@@ -19,7 +19,32 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style="font-family: 'Bebas'; z-index:100;">
+    <div id="loader"
+        style="z-index:9999999999; position:fixed; top:0;left:0;height:100%; width:100%; margin:0px; background-color:#fafafa;">
+        <div style="position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); margin:0;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                style="margin: auto; background: rgb(250, 250, 250) none repeat scroll 0% 0%; display: block; shape-rendering: auto;"
+                width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                <rect x="15" y="30" width="10" height="40" fill="#e25252">
+                    <animate attributeName="opacity" dur="1s" repeatCount="indefinite" calcMode="spline"
+                        keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-0.6"></animate>
+                </rect>
+                <rect x="35" y="30" width="10" height="40" fill="#f47e60">
+                    <animate attributeName="opacity" dur="1s" repeatCount="indefinite" calcMode="spline"
+                        keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-0.4"></animate>
+                </rect>
+                <rect x="55" y="30" width="10" height="40" fill="#f6a858">
+                    <animate attributeName="opacity" dur="1s" repeatCount="indefinite" calcMode="spline"
+                        keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-0.2"></animate>
+                </rect>
+                <rect x="75" y="30" width="10" height="40" fill="#3abd0c">
+                    <animate attributeName="opacity" dur="1s" repeatCount="indefinite" calcMode="spline"
+                        keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-1"></animate>
+                </rect>
+        </div>
+    </div>
+    <nav id="navbar1" class="navbar navbar-expand-lg fixed-top navbar-light bg-light"
+        style="font-family: 'Bebas'; z-index:100;">
 
         <a class="navbar-brand" href="/" title="На головну">
             {{!-- <img src="/images/LogoMPH.jpg" style="height: 50px; width:50px; margin-right:10px;" class="rounded-circle"> --}}
@@ -29,14 +54,71 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="z-index:100;">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/#hot-propositions"><i class="fa fa-star d-lg-none"></i> Популярне</a>
                 </li>
-                <li class="nav-item" title="Перейти до корзини">
-                    <a class="nav-link " href="/#menu-cat"><i class="fa fa-book d-lg-none"></i> Категорії</a>
+                <li id="showCat" class="nav-item" title="Перейти до корзини"
+                    :style="isMobile()? 'margin-right:0px;':''">
+                    <a class="nav-link " href=" /#menu-cat"><i class="fa fa-book d-lg-none"></i> Категорії</a>
+
+
+
                 </li>
+                <hr style="margin:0px;" v-if="isMobile()">
+                <div v-if="isMobile()" id="submenu2"
+                    style=" v-iftext-decoration:none; margin:0; padding:0; overflow:hidden;">
+                    <div class="row" style="margin:0;padding:0;">
+                        <div class="col-6" style="margin:0; padding:0;">
+                            <ul style="  list-style-type: none; margin:0;padding:0;">
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/souvenirs"
+                                        class="nav-link" style="color:green;">Сувеніри</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
+                                        href="/category/home-accessories" class="nav-link"
+                                        style="color:green;">Аксесуари для дому</a>
+                                </li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
+                                        href="/category/wood-kitchen-accessories" class="nav-link "
+                                        style="color:green;">Кухонні
+                                        приналежності</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
+                                        href="/category/photoframes" class="nav-link "
+                                        style="color:green;">Фоторамки</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/clocks"
+                                        class="nav-link " style="color:green;">Годинники</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/toppers"
+                                        class="nav-link " style="color:green;" style="color:green;">Топпери</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-6" style="margin:0; padding:0;">
+                            <ul style="  list-style-type: none; margin:0;padding:0;">
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/doors"
+                                        class="nav-link " style="color:green;">Двері
+                                        жалюзі</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/lamps"
+                                        class="nav-link " style="color:green;">Лампи</a>
+                                </li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
+                                        href="/category/wedding-decor" class="nav-link " style="color:green;">Весільний
+                                        декор</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/for-kids"
+                                        class="nav-link " style="color:green;">Для
+                                        дітей</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/decor"
+                                        class="nav-link " style="color:green;">Декорації</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/with-names"
+                                        class="nav-link " style="color:green;">Іменні
+                                        вироби</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+                <hr style="margin:0px;" v-if="isMobile()">
                 {{!-- <li class="nav-item">
                 <a class="nav-link" href="/order" >Замовити</a>
             </li> --}}
@@ -130,6 +212,9 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
 
+        $(document).ready(function () {
+            document.getElementById('loader').style = "display:none;"
+        });
         $(function () {
             var navMain = $(".navbar-collapse"); // avoid dependency on #id
             // "a:not([data-toggle])" - to avoid issues caused
@@ -149,6 +234,10 @@
             }
         }
 
+        var navbar1 = new Vue({
+            el: '#navbar1',
+            mixins: [mixinDetictingMobile],
+        });
 
         var foot = new Vue({
             el: '#foot',
@@ -202,6 +291,21 @@
         });
     </script>
     <style>
+        #submenu {
+            opacity: 0;
+            height: 0px;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+        #showCat:hover #submenu {
+            height: 300px;
+            opacity: 1;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+
         .myContainer {
             padding-left: 20%;
             padding-right: 10%;
