@@ -22,7 +22,7 @@
         "id": 5,
         "title": "Годинники",
         "url": "/category/clocks",
-        "imageUrl": "/images/categories/c_clocks.jpg"
+        "imageUrl": "/images/categories/c_clocks_2.jpg"
     },
     {
         "id": 6,
@@ -59,6 +59,6 @@
         "id": 12,
         "title": "Декорації",
         "url": "/category/decor",
-        "imageUrl": "/images/categories/c_decor.jpg"
+        "imageUrl": "/images/categories/c_decor_2.jpg"
     }
 ]
