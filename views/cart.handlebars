@@ -9,7 +9,8 @@
         </div>
         <div class="cart-list">
             {{#each products}}
-            <div id="product-{{this.id}}" class="cart-product ply-card card">
+            <div id="product-{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}"
+                class="cart-product ply-card card">
                 <a href="/product/{{this.id}}">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class=" justify-content-start align-items-center">
@@ -17,9 +18,11 @@
                             {{this.title}}
                         </div>
                         <div style="margin:10px;">
-                            <strong class="price" id="{{this.id}}">{{this.price}}₴</strong>
-                            <button id="{{this.id}}" class="remove btn btn-danger btn-sm"
-                                onclick="removeProdyctFromCart(event)"><i class="fa fa-trash"></i></button>
+                            <strong class="price"
+                                id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}">{{this.price}}₴</strong>
+                            <button id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}"
+                                class="remove btn btn-danger btn-sm" onclick="removeProdyctFromCart(event)"><i
+                                    class="fa fa-trash"></i></button>
                         </div>
                     </div>
                 </a>
@@ -162,7 +165,8 @@
             cities: [],
             warhouses: [],
             warhouse: "",
-            recAboutCity: ""
+            recAboutCity: "",
+            t: 0
 
         },
         watch: {
@@ -174,6 +178,9 @@
             }
         },
 
+        created() {
+
+        },
         mounted() {
             if (localStorage.userName != null && localStorage.userName != "") this.name = localStorage.userName;
             if (localStorage.tel != null && localStorage.tel != "") this.tel = localStorage.tel;
@@ -211,26 +218,33 @@
                 //  console.log(val);
             },
             getCities() {
-                this.city = this.city.charAt(0).toUpperCase() + this.city.slice(1);
-                var data = {
-                    name: this.city
-                }
-                axios.post("/get-cities", data).then(
-                    res => {
-                        console.log(res.data)
-                        this.cities = res.data;
-                        console.log(this.cities.length);
-                        if (this.cities.length > 0) {
-                            this.recAboutCity = "";
-                            this.getWarhouses();
-
-                        } else {
-                            this.cities = [];
-                            this.warhouses = [];
-                            this.recAboutCity = "Якщо ви впевні, що поблизу вас є відділення Нової Пошти, а система не знаходить - спробуйте вказати населений пункт українською мовою"
+                this.t++;
+                if (this.t < 2)
+                    setTimeout(function () {
+                        this.city = this.city.charAt(0).toUpperCase() + this.city.slice(1);
+                        var data = {
+                            name: this.city
                         }
-                    }
-                )
+
+                        axios.post("/get-cities", data).then(
+                            res => {
+                                this.t = 0;
+                                console.log(res.data)
+                                this.cities = res.data;
+                                console.log(this.cities.length);
+                                if (this.cities.length > 0) {
+                                    this.recAboutCity = "";
+                                    this.getWarhouses();
+
+                                } else {
+                                    this.cities = [];
+                                    this.warhouses = [];
+                                    this.recAboutCity = "Якщо ви впевні, що поблизу вас є відділення Нової Пошти, а система не знаходить - спробуйте вказати населений пункт українською мовою"
+                                }
+                            }
+                        )
+                    }.bind(this), 1000);
+
             },
             getWarhouses() {
                 var data = {
@@ -314,8 +328,17 @@
         var list = []
         console.log(priceList);
         priceList.each((i, e) => {
-            list.push(e.id);
-            console.log(e.id);
+            var id1 = e.id.split('-')[0];
+            var id2 = e.id.split('-')[1];
+            var id3 = e.id.split('-')[2];
+            var id4 = e.id.split('-')[3];
+            var item = {
+                id: id1,
+                material: id2,
+                postprocessing: id3,
+                price: id4
+            }
+            list.push(item);
         });
         console.log(list);
         return list;

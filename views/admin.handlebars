@@ -1,4 +1,4 @@
-<div id="app" class="container"
+<div id="app" class="container-fluid"
    style="margin-top: 120px; margin-bottom:50px;margin-left:10px; margin-right:10px; position:relative; width:auto;">
    <div v-if="newFeedback.length==0&&newOrders==0&&approvedOrders==0&&doneOrders==0">
       <h3>Немає нових замовлень</h3>
@@ -365,19 +365,31 @@
 
       },
       beforeCreate: function () {
-         axios.get("/admin/getOrders").then(res => {
+
+         var config = {
+            headers: {
+               Authorization: "Bearer " + localStorage.token
+            }
+         }
+
+         axios.get("/admin/getOrders", config).then(res => {
             console.log(res.data);
             this.newOrders = res.data.newOrders;
             this.approvedOrders = res.data.approvedOrders;
             this.doneOrders = res.data.doneOrders;
             this.sentOrders = res.data.sentOrders;
          });
-         axios.get("/admin/getNewFeedback").then(res => {
+         axios.get("/admin/getNewFeedback", config).then(res => {
             this.newFeedback = res.data.newFeedback;
          });
       },
       methods: {
          decline(i) {
+            var config = {
+               headers: {
+                  Authorization: "Bearer " + localStorage.token
+               }
+            }
             console.log(i);
             var order = this.newOrders[i];
             this.newOrders.splice(i, 1);
@@ -385,11 +397,16 @@
             var data = {
                new: this.newOrders,
             }
-            axios.post("/admin/declineOrder", data).then(res => {
+            axios.post("/admin/declineOrder", data, config).then(res => {
                console.log(res.data);
             });
          },
          approve(i) {
+            var config = {
+               headers: {
+                  Authorization: "Bearer " + localStorage.token
+               }
+            }
             console.log(i);
             var order = this.newOrders[i];
             this.newOrders.splice(i, 1);
@@ -399,11 +416,16 @@
                new: this.newOrders,
                approved: this.approvedOrders
             }
-            axios.post("/admin/setApproved", data).then(res => {
+            axios.post("/admin/setApproved", data, config).then(res => {
                console.log(res.data);
             });
          },
          done(i) {
+            var config = {
+               headers: {
+                  Authorization: "Bearer " + localStorage.token
+               }
+            }
             console.log(i);
             var order = this.approvedOrders[i];
             this.approvedOrders.splice(i, 1);
@@ -413,11 +435,16 @@
                approved: this.approvedOrders,
                done: this.doneOrders
             }
-            axios.post("/admin/setDone", data).then(res => {
+            axios.post("/admin/setDone", data, config).then(res => {
                console.log(res.data);
             });
          },
          sent(i) {
+            var config = {
+               headers: {
+                  Authorization: "Bearer " + localStorage.token
+               }
+            }
             console.log(i);
             var order = this.doneOrders[i];
             this.doneOrders.splice(i, 1);
@@ -427,16 +454,21 @@
                done: this.doneOrders,
                sent: order
             }
-            axios.post("/admin/setSent", data).then(res => {
+            axios.post("/admin/setSent", data, config).then(res => {
                console.log(res.data);
             });
          },
          removeFeedback(i) {
+            var config = {
+               headers: {
+                  Authorization: "Bearer " + localStorage.token
+               }
+            }
             var f = this.newFeedback[i];
             console.log(this.newFeedback[i]);
             f.status = "viewed";
             this.newFeedback.splice(i, 1);
-            axios.post("/admin/setFeedbackStatusViewed", f).then(res => {
+            axios.post("/admin/setFeedbackStatusViewed", f, config).then(res => {
                console.log(res.data);
             });
          }

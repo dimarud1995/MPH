@@ -9,6 +9,7 @@ var products = require('../data/products.json')
 var comments = require('../data/comments.json')
 var popularProducts = require('../data/popularProducts.json')
 var newPostWarhouses = require('../data/newPostWarhouses.json');
+var koef = require('../data/koef.json');
 
 
 /* GET home page. */
@@ -37,14 +38,8 @@ router.get('/category/:category', function (req, res, next) {
 
 router.get('/product/:id', function (req, res, next) {
     var product = getProductById(req.params.id)
-    var a = [];
-    a.push(product);
-    //  console.log(a);
-    var pr = getInterestingProducts(a, 4);
-    //   console.log(pr);
     res.render('product', {
-        product: product,
-        products: pr
+        product: product
     })
 })
 router.post("/get-last-viewed", function (req, res) {
@@ -63,6 +58,10 @@ router.post("/getRandomProducts", function (req, res) {
     var prod = getRandomProducts(6);
     return res.json(prod);
 });
+router.post("/getProduct", function (req, res) {
+    var p = getProductById(req.body.id)
+    return res.json(p);
+})
 router.post("/getInterestingProducts", function (req, res) {
     //  console.log(req.body)
     var product = getProductById(req.body.id)
@@ -74,10 +73,13 @@ router.post("/getInterestingProducts", function (req, res) {
     //  console.log(pr);
     return res.json(pr)
 });
+router.get("/get-koef", function (req, res) {
+    return res.json(koef);
+})
 router.post('/cart', function (req, res, next) {
     console.log("1");
     var products = products
-    var ids = req.body.prodIds.split(',')
+    var ids = JSON.parse('[' + req.body.prodIds + ']');
     var bookedProducts = getProductsByIds(ids)
     var sum = getSum(bookedProducts)
     console.log("2");
@@ -187,13 +189,27 @@ function getProductsByIds(ids) {
     var res = []
 
     ids.forEach((x) => {
-        var product = products.find((e) => e.id == x)
+        var product = products.find((e) => e.id == x.id)
 
         if (product) {
-            res.push(product)
+
+            var p = {
+                id: product.id,
+                category: product.category,
+                categoryName: product.categoryName,
+                title: product.title,
+                description: product.description,
+                mainImage: product.mainImage,
+                images: product.images,
+                price: x.price,
+                material: x.material,
+                postprocessing: x.postprocessing
+            }
+
+            res.push(p)
         }
     })
-
+    console.log(res);
     // var groupped = groupBy(res, prod => prod.id);
 
     return res
@@ -405,4 +421,6 @@ function MDC(date) {
         Number.parseInt(date.substring(12, 14)) * 3600 +
         Number.parseInt(date.substring(15)) * 60;
 }
+
+
 module.exports = router

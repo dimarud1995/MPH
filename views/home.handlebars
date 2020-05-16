@@ -133,7 +133,8 @@
 
                   </div>
                 </div>
-                <button id="{{this.id}}" class="btn btn-success btn-buy btn-sm" onclick="buy(event)">
+                <button id="{{this.id}}-default-default-{{this.price}}" class="btn btn-success btn-buy btn-sm"
+                  onclick="buy(event)">
                   В корзину
                 </button>
               </div>
@@ -238,7 +239,9 @@
   <div class="parallax2" style="color:white; ">
     <div class="container-fluid">
       <div class="row bebas">
-        <div class="col-md-3" style="margin: auto 0; text-align:center;">My <br>Plywood<br> House</div>
+        <div class="col-md-3" style="margin: auto 0; text-align:center;" title="Наш інстаграм"> <a target="blank"
+            href="https://instagram.com/my_plywood_house"
+            style="display: block; text-decoration:none; color:#fff;">My<br>Plywood<br>House</a></div>
         <div class="col-md-6"></div>
         <div class="col-md-3" style="margin: auto 0; text-align:center;" title="Наш інстаграм">
           <a target="blank" href="https://instagram.com/my_plywood_house"
@@ -272,6 +275,58 @@
       </div>
       <div class="col-md-7 col-lg-5" style="">
         <img src="/images/ImageStatic/m_static_2.jpeg" class="img-fluid">
+      </div>
+    </div>
+    <div class="links container" style="padding-left: 15%;">
+      <div class="row">
+        <div class="col-md-6">
+          <ul style=" margin:0; padding:0;">
+
+            <a href="/category/clocks">
+              <li>Годинники</li>
+            </a>
+
+            <a href="/category/souvenirs">
+              <li>Ключниці</li>
+            </a>
+            <a href="/category/wedding-decor">
+              <li>Весільні декорації</li>
+            </a>
+            <a href="/category/with-names">
+              <li>Картини з дерева</li>
+            </a>
+            <a href="/category/with-names">
+              <li>Іменні канцелярські вироби</li>
+            </a>
+            <a href="/category/for-kids">
+              <li>Дитячі розвиваючі іграшки</li>
+            </a>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <ul style=" margin:0 0; padding:0;">
+            <a href="/category/doors">
+              <li>Жалюзійні двері</li>
+            </a>
+
+            <a href="/category/wood-kitchen-accessories">
+              <li>Дерев'яний посуд </li>
+            </a>
+            <a href="/category/wood-kitchen-accessories">
+              <li>Предмети для сервіровки столу</li>
+            </a>
+            <a href="/category/photoframes">
+              <li>Дизайнерські фоторамки та метрики</li>
+            </a>
+            <a href="/category/lamps">
+              <li>Настільні лампи та підвісні люстри</li>
+            </a>
+            <a href="/category/souvenirs">
+              <li>Шкатулки для прикрас</li>
+            </a>
+          </ul>
+
+        </div>
       </div>
     </div>
     <hr>
@@ -444,6 +499,20 @@
 
 </script>
 <style>
+  .links ul li {
+    text-indent: 1em;
+    color: green;
+
+    margin: 10px 0px;
+
+  }
+
+  @media screen and (min-width:1000px) {
+    .links {
+      margin-left: 10%;
+    }
+  }
+
   .myWifeBtn {
     color: green;
 

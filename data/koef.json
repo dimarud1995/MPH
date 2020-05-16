@@ -1,0 +1,62 @@
+{
+    "material": {
+        "alder": {
+            "k": 1,
+            "img": ""
+        },
+        "ash": {
+            "k": 1.16,
+            "img": ""
+        },
+        "oak": {
+            "k": 1.33,
+            "img": ""
+        },
+        "pear": {
+            "k": 1.33,
+            "img": ""
+        },
+        "nut": {
+            "k": 1.33,
+            "img": ""
+        },
+        "plywood": {
+            "k": 1,
+            "img": ""
+        },
+        "default": {
+            "k": 1,
+            "img": ""
+        }
+
+    },
+    "postprocessing": {
+        "paint": {
+            "k": 1.25,
+            "colors": ["white", "black", "brown", "green", "yellow", "red", "pink", "blue", "grey", "orange"]
+        },
+        "varnish": {
+            "k": 1.25,
+            "shades": ["dark", "medium", "light"]
+        },
+        "oil": {
+            "k": 1
+
+        },
+        "no": {
+            "k": 1
+        },
+        "mordent": {
+            "k": 1.25,
+            "shades": ["dark", "medium", "light"]
+        },
+        "default": {
+            "k": 1
+
+        }
+    },
+    "mark_up_k": 1.05,
+    "total_k": 1,
+    "advertising_k": 1
+
+}

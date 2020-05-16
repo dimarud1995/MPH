@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 var categories = require('../data/categories.json');
@@ -14,7 +15,27 @@ var newPostWarhouses = require('../data/newPostWarhouses.json');
 var multer = require('multer');
 const uuid = require('uuid');
 var fs = require('fs');
+const jwt = require('jsonwebtoken');
 
+
+
+function auth(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+  console.log(authHeader);
+  if (token == null) return res.render('/login');
+  console.log(2);
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    console.log(err);
+
+    if (err) return res.render("/")
+    else {
+      req.user = user;
+      next();
+    }
+
+  })
+}
 
 //GET Admin page
 router.get('/admin', function (req, res, next) {
@@ -45,14 +66,26 @@ router.get("/adminorder/:id", function (req, res) {
   //console.log(O);
 
   var temp = [];
+  var sum = 0;
   O.productIdInOrder.forEach(e => {
-    var p = products.find(p => p.id == e);
+    var p = products.find(p => p.id == e.id);
     if (p) {
-      temp.push(p);
+      var p1 = {
+        id: e.id,
+        price: e.price,
+        material: e.material,
+        postprocessing: e.postprocessing,
+        mainImage: p.mainImage,
+        title: p.title
+      }
+      sum += Number.parseInt(e.price);
+      temp.push(p1);
     }
   })
+  console.log(temp);
   var post = O.delivery == "new_post" ? true : false;
   O["post"] = post;
+  O["sum"] = sum;
   O.productInOrder = temp;
   console.log(O);
   res.render("adminorder", {
@@ -63,7 +96,7 @@ router.get("/adminorder/:id", function (req, res) {
   })
 });
 
-router.get("/getOrders", function (req, res) {
+router.get("/getOrders", auth, function (req, res) {
   var data = {
     newOrders,
     approvedOrders,
@@ -72,18 +105,13 @@ router.get("/getOrders", function (req, res) {
   }
   return res.json(data);
 });
-router.get("/getNewFeedback", function (req, res) {
+router.get("/getNewFeedback", auth, function (req, res) {
   var data = {
     newFeedback: feedback.filter(q => q.status == "new")
   }
   return res.json(data);
 });
 
-//
-//main slider 
-router.get("/main-slider", function (req, res) {
-  return res.json("Поки не зробив. В теорії тут можна буде добавлять якісь нові слайди шоб юзери бачить тіпа з акціями, але я думаю це нахер не нада");
-});
 
 //CREATE PRODUCT
 router.get('/create-product', function (req, res) {
@@ -92,7 +120,7 @@ router.get('/create-product', function (req, res) {
     layout: 'admin'
   });
 });
-router.post('/save-new-product', function (req, res, next) {
+router.post('/save-new-product', auth, function (req, res, next) {
   try {
     console.log("========================");
     var newP = req.body;
@@ -122,15 +150,13 @@ router.post('/save-new-product', function (req, res, next) {
       "categoryName": categoryName,
       "title": newP.title,
       "description": desc,
+      "material": newP.material.split(","),
+      "postprocessing": newP.postprocessing.split(","),
       "price": newP.price,
       "mainImage": mainImagePath,
       "images": imagesPath
     })
-
-    // console.log(products);
-    console.log("ХУЙ");
     var data = JSON.stringify(products);
-    // const data = new Uint8Array(Buffer.from(json));
     fs.writeFile('./data/products.json', data, (err) => {
       if (err) {
         return res.json(err);
@@ -149,7 +175,7 @@ router.get('/create-category', function (req, res) {
     layout: 'admin'
   });
 });
-router.post('/save-new-category', function (req, res, next) {
+router.post('/save-new-category', auth, function (req, res, next) {
   try {
 
 
@@ -197,7 +223,7 @@ router.post('/save-new-category', function (req, res, next) {
   }
 
 });
-router.post('/delete-category', function (req, res) {
+router.post('/delete-category', auth, function (req, res) {
   try {
     var cat = req.body.category;
     console.log(cat);
@@ -238,7 +264,7 @@ router.get('/popular-products', function (req, res) {
     layout: 'admin'
   });
 });
-router.post('/savePopularProducts', function (req, res) {
+router.post('/savePopularProducts', auth, function (req, res) {
   try {
     if (req.body == null || req.body == '') popularProducts = [];
     else popularProducts = req.body;
@@ -264,13 +290,13 @@ router.post('/savePopularProducts', function (req, res) {
     return res.json(err);
   }
 });
-router.get('/getPopularProducts', function (req, res) {
+router.get('/getPopularProducts', auth, function (req, res) {
   return res.json(popularProducts);
 
 });
 //
 // Card getOrders
-router.post('/declineOrder', function (req, res) {
+router.post('/declineOrder', auth, function (req, res) {
   try {
     console.log(req.body);
     var d = req.body;
@@ -331,7 +357,7 @@ router.post('/newOrder', function (req, res) {
     return res.json(err)
   }
 });
-router.post("/setApproved", function (req, res) {
+router.post("/setApproved", auth, function (req, res) {
   try {
     console.log(req.body);
     var d = req.body;
@@ -353,7 +379,7 @@ router.post("/setApproved", function (req, res) {
     return res.json(err)
   }
 });
-router.post("/setDone", function (req, res) {
+router.post("/setDone", auth, function (req, res) {
   try {
     console.log(req.body);
     var d = req.body;
@@ -374,7 +400,7 @@ router.post("/setDone", function (req, res) {
     return res.json(err)
   }
 });
-router.post("/setSent", function (req, res) {
+router.post("/setSent", auth, function (req, res) {
   try {
     console.log("sent ==================================================================")
     console.log(req.body);
@@ -430,7 +456,7 @@ router.post("/newFeedback", function (req, res) {
     res.json(err);
   }
 });
-router.post("/setFeedbackStatusViewed", function (req, res) {
+router.post("/setFeedbackStatusViewed", auth, function (req, res) {
   try {
     console.log(req.body);
     var f = req.body;

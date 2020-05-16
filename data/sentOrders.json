@@ -1,18 +1,1 @@
-[{
-    "id": 1587807606344,
-    "userName": "dasdas",
-    "tel": "(224) 242-42-43",
-    "email": "salo@salo.ua",
-    "paymethod": "privatbank",
-    "delivery": "new_post",
-    "city": "Київ",
-    "warhouse": {
-        "Description": "Відділення №10: вул. Василя Жуковського, 22А",
-        "SettlementDescription": "Київ",
-        "SettlementAreaDescription": "Київська",
-        "SettlementRegionsDescription": ""
-    },
-    "status": "new",
-    "date": "25.03.2020  12:40",
-    "productIdInOrder": ["1587137877654"]
-}]
+[]

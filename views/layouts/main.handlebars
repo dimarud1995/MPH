@@ -38,7 +38,9 @@
 
         <a class="navbar-brand" href="/" title="На головну">
             {{!-- <img src="/images/LogoMPH.jpg" style="height: 50px; width:50px; margin-right:10px;" class="rounded-circle"> --}}
-            <span style="font-family: 'ColorTube';">Ph</span>
+            <span style="font-family: 'Bebas'; font-size:1.2em;" class="logoHeader"><i class="fa fa-home"></i> My
+                Plywood
+                House</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -283,6 +285,7 @@
                             desc: this.desc
 
                         }
+
                         console.log(data);
                         axios.post("/admin/newFeedback", data).then(res => {
                             if (res.data == "ok") {
@@ -304,6 +307,20 @@
         });
     </script>
     <style>
+        .logoHeader {
+            color: #818181;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+
+        }
+
+        .logoHeader:hover {
+            color: #414141;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+
+        }
+
         #submenu {
             opacity: 0;
             height: 0px;

@@ -1,21 +1,19 @@
 <div class="container" style="margin-top: 100px;" id="app">
     <div id="product">
         <div class="d-flex align-items-center justify-content-between">
-            <h3>{{this.product.title}}</h3>
+            <h3>\{{product.title}}</h3>
             <a @click="goBack()" style="color:green; text-decoration:none; font-size:2em;"><i
                     class="fa fa-arrow-alt-circle-left"></i></a>
         </div>
         <hr />
         <div class="info">
             <div class="row">
-                <div class="col-lg-7 form-group">
+                <div class="col-lg-6 form-group">
                     <div id="carouselExampleControls2" class="carousel slide carousel-fade" data-ride="carousel">
                         <div class="carousel-inner">
-                            {{#each this.product.images}}
-                            <div {{#if @first }}class="carousel-item active" {{else}}class="carousel-item" {{/if}}>
-                                <img src="{{this}}" class="d-block w-100" alt="...">
+                            <div v-for="(e,i) in product.images" :class=" i==0?'carousel-item active':'carousel-item'">
+                                <img :src="e" class="d-block w-100" alt="...">
                             </div>
-                            {{/each}}
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
                             data-slide="prev">
@@ -29,19 +27,59 @@
                         </a>
                     </div>
                 </div>
-
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                     <div class="form-group">
-                        <p>{{{this.product.description}}}</p>
+                        <p>\{{product.description}}</p>
                     </div>
-                    <div class="price d-flex align-items-center justify-content-between form-group">
+                    <hr>
+
+                    <div>
+
+                        <div v-for="(e,i) in product.material"
+                            class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="material" :id="e" class="custom-control-input" v-model="material"
+                                @change="getResPrice()" :value="e">
+
+                            <label :for="e" class="custom-control-label">
+                                \{{e=="oak"?"Дуб":""}}
+                                \{{e=="ash"?"Ясен":""}}
+                                \{{e=="alder"?"Вільха":""}}
+                                \{{e=="pear"?"Груша":""}}
+                                \{{e=="nut"?"Горіх":""}}
+                                \{{e=="plywood"?"Дуб":""}}</label>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+
+                        <div v-for="(e,i) in product.postprocessing"
+                            class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="postprocessing" :id="e" class="custom-control-input"
+                                v-model="postprocessing" :value="e" @change="getResPrice()">
+
+                            <label :for="e" class="custom-control-label">
+                                \{{e=="paint"?"Фарба":""}}
+                                \{{e=="varnish"?"Лак":""}}
+                                \{{e=="oil"?"Олія":""}}
+                                \{{e=="mordent"?"Морилка":""}}
+                            </label>
+
+                        </div>
+                    </div>
+                    <hr>
+
+
+                    <div class="  d-flex align-items-center justify-content-between form-group">
                         <div>
-                            <h6>Ціна: <span style="color:green;">{{this.product.price}} <span
-                                        style="font-size: 0.8em;">₴</span> </span></h5>
+                            <h6> <span style="color:green; font-size:1.5em; ">\{{resPrice}}<span
+                                        style="font-size: 0.8em;">₴</span>
+                                </span></h5>
                         </div>
 
                         <div>
-                            <button id="{{this.product.id}}" class="btn btn-success" onclick="buy(event)">В
+                            <button :id="product.id+'-'+material+'-'+postprocessing+'-'+resPrice"
+                                class="btn btn-success" onclick="buy(event)">В
                                 корзину</button>
                         </div>
                     </div>
@@ -93,14 +131,14 @@
             <div class="row" style="border:1px solid #ccc; border-radius:5px; padding:10px;">
                 <div v-for="(c,i) in comments" style="width:100%; " class="container-fluid">
                     <div class="row" style=" background-color:#f3f3f3; margin:10px 0; padding:5px;">
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="color:rgba(0,0,0,0.5);">
                             \{{c.name}} \{{c.about}}:
                         </div>
 
 
                     </div>
                     <div class="row" style="background-color: FFF; margin:0 1%">
-                        <div style="margin:2% 20px; width:100%;">
+                        <div style="margin:2% 20px; width:100%; color:#313131;">
                             "\{{c.text}}"
                         </div>
                     </div>
@@ -150,31 +188,58 @@
         component: {
             axios
         },
+
         data: {
             products: [],
             comments: [],
-            text: ""
+            text: "",
+            koef: null,
+            product: null,
+            material: "",
+            postprocessing: "",
+            resPrice: 0
         },
+
         beforeCreate: function () {
+
+
+
             var url = window.location.href;
             var id = url.substring(url.lastIndexOf('/') + 1);
-            data = {
+            var data = {
                 id
             }
-            axios.post("/getInterestingProducts", data).then(res => {
-                this.products = res.data;
-                console.log("products");
-                console.log(res.data);
 
-            });
-            axios.post("/getComments", data).then(res => {
-                console.log("commetns:")
-                console.log(res.data);
-                if (res.data.length > 20) this.comments = res.data.slice(0, 20);
-                else this.comments = res.data;
-                console.log(res.data);
+            axios.post("/getProduct", data).then(res => {
+                this.product = res.data;
+                this.material = this.product.material[0];
+                this.postprocessing = this.product.postprocessing[0];
+                console.log("product");
+                console.log(this.product);
+            }).then(res => {
+                axios.get("/get-koef").then(res => {
+                    this.koef = res.data;
+                    console.log(this.koef);
+                    this.resPrice = this.getResPrice();
 
-            });
+                })
+                axios.post("/getInterestingProducts", data).then(res => {
+
+                    this.products = res.data;
+                    console.log("products");
+                    console.log(res.data);
+
+                });
+                axios.post("/getComments", data).then(res => {
+                    console.log("commetns:")
+                    console.log(res.data);
+                    if (res.data.length > 20) this.comments = res.data.slice(0, 20);
+                    else this.comments = res.data;
+                    console.log(res.data);
+
+                });
+            })
+
             var loc = window.location.pathname;
             var tloc = loc.split("/");
             var url = tloc[tloc.length - 1];
@@ -196,6 +261,15 @@
             localStorage.lastViewedId = JSON.stringify(lv);
         },
         methods: {
+            getResPrice() {
+                // console.log(this.material);
+                var newPrice = (Number.parseInt(this.product.price) +
+                    this.koef.mark_up_k * (this.product.price * ((this.koef.material[this.material].k - 1) + (this.koef.postprocessing[this.postprocessing].k - 1))))
+                    * this.koef.total_k * this.koef.advertising_k;
+                this.resPrice = Math.round(newPrice);
+                // console.log(this.resPrice);
+                return Math.round(newPrice);
+            },
             goBack() {
                 window.history.back();
             },

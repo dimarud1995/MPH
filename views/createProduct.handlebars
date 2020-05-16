@@ -12,7 +12,6 @@
             </div>
             <div class="form">
                <div class="card-body">
-                  <div style="margin:30px; color:red;"> \{{error}}</div>
                   <div class="container-fluid">
                      <div class="form-group">
                         <button class="btn btn-outline-danger btn-block">Стерти</button>
@@ -35,9 +34,38 @@
                         <textarea type="text" class="form-control" id="description" name="description"
                            v-model="description"></textarea>
                      </div>
-
                      <div class="form-group">
-                        <label for="price" class="form-control-label">Ціна:</label>
+                        <label for="material" class="form-control-label">Можливі матеріали: (Зажати ctrl і
+                           вибирати)</label>
+                        <select name="material" id="material" class="form-control" v-model="material" multiple="true"
+                           style="height:180px;">
+
+                           <option value="alder">Вільха</option>
+                           <option value="ash">Ясен</option>
+                           <option value="oak">Дуб</option>
+                           <option value="pear">Груша</option>
+                           <option value="nut">Горіх</option>
+                           <option value="plywood">Фанера</option>
+
+                        </select>
+                     </div>
+                     <div class="form-group">
+                        <label for="postprocessing" class="form-control-label">Види обробки:</label>
+                        <select name="postprocessing" id="postprocessing" class="form-control" v-model="postprocessing"
+                           multiple="true" style="height:180px;">
+
+                           <option value="paint">Фарба</option>
+                           <option value="varnish">Лак</option>
+                           <option value="oil">Масло</option>
+                           <option value="mordent">Морилка</option>
+                           <option value="no">Без обробки</option>
+
+
+                        </select>
+                     </div>
+                     <div class="form-group">
+                        <label for="price" class="form-control-label">Базова <span style="color:red;">ціна</span> без
+                           наших коефіцієнтів:</label>
                         <input type="number" class="form-control" id="price" name="price" v-model="price">
                      </div>
                      <label for=" allImages" class="form-control-label">Картинки:</label>
@@ -53,6 +81,7 @@
                               accept="image/jpeg,image/png,image/gif" @change=" getImages()">
                         </div>
                      </div>
+                     <div style="margin:30px; color:red;"> \{{error}}</div>
 
                      <button class="btn btn-success btn-block" type="submit" id="submit" @click="onSubmit()"
                         style="margin-top:10px;margin-bottom:10px;">Зберегти</button>
@@ -84,7 +113,8 @@
          description: "",
          material: [],
          size: [],
-
+         postprocessing: [],
+         material: [],
          price: [],
          mainImage: null,
          images: [],
@@ -110,11 +140,14 @@
             }
          },
          onSubmit() {
+            console.log(this.material);
             this.error = ""
             if (this.title == "") this.error += "Введіть назву! ";
             if (this.description == "") this.error += "Введіть опис! ";
             if (this.category == null) this.error += "Виберіть категорію! ";
             if (this.price == 0) this.error += "Вкажіть коректну ціну! ";
+            if (this.material == 0) this.error += "Виберіть матеріал! ";
+            if (this.postprocessing == 0) this.error += "Виберіть обробку!";
             if (this.mainImage == null) this.error += "Загрузіть титульну картинку! ";
             if (this.images.length < 1 || this.images.length > 4) this.error += "Загрузіть від 1 до 4 картинок";
             console.log(this.images);
@@ -125,27 +158,20 @@
                Data.append("category", this.category);
                Data.append("title", this.title);
                Data.append("description", this.description);
+               Data.append("material", this.material);
+               Data.append("postprocessing", this.postprocessing);
                Data.append("price", this.price);
                Data.append("mainImage", this.mainImage);
                this.images.forEach((i, index) => {
                   Data.append("images" + index, i);
 
                });
-               var jsonData = {
-                  "category": this.category,
-                  "title": this.title,
-                  "description": this.description,
-                  "price": this.price,
-                  "mainImage": this.mainImage,
-                  "images": this.images
-               };
-               //  console.log(jsonData);
-               //  console.log(this.category, this.title, this.description, this.price, this.mainImage, this.images);
                axios.post('/admin/save-new-product', Data, {
                   headers: {
                      'accept': 'application/json',
                      'Accept-Language': 'en-US,en;q=0.8',
-                     'Content-Type': `multipart/form-data`
+                     'Content-Type': `multipart/form-data`,
+                     "Authorization": "Bearer " + localStorage.token
                   }
                }).then(res => {
                   console.log(res.data);

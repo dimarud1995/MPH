@@ -1,38 +1,64 @@
-[
-    {
+[{
         "id": 1,
+        "title": "Сувеніри",
+        "url": "/category/souvenirs",
+        "imageUrl": "/images/categories/c_souvenirs_2.jpg"
+    }, {
+        "id": 2,
+        "title": "Аксесуари для дому",
+        "url": "/category/home-accessories",
+        "imageUrl": "/images/categories/c_home_accessories_2.jpg"
+    }, {
+        "id": 3,
+        "title": "Кухонні приналежності",
+        "url": "/category/wood-kitchen-accessories",
+        "imageUrl": "/images/categories/c_kitchen.jpg"
+    }, {
+        "id": 4,
+        "title": "Фоторамки",
+        "url": "/category/photoframes",
+        "imageUrl": "/images/categories/c_photoframes.jpg"
+    }, {
+        "id": 5,
         "title": "Годинники",
         "url": "/category/clocks",
-        "imageUrl": "/images/category1.png"
-    },
-    {
-        "id": 2,
-        "title": "Посуд",
-        "url": "/category/dishes",
-        "imageUrl": "/images/category2.png"
-    },
-    {
-        "id": 3,
-        "title": "Топпери",
-        "url": "/category/toppers",
-        "imageUrl": "/images/category3.png"
-    },
-    {
-        "id": 4,
-        "title": "Рамки та метрики",
-        "url": "/category/frames",
-        "imageUrl": "/images/category4.png"
-    },
-    {
-        "id": 5,
-        "title": "Фанерні вироби",
-        "url": "/category/wares",
-        "imageUrl": "/images/category5.png"
+        "imageUrl": "/images/categories/c_clocks_2.jpg"
     },
     {
         "id": 6,
-        "title": "Жалюзійні двері",
+        "title": "Топпери",
+        "url": "/category/toppers",
+        "imageUrl": "/images/categories/c_toppers.jpg"
+    },
+    {
+        "id": 7,
+        "title": "Двері жалюзі",
         "url": "/category/doors",
-        "imageUrl": "/images/category6.png"
+        "imageUrl": "/images/categories/c_doors.jpg"
+    }, {
+        "id": 8,
+        "title": "Лампи",
+        "url": "/category/lamps",
+        "imageUrl": "/images/categories/c_lamps.jpg"
+    }, {
+        "id": 9,
+        "title": "Весільний декор",
+        "url": "/category/wedding-decor",
+        "imageUrl": "/images/categories/c_weddings.jpg"
+    }, {
+        "id": 10,
+        "title": "Для дітей",
+        "url": "/category/for-kids",
+        "imageUrl": "/images/categories/c_forkids.jpg"
+    }, {
+        "id": 11,
+        "title": "Декорації",
+        "url": "/category/decor",
+        "imageUrl": "/images/categories/c_decor_2.jpg"
+    }, {
+        "id": 12,
+        "title": "Іменні вироби",
+        "url": "/category/with-names",
+        "imageUrl": "/images/categories/c_withnames.png"
     }
 ]
