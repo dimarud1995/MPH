@@ -95,18 +95,23 @@
 
 
       created() {
-         axios.get('/admin/get-categories')
+         var config = {
+            headers: {
+               Authorization: "Bearer " + localStorage.token
+            }
+         }
+         axios.get('/admin/get-categories', config)
             .then(res => {
 
                this.categories = res.data;
             });
-         axios.get('/admin/getProductsByCategory/' + this.categoryId)
+         axios.get('/admin/getProductsByCategory/' + this.categoryId, config)
             .then(res => {
                this.products = [];
                this.products = res.data;
                console.log(this.products);
             });
-         axios.get('/admin/getPopularProducts')
+         axios.get('/admin/getPopularProducts', config)
             .then(res => {
                this.popularProducts = res.data;
             });
@@ -139,9 +144,13 @@
          onSave() {
             var Data = new FormData();
             if (this.popularProducts == null || this.popularProducts == "[]") this.popularProducts = [];
-
+            var config = {
+               headers: {
+                  Authorization: "Bearer " + localStorage.token
+               }
+            }
             console.log(this.popularProducts);
-            axios.post('/admin/savePopularProducts', this.popularProducts).then(res => {
+            axios.post('/admin/savePopularProducts', this.popularProducts, config).then(res => {
                console.log(res.data);
                alert(res.data);
             });

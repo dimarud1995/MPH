@@ -114,14 +114,19 @@
             newFeedback: []
         },
         beforeCreate: function () {
-            axios.get("/admin/getOrders").then(res => {
+            var config = {
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                }
+            }
+            axios.get("/admin/getOrders", config).then(res => {
                 console.log(res.data);
                 this.newOrders = res.data.newOrders.reverse();
                 this.approvedOrders = res.data.approvedOrders.reverse();
                 this.doneOrders = res.data.doneOrders.reverse();
                 this.sentOrders = res.data.sentOrders.reverse();
             });
-            axios.get("/admin/getNewFeedback").then(res => {
+            axios.get("/admin/getNewFeedback", config).then(res => {
                 this.newFeedback = res.data.newFeedback.reverse();
             });
         }

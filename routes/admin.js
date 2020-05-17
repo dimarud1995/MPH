@@ -37,14 +37,31 @@ function auth(req, res, next) {
   })
 }
 
+function auth2(req, res, next) {
+  const token = req.body.token;
+  console.log(token);
+  if (token == null) return res.render('/login');
+  console.log(2);
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    console.log(err);
+
+    if (err) return res.render("/")
+    else {
+      req.user = user;
+      next();
+    }
+
+  })
+}
+
 //GET Admin page
-router.get('/admin', function (req, res, next) {
+router.post('/admin', auth2, function (req, res, next) {
   res.render("admin", {
     layout: 'admin'
   });
 });
 
-router.get('/edit', function (req, res) {
+router.post('/edit', auth2, function (req, res) {
   res.render("edit", {
     layout: 'admin'
   })
@@ -114,7 +131,7 @@ router.get("/getNewFeedback", auth, function (req, res) {
 
 
 //CREATE PRODUCT
-router.get('/create-product', function (req, res) {
+router.post('/create-product', auth2, function (req, res) {
   res.render("createProduct", {
     categories,
     layout: 'admin'
@@ -170,7 +187,7 @@ router.post('/save-new-product', auth, function (req, res, next) {
 });
 //
 //CREATE CATEGORY
-router.get('/create-category', function (req, res) {
+router.post('/create-category', auth2, function (req, res) {
   res.render("createCategory", {
     layout: 'admin'
   });
@@ -256,7 +273,7 @@ router.post('/delete-category', auth, function (req, res) {
 });
 //
 // POPULAR PRODUCTS
-router.get('/popular-products', function (req, res) {
+router.post('/popular-products', auth2, function (req, res) {
   res.render('popularProducts', {
     products,
     popularProducts,

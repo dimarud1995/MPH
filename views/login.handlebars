@@ -10,7 +10,12 @@
         <div class="form-group">
             <div class="btn btn-block btn-success" @click="tologin()">Login</div>
         </div>
+
     </div>
+    <form name="cartBtnForm" method="POST" action="/admin/admin" style="display:none;">
+        <input type="text" name="token" ref="token">
+        <input type="submit" value="submit" id="admin" ref="admin">
+    </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -22,7 +27,12 @@
             pass: ""
         },
         methods: {
-
+            admin() {
+                var e = this.$refs.admin;
+                var token = this.$refs.token;
+                token.value = localStorage.token;
+                e.click();
+            },
             tologin() {
 
                 var data = new FormData();
@@ -39,7 +49,7 @@
                         if (res.data == "false") alert("Невірний логін або пароль")
                         else {
                             localStorage.token = res.data;
-                            axios.get("/admin/admin");
+                            this.admin();
                         }
                     }
                 })

@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" id="aaa">
 
         <a class="navbar-brand" href="/admin/admin">
             <img src="/images/LogoMPH.jpg" style="height: 50px; width:50px; margin-right:10px;"
@@ -34,22 +34,47 @@
                     <a class="nav-link" href="/">Титульна</a>
                 </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/admin">Замовлення</a>
+                    <a class="nav-link" @click.stop="admin()">Замовлення</a>
+                    <form name="cartBtnForm" method="POST" action="/admin/admin" style="display:none;">
+                        <input type="text" name="token" ref="token">
+                        <input type="submit" value="submit" id="admin" ref="admin">
+                    </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/create-product">Додати продукт</a>
+                    <a class="nav-link" @click.stop="createProduct()">Додати продукт</a>
+                    <form name="cartBtnForm" method="POST" action="/admin/create-product" style="display:none;">
+                        <input type="text" name="token" ref="token1">
+                        <input type="submit" value="submit" id="createProduct" ref="createProduct">
+                    </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/admin/create-category">Додати категорію</a>
+                    <a class="nav-link " @click.stop="createCategory()">Додати категорію</a>
+                    <form name="cartBtnForm" method="POST" action="/admin/create-category" style="display:none;">
+                        <input type="text" name="token" ref="token2">
+                        <input type="submit" value="submit" id="createCategory" ref="createCategory">
+                    </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/popular-products">Популярні продукти</a>
+                    <a class="nav-link" @click.stop="popularProducts()">Популярні продукти</a>
+                    <form name="cartBtnForm" method="POST" action="/admin/popular-products" style="display:none;">
+                        <input type="text" name="token" ref="token3">
+                        <input type="submit" value="submit" id="popularProducts" ref="popularProducts">
+                    </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/statistic">Статистика</a>
+                    <a class="nav-link" @click.stop="statistic()">Статистика</a>
+                    <form name="cartBtnForm" method="POST" action="/admin/statistic" style="display:none;">
+                        <input type="text" name="token" ref="token4">
+                        <input type="submit" value="submit" id="statistic" ref="statistic">
+                    </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/edit">Редагувати</a>
+                    <a class="nav-link" @click.stop="edit()">Редагувати</a>
+                    <form name="cartBtnForm" method="POST" action="/admin/edit" style="display:none;">
+                        <input type="text" name="token" ref="token5">
+                        <input type="submit" value="submit" id="edit" ref="edit">
+                    </form>
+
                 </li>
 
 
@@ -58,6 +83,54 @@
         </div>
     </nav>
     {{{body}}}
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#aaa',
+            data: {
+
+            },
+            methods: {
+                admin() {
+                    var e = this.$refs.admin;
+                    var token = this.$refs.token;
+                    token.value = localStorage.token;
+                    e.click();
+                },
+                createProduct() {
+                    var e = this.$refs.createProduct;
+                    var token = this.$refs.token1;
+                    token.value = localStorage.token;
+                    e.click();
+                },
+                createCategory() {
+                    var e = this.$refs.createCategory;
+                    var token = this.$refs.token2;
+                    token.value = localStorage.token;
+                    e.click();
+                },
+                popularProducts() {
+                    var e = this.$refs.popularProducts;
+                    var token = this.$refs.token3;
+                    token.value = localStorage.token;
+                    e.click();
+                },
+                statistic() {
+                    var e = this.$refs.statistic;
+                    var token = this.$refs.token4;
+                    token.value = localStorage.token;
+                    e.click();
+                },
+                edit() {
+                    var e = this.$refs.edit;
+                    var token = this.$refs.token5;
+                    token.value = localStorage.token;
+                    e.click();
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
