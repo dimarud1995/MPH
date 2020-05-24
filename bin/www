@@ -10,6 +10,7 @@ var http = require('http');
 var https = require('https')
 
 var port = normalizePort(process.env.PORT || '3000');
+app.set('host', process.env.HOST || '0.0.0.0');
 app.set('port', port);
 //app.set('port', portHttps);
 
@@ -22,7 +23,9 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, process.env.IP4);
+server.listen(app.get('port'), app.get('host'), function () {
+  console.log("Server run on: " + app.get('host') + ":" + app.get('port'));
+});
 
 server.on('error', onError);
 server.on('listening', onListening);
