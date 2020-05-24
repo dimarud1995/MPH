@@ -10,7 +10,6 @@ var http = require('http');
 var https = require('https')
 
 var port = normalizePort(process.env.PORT || '3000');
-var portHttps = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 //app.set('port', portHttps);
 
@@ -18,7 +17,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = http.createServer(app).listen(port, process.env.IP4);
 /**
  * Listen on provided port, on all network interfaces.
  */
