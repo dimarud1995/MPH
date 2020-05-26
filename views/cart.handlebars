@@ -14,10 +14,10 @@
                 <a href="/product/{{this.id}}">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class=" justify-content-start align-items-center">
-                            <img src="{{this.mainImage}}">
-                            {{this.title}}
+                            <img style="margin:10px; height:100px; width:auto;" src="{{this.mainImage}}">
+                            <span style="margin:10px;">{{this.title}}</span>
                         </div>
-                        <div style="margin:10px;">
+                        <div style="margin:10px; text-align:right;">
                             <strong class="price"
                                 id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}">{{this.price}}₴</strong>
                             <button id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}"
@@ -51,11 +51,11 @@
 
         <hr>
         <div class="form-group">
-            <label for="name" class="form-control-lable">Ваше ім'я:</label>
+            <label for="name" class="form-control-lable">Ім'я одержувача:*</label>
             <input class="form-control" id="name" v-model="name">
         </div>
         <div class="form-group">
-            <label for="tel" class="form-control-lable">Телефон:</label>
+            <label for="tel" class="form-control-lable">Телефон:*</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-tel">+38</span>
@@ -70,7 +70,7 @@
             <input class="form-control" id="email" v-model="email" type="email">
         </div>
         <div class=" form-group">
-            <label for="paymethod" class="form-control-lable">Спосіб оплати:</label>
+            <label for="paymethod" class="form-control-lable">Спосіб оплати:*</label>
             <select name="paymethod" id="paymethod" v-model="paymethod" class="form-control">
                 <option value="privatbank">Приват банк</option>
                 <option value="monobank">Mono банк</option>
@@ -81,23 +81,23 @@
 
 
         <div class="  form-group">
-            <label for="delivery" class="form-control-lable">Спосіб доставки:</label>
+            <label for="delivery" class="form-control-lable">Спосіб доставки:*</label>
             <select name="delivery" id="delivery" v-model="delivery" class="form-control">
                 <option value="new_post">Нова пошта</option>
                 <option value="ukrpost">Укрпошта</option>
             </select>
         </div>
         <div class="form-group" v-if="delivery=='new_post'">
-            <label for="city" class="form-control-lable">Вкажіть ваш населений пункт:</label>
+            <label for="city" class="form-control-lable">Вкажіть ваш населений пункт:*</label>
             <input class="form-control" id="city" v-model="city" type="text" @input="getCities()"
                 style="text-transform:capitalize;">
         </div>
-        <div class=" form-group" v-if="recAboutCity.length>0" style="color:#1E88E5; padding:10px;">
+        <div class=" form-group" v-if="recAboutCity.length>0 && city.length>0" style="color:#1E88E5; padding:10px;">
             \{{recAboutCity}}
         </div>
 
-        <div class=" form-group" v-if="warhouses.length>0">
-            <label for="warhouse" class="form-control-lable">Виберіть поштове відділення: </label>
+        <div class=" form-group" v-if="warhouses.length>0 && delivery=='new_post' &&city.length>0">
+            <label for="warhouse" class="form-control-lable">Виберіть поштове відділення:* </label>
             <div v-if="warhouses.length" style="color:#1E88E5; padding-bottom:10px; padding-left:10px;"> Поштових
                 відділень біля вас:
                 \{{warhouses.length}}
@@ -112,8 +112,12 @@
 
         </div>
         <div class="form-group" v-if="delivery=='ukrpost'">
-            <label for="city" class="form-control-lable">Вкажіть адресу для відправки:</label>
+            <label for="city" class="form-control-lable">Вкажіть адресу для відправки:*</label>
             <textarea class="form-control" v-model="city" type="text"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="comment" class="form-control-lable">Коментар:</label>
+            <textarea class="form-control" v-model="comment" type="text"></textarea>
         </div>
         <div v-if="error.length!=0">
             <h6 style="color:red;" v-html="error">
@@ -128,7 +132,8 @@
         <hr>
         <div>
             <span style="color:green;">Ваші особисті дані використовуються лише на цьому сайті та для оформлення
-                почтової відправки! <i class="fas fa-shield-alt"></i></span>
+                почтової відправки! <i class="fas fa-shield-alt"></i></span><br>
+            <span style="color:grey; font-size:0.9em;">Поля відмічені * є обов'язковими!</span>
         </div>
         <hr>
 
@@ -167,6 +172,7 @@
             warhouses: [],
             warhouse: "",
             recAboutCity: "",
+            comment: "",
             t: 0
 
         },
@@ -301,6 +307,7 @@
                         delivery: this.delivery,
                         city: this.city,
                         warhouse: this.warhouse,
+                        comment: this.comment,
                         productIdInCard: ids
 
                     }

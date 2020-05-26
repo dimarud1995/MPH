@@ -17,6 +17,17 @@ function buy(event) {
     console.log(s);
     sessionStorage.setItem(Math.random(), s)
     setCounter()
+    var r = window.confirm("Додано! Перейти до корзини?");
+    if (r) {
+
+        var prodIds = getProductsFromSessionStorage()
+        console.log(prodIds);
+        if (prodIds && prodIds.length) {
+            document.getElementById('prodIds').value = prodIds
+            document.getElementById('cartSubmit').click()
+        }
+
+    }
     el.classList.toggle("fade");
 
     setTimeout(() => {

@@ -94,6 +94,7 @@ router.get("/adminorder/:id", function (req, res) {
         postprocessing: e.postprocessing,
         mainImage: p.mainImage,
         title: p.title
+
       }
       sum += Number.parseInt(e.price);
       temp.push(p1);
@@ -160,6 +161,9 @@ router.post('/save-new-product', auth, function (req, res, next) {
     var categoryName = categories.find(q => q.id == categoryNum).url.replace("/category/", "");
     console.log(categoryName);
     var desc = generateMegaDescription(newP.description);
+    console.log()
+    var tempPrice = JSON.parse(newP.price);
+    console.log(tempPrice);
 
     products.push({
       "id": id,
@@ -169,9 +173,10 @@ router.post('/save-new-product', auth, function (req, res, next) {
       "description": desc,
       "material": newP.material.split(","),
       "postprocessing": newP.postprocessing.split(","),
-      "price": newP.price,
+      "price": tempPrice,
       "mainImage": mainImagePath,
       "images": imagesPath
+
     })
     var data = JSON.stringify(products);
     fs.writeFile('./data/products.json', data, (err) => {
@@ -286,17 +291,10 @@ router.post('/savePopularProducts', auth, function (req, res) {
     if (req.body == null || req.body == '') popularProducts = [];
     else popularProducts = req.body;
     popularProducts.forEach(e => {
-      var resStr = "";
-      var words = e.description.split(" ");
-      if (words.length > 40) words.splice(40, words.length - 41);
-      words.forEach(w => {
-        resStr += w + " ";
-      });
-      resStr += "...";
-      e.description = resStr;
+      e.price = e.price[0].price;
     })
-
     var data = JSON.stringify(popularProducts);
+
     fs.writeFile('./data/popularProducts.json', data, (err) => {
       if (err) return res.json(err.message);
       console.log('The Popular products has been saved!');
@@ -355,6 +353,7 @@ router.post('/newOrder', function (req, res) {
       delivery: d.delivery,
       city: d.city,
       warhouse: warhouse[0],
+      comment: d.comment,
       status: "new", //new, approved, done,sent
       date: getDate(),
       // productsInOrder: productsInOrder

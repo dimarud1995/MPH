@@ -14,6 +14,7 @@ var koef = require('../data/koef.json');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    console.log(popularProducts);
     res.render('home', {
         slides: slides,
         categories: categories,

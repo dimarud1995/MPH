@@ -1,78 +1,21 @@
 [{
-    "id": 1589203336408,
-    "category": 6,
-    "categoryName": "toppers",
-    "title": "second test",
-    "description": "test",
-    "material": ["alder", "ash", "oak", "pear"],
-    "postprocessing": ["varnish", "oil", "mordent"],
-    "price": "102",
-    "mainImage": "/images/products/1589203336408_category5.png",
-    "images": ["/images/products/1589203336408_category2.png", "/images/products/1589203336408_category3.png"]
-}, {
-    "id": 1589203526376,
-    "category": 6,
-    "categoryName": "toppers",
-    "title": "third",
-    "description": "test",
-    "material": ["alder", "ash", "oak", "pear"],
-    "postprocessing": ["varnish", "oil", "mordent"],
-    "price": "104",
-    "mainImage": "/images/products/1589203526376_c_doors.jpg",
-    "images": ["/images/products/1589203526376_c_clocks_2.jpg", "/images/products/1589203526376_c_doors.jpg"]
-}, {
-    "id": 1589203304211,
-    "category": 6,
-    "categoryName": "toppers",
-    "title": "second test",
-    "description": "test",
-    "material": ["alder", "ash", "oak", "pear"],
-    "postprocessing": ["varnish", "oil", "mordent"],
-    "price": "101",
-    "mainImage": "/images/products/1589203304211_category5.png",
-    "images": ["/images/products/1589203304211_category2.png", "/images/products/1589203304211_category3.png"]
-}, {
-    "id": 1589202556147,
-    "category": 10,
-    "categoryName": "for-kids",
-    "title": "jsdnlsjdbewl",
-    "description": "wjkenflwebwelcbwe",
-    "material": ["oak", "nut", "plywood"],
-    "postprocessing": ["varnish", "oil"],
-    "price": "100",
-    "mainImage": "/images/products/1589202556147_LogoMPH.jpg",
-    "images": ["/images/products/1589202556147_LogoMPH.jpg"]
-}, {
-    "id": 1589203342407,
-    "category": 6,
-    "categoryName": "toppers",
-    "title": "second test",
-    "description": "test",
-    "material": ["alder", "ash", "oak", "pear"],
-    "postprocessing": ["varnish", "oil", "mordent"],
-    "price": "104",
-    "mainImage": "/images/products/1589203342407_category5.png",
-    "images": ["/images/products/1589203342407_category2.png", "/images/products/1589203342407_category3.png"]
-}, {
-    "id": 1589202658089,
+    "id": 1590436906722,
     "category": 1,
     "categoryName": "souvenirs",
-    "title": "сало",
-    "description": "сало",
-    "material": ["alder", "oak", "nut"],
-    "postprocessing": ["varnish", "oil"],
-    "price": "100",
-    "mainImage": "/images/products/1589202658089_c_decor_2.jpg",
-    "images": ["/images/products/1589202658089_c_decor_2.jpg", "/images/products/1589202658089_c_doors.jpg", "/images/products/1589202658089_c_forkids.jpg", "/images/products/1589202658089_c_home_accessories.jpg"]
-}, {
-    "id": 1589203614716,
-    "category": 6,
-    "categoryName": "toppers",
-    "title": "third",
-    "description": "test",
-    "material": ["alder", "ash", "oak", "pear"],
-    "postprocessing": ["varnish", "oil", "mordent"],
-    "price": "104",
-    "mainImage": "/images/products/1589203614716_c_doors.jpg",
-    "images": ["/images/products/1589203614716_c_clocks_2.jpg", "/images/products/1589203614716_c_doors.jpg"]
+    "title": "sssssssssssssssssss",
+    "description": "12312q12s",
+    "material": ["alder", "ash"],
+    "postprocessing": ["paint"],
+    "price": [{
+        "price": "12",
+        "size": "12x231"
+    }, {
+        "price": "312",
+        "size": "13x221"
+    }, {
+        "price": "1051",
+        "size": "2312x23"
+    }],
+    "mainImage": "/images/products/1590436906722_category3.png",
+    "images": ["/images/products/1590436906722_category5.png", "/images/products/1590436906722_category6.png"]
 }]

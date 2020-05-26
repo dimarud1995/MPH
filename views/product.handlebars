@@ -28,47 +28,6 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="form-group">
-                        <p>\{{product.description}}</p>
-                    </div>
-                    <hr>
-
-                    <div>
-
-                        <div v-for="(e,i) in product.material"
-                            class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" name="material" :id="e" class="custom-control-input" v-model="material"
-                                @change="getResPrice()" :value="e">
-
-                            <label :for="e" class="custom-control-label">
-                                \{{e=="oak"?"Дуб":""}}
-                                \{{e=="ash"?"Ясен":""}}
-                                \{{e=="alder"?"Вільха":""}}
-                                \{{e=="pear"?"Груша":""}}
-                                \{{e=="nut"?"Горіх":""}}
-                                \{{e=="plywood"?"Дуб":""}}</label>
-
-                        </div>
-                    </div>
-                    <hr>
-                    <div>
-
-                        <div v-for="(e,i) in product.postprocessing"
-                            class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" name="postprocessing" :id="e" class="custom-control-input"
-                                v-model="postprocessing" :value="e" @change="getResPrice()">
-
-                            <label :for="e" class="custom-control-label">
-                                \{{e=="paint"?"Фарба":""}}
-                                \{{e=="varnish"?"Лак":""}}
-                                \{{e=="oil"?"Олія":""}}
-                                \{{e=="mordent"?"Морилка":""}}
-                            </label>
-
-                        </div>
-                    </div>
-                    <hr>
-
 
                     <div class="  d-flex align-items-center justify-content-between form-group">
                         <div>
@@ -79,10 +38,70 @@
 
                         <div>
                             <button :id="product.id+'-'+material+'-'+postprocessing+'-'+resPrice"
-                                class="btn btn-success" onclick="buy(event)">В
+                                class="btn btn-success" onclick="buy(event)">Додати в
                                 корзину</button>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4" style="border-right: 1px solid rgb(220,220,220);">Розмір:</div>
+                        <div class="col-4" style="border-right: 1px solid rgb(220,220,220);">Матеріал:</div>
+                        <div class="col-4">Покриття:</div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4" style="border-right: 1px solid rgb(220,220,220);">
+                            <div>
+
+                                <div v-for="(e,i) in product.price" class="custom-control custom-radio"
+                                    style="margin:10px 0;">
+                                    <input type="radio" :id="e.size" name="curPrice" class="custom-control-input"
+                                        v-model="curPrice" @change="getResPrice()" :value="e.price">
+
+                                    <label :for="e.size" class="custom-control-label">
+                                        \{{e.size}}</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4" style="border-right: 1px solid rgb(220,220,220);">
+                            <div>
+
+                                <div v-for="(e,i) in product.material" style="margin:10px 0;"
+                                    class="custom-control custom-radio">
+                                    <input type="radio" name="material" :id="e" class="custom-control-input"
+                                        v-model="material" @change="getResPrice()" :value="e">
+
+                                    <label :for="e" class="custom-control-label">
+                                        \{{koef.material[e].name}}
+
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div>
+                                <div v-for="(e,i) in product.postprocessing" style="margin:10px 0;"
+                                    class="custom-control custom-radio ">
+                                    <input type="radio" name="postprocessing" :id="e" class="custom-control-input"
+                                        v-model="postprocessing" :value="e" @change="getResPrice()">
+
+                                    <label :for="e" class="custom-control-label">
+                                        \{{koef.postprocessing[e].name}}
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="form-group">
+                        <p>\{{product.description}}</p>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -108,7 +127,7 @@
                                     <h6 style="margin-bottom: 30px;">\{{p.title}}
                                     </h6>
                                     <span style="position:absolute; margin-top: 6px; bottom:0px;
-                                        color:green; margin:5px;">\{{p.price}} <span
+                                        color:green; margin:5px;">\{{p.price[0].price}} <span
                                             style="font-size: 0.8em;">₴</span></span>
 
 
@@ -197,6 +216,7 @@
             product: null,
             material: "",
             postprocessing: "",
+            curPrice: 0,
             resPrice: 0
         },
 
@@ -214,6 +234,7 @@
                 this.product = res.data;
                 this.material = this.product.material[0];
                 this.postprocessing = this.product.postprocessing[0];
+                this.curPrice = this.product.price[0].price;
                 console.log("product");
                 console.log(this.product);
             }).then(res => {
@@ -263,8 +284,8 @@
         methods: {
             getResPrice() {
                 // console.log(this.material);
-                var newPrice = (Number.parseInt(this.product.price) +
-                    this.koef.mark_up_k * (this.product.price * ((this.koef.material[this.material].k - 1) + (this.koef.postprocessing[this.postprocessing].k - 1))))
+                var newPrice = (Number.parseInt(this.curPrice) +
+                    this.koef.mark_up_k * (this.curPrice * ((this.koef.material[this.material].k - 1) + (this.koef.postprocessing[this.postprocessing].k - 1))))
                     * this.koef.total_k * this.koef.advertising_k;
                 this.resPrice = Math.round(newPrice);
                 // console.log(this.resPrice);

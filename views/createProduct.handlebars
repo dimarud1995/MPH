@@ -63,27 +63,49 @@
 
                         </select>
                      </div>
-                     <div class="row">
-                        <div class="col-2">
-                           <div class="form-group">
-                              <label for="price" class="form-control-label">:</label>
-                              <input type="number" class="form-control" id="price" name="price" v-model="price">
-                           </div>
-                        </div>
-                        <div class="col-2">
-                           <div class="form-group">
-                              <label for="price" class="form-control-label">Базова <span style="color:red;">ціна</span>
-                                 без
-                                 наших коефіцієнтів:</label>
-                              <input type="number" class="form-control" id="price" name="price" v-model="price">
-                           </div>
-                        </div>
+                     <label for="price" class="form-control-label">Базова <span style="color:red;">ціна</span> без
+                        наших коефіцієнтів:</label>
+                     <div class="form-group" style="display: flex;">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[0].size"
+                           style="width:65%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[0].price"
+                           style="width:30%; margin-left: 5%;">
                      </div>
-                     <div class="form-group">
+                     <div class="form-group" style="display: flex;" v-if="price[0].size!=''">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[1].size"
+                           style="width:65%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[1].price"
+                           style="width:30%; margin-left: 5%;">
+                     </div>
+                     <div class="form-group" style="display: flex;" v-if="price[1].size!=''">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[2].size"
+                           style="width:65%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[2].price"
+                           style="width:30%; margin-left: 5%;">
+                     </div>
+                     <div class="form-group" style="display: flex;" v-if="price[2].size!=''">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[3].size"
+                           style="width:65%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[3].price"
+                           style="width:30%; margin-left: 5%;">
+                     </div>
+                     <div class="form-group" style="display: flex;" v-if="price[3].size!=''">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[4].size"
+                           style="width:65%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[4].price"
+                           style="width:30%; margin-left: 5%;">
+                     </div>
+                     <div class="form-group" style="display: flex;" v-if="price[4].size!=''">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[5].size"
+                           style="width:65%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[5].price"
+                           style="width:30%; margin-left: 5%;">
+                     </div>
+                     {{!-- <div class="form-group">
                         <label for="price" class="form-control-label">Базова <span style="color:red;">ціна</span> без
                            наших коефіцієнтів:</label>
                         <input type="number" class="form-control" id="price" name="price" v-model="price">
-                     </div>
+                     </div> --}}
                      <label for=" allImages" class="form-control-label">Картинки:</label>
                      <div id="allImages">
                         <div class="custom-file" style="margin-bottom:10px;">
@@ -131,7 +153,25 @@
          size: [],
          postprocessing: [],
          material: [],
-         price: [],
+         price: [{
+            price: "",
+            size: ""
+         }, {
+            price: "",
+            size: ""
+         }, {
+            price: "",
+            size: ""
+         }, {
+            price: "",
+            size: ""
+         }, {
+            price: "",
+            size: ""
+         }, {
+            price: "",
+            size: ""
+         }],
          mainImage: null,
          images: [],
          error: ""
@@ -161,7 +201,7 @@
             if (this.title == "") this.error += "Введіть назву! ";
             if (this.description == "") this.error += "Введіть опис! ";
             if (this.category == null) this.error += "Виберіть категорію! ";
-            if (this.price == 0) this.error += "Вкажіть коректну ціну! ";
+            if (this.price.length == 0) this.error += "Вкажіть коректну ціну! ";
             if (this.material == 0) this.error += "Виберіть матеріал! ";
             if (this.postprocessing == 0) this.error += "Виберіть обробку!";
             if (this.mainImage == null) this.error += "Загрузіть титульну картинку! ";
@@ -176,7 +216,15 @@
                Data.append("description", this.description);
                Data.append("material", this.material);
                Data.append("postprocessing", this.postprocessing);
-               Data.append("price", this.price);
+               var tempPrice = [];
+               this.price.forEach(e => {
+                  if (e.size != "" && e.price != "") tempPrice.push({
+                     price: e.price,
+                     size: e.size
+                  });
+               })
+               console.log(tempPrice);
+               Data.append("price", JSON.stringify(tempPrice));
                Data.append("mainImage", this.mainImage);
                this.images.forEach((i, index) => {
                   Data.append("images" + index, i);

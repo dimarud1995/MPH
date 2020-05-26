@@ -2,56 +2,69 @@
     "material": {
         "alder": {
             "k": 1,
-            "img": ""
+            "img": "",
+            "name": "Bільха"
         },
         "ash": {
             "k": 1.16,
-            "img": ""
+            "img": "",
+            "name": "Ясен"
         },
         "oak": {
             "k": 1.33,
-            "img": ""
+            "img": "",
+            "name": "Дуб"
         },
         "pear": {
             "k": 1.33,
-            "img": ""
+            "img": "",
+            "name": "Груша"
         },
         "nut": {
             "k": 1.33,
-            "img": ""
+            "img": "",
+            "name": "Горіх"
         },
         "plywood": {
             "k": 1,
-            "img": ""
+            "img": "",
+            "name": "Фанера"
         },
         "default": {
             "k": 1,
-            "img": ""
+            "img": "",
+            "name": ""
         }
 
     },
     "postprocessing": {
         "paint": {
             "k": 1.25,
-            "colors": ["white", "black", "brown", "green", "yellow", "red", "pink", "blue", "grey", "orange"]
+            "colors": ["white", "black", "brown", "green", "yellow", "red", "pink", "blue", "grey", "orange"],
+            "name": "Фарба"
         },
         "varnish": {
             "k": 1.25,
-            "shades": ["dark", "medium", "light"]
+            "shades": ["dark", "medium", "light"],
+            "name": "Лак"
         },
         "oil": {
-            "k": 1
-
+            "k": 1,
+            "name": " Лляна олія"
         },
         "no": {
-            "k": 1
+            "k": 1,
+            "name": "Без обробки"
         },
         "mordent": {
             "k": 1.25,
-            "shades": ["dark", "medium", "light"]
+            "shades": ["dark", "medium", "light"],
+            "name": "Морилка"
         },
         "default": {
-            "k": 1
+            "k": 1,
+            "name": ""
+
 
         }
     },
