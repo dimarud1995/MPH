@@ -14,7 +14,7 @@
                <div class="card-body">
                   <div class="container-fluid">
                      <div class="form-group">
-                        <button class="btn btn-outline-danger btn-block">Стерти</button>
+                        <button class="btn btn-outline-danger btn-block" @click="clear">Стерти</button>
                      </div>
                      <div class="form-group">
                         <label for="category" class="form-control-label">Категорія:</label>
@@ -63,43 +63,94 @@
 
                         </select>
                      </div>
-                     <label for="price" class="form-control-label">Базова <span style="color:red;">ціна</span> без
-                        наших коефіцієнтів:</label>
                      <div class="form-group" style="display: flex;">
+                        <label for="price" class="form-control-label" style="width:30%;"><span style="color:red;">Ціна
+                              <br>(закупочна)</span></label>
+                        <label for="price" class="form-control-label" style="width:42%;"><span style="color:red;">Розмір
+                              <br>(габарити)</span></label>
+                        <label for="price" class="form-control-label" style="width:20%;"><span
+                              style="color:red;">Ціна<br>(без k)
+                           </span></label>
+                     </div>
+                     <div class="form-group" style="display: flex;">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[0].buyPrice" style="width:28%; margin-right: 2%;">
                         <input type="text" class="form-control" id="price" name="price" v-model="price[0].size"
-                           style="width:65%;">
+                           style="width:40%;">
                         <input type="number" class="form-control" id="price" name="price" v-model="price[0].price"
-                           style="width:30%; margin-left: 5%;">
+                           style="width:28%; margin-left: 2%;">
                      </div>
                      <div class="form-group" style="display: flex;" v-if="price[0].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[1].buyPrice" style="width:28%; margin-right: 2%;">
                         <input type="text" class="form-control" id="price" name="price" v-model="price[1].size"
-                           style="width:65%;">
+                           style="width:40%;">
                         <input type="number" class="form-control" id="price" name="price" v-model="price[1].price"
-                           style="width:30%; margin-left: 5%;">
+                           style="width:28%; margin-left: 2%;">
                      </div>
                      <div class="form-group" style="display: flex;" v-if="price[1].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[2].buyPrice" style="width:28%; margin-right: 2%;">
                         <input type="text" class="form-control" id="price" name="price" v-model="price[2].size"
-                           style="width:65%;">
+                           style="width:40%;">
                         <input type="number" class="form-control" id="price" name="price" v-model="price[2].price"
-                           style="width:30%; margin-left: 5%;">
+                           style="width:28%; margin-left: 2%;">
                      </div>
                      <div class="form-group" style="display: flex;" v-if="price[2].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[3].buyPrice" style="width:28%; margin-right: 2%;">
                         <input type="text" class="form-control" id="price" name="price" v-model="price[3].size"
-                           style="width:65%;">
+                           style="width:40%;">
                         <input type="number" class="form-control" id="price" name="price" v-model="price[3].price"
-                           style="width:30%; margin-left: 5%;">
+                           style="width:28%; margin-left: 2%;">
                      </div>
                      <div class="form-group" style="display: flex;" v-if="price[3].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[4].buyPrice" style="width:28%; margin-right: 2%;">
                         <input type="text" class="form-control" id="price" name="price" v-model="price[4].size"
-                           style="width:65%;">
+                           style="width:40%;">
                         <input type="number" class="form-control" id="price" name="price" v-model="price[4].price"
-                           style="width:30%; margin-left: 5%;">
+                           style="width:28%; margin-left: 2%;">
                      </div>
                      <div class="form-group" style="display: flex;" v-if="price[4].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[5].buyPrice" style="width:28%; margin-right: 2%;">
                         <input type="text" class="form-control" id="price" name="price" v-model="price[5].size"
-                           style="width:65%;">
+                           style="width:40%;">
                         <input type="number" class="form-control" id="price" name="price" v-model="price[5].price"
-                           style="width:30%; margin-left: 5%;">
+                           style="width:28%; margin-left: 2%;">
+                     </div>
+                     <div class="form-group" style="display: flex;" v-if="price[5].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[6].buyPrice" style="width:28%; margin-right: 2%;">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[6].size"
+                           style="width:40%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[6].price"
+                           style="width:28%; margin-left: 2%;">
+                     </div>
+                     <div class="form-group" style="display: flex;" v-if="price[6].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[7].buyPrice" style="width:28%; margin-right: 2%;">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[7].size"
+                           style="width:40%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[7].price"
+                           style="width:28%; margin-left: 2%;">
+                     </div>
+                     <div class="form-group" style="display: flex;" v-if="price[7].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[8].buyPrice" style="width:28%; margin-right: 2%;">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[8].size"
+                           style="width:40%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[8].price"
+                           style="width:28%; margin-left: 2%;">
+                     </div>
+                     <div class="form-group" style="display: flex;" v-if="price[8].size!=''">
+                        <input type="number" class="form-control" id="buyPrice" name="buyPrice"
+                           v-model="price[9].buyPrice" style="width:28%; margin-right: 2%;">
+                        <input type="text" class="form-control" id="price" name="price" v-model="price[9].size"
+                           style="width:40%;">
+                        <input type="number" class="form-control" id="price" name="price" v-model="price[9].price"
+                           style="width:28%; margin-left: 2%;">
                      </div>
                      {{!-- <div class="form-group">
                         <label for="price" class="form-control-label">Базова <span style="color:red;">ціна</span> без
@@ -109,20 +160,23 @@
                      <label for=" allImages" class="form-control-label">Картинки:</label>
                      <div id="allImages">
                         <div class="custom-file" style="margin-bottom:10px;">
-                           <label for="mainImage" class="custom-file-label">Головна картинка</label>
-                           <input type="file" class="custom-file-input" id="mainImage" name="mainImage"
+                           <label for="mainImage" class="custom-file-label custom-file-label1">Головна картинка</label>
+                           <input type="file" class="custom-file-input " id="mainImage" name="mainImage"
                               accept="image/jpeg,image/png,image/gif" @change="getMainImage()">
                         </div>
                         <div class="custom-file" style="margin-top:10px;margin-bottom:10px;">
-                           <label for="" class="custom-file-label" style="overflow: hidden;">Картинки</label>
-                           <input type="file" class="custom-file-input" id="images" name="images" multiple ref="images"
+                           <label for="" class="custom-file-label custom-file-label2"
+                              style="overflow: hidden;">Картинки</label>
+                           <input type="file" class="custom-file-input " id="images" name="images" multiple ref="images"
                               accept="image/jpeg,image/png,image/gif" @change=" getImages()">
                         </div>
                      </div>
-                     <div style="margin:30px; color:red;"> \{{error}}</div>
+                     <div style="margin:30px; color:red;" v-html="error"> </div>
 
                      <button class="btn btn-success btn-block" type="submit" id="submit" @click="onSubmit()"
-                        style="margin-top:10px;margin-bottom:10px;">Зберегти</button>
+                        style="margin-top:10px;margin-bottom:10px;" v-if="!onEdit">Зберегти</button>
+                     <button class="btn btn-primary btn-block" type="submit" id="submit" @click="onSubmitEdit()"
+                        style="margin-top:10px;margin-bottom:10px;" v-if="onEdit">Зберегти зміни</button>
                   </div>
 
 
@@ -130,149 +184,397 @@
             </div>
          </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 my-col">
+         <div class="card">
+            <div class="card-header">
+               <div class="row">
+                  <div class="col">
+                     Продукти:
+                  </div>
+
+               </div>
+            </div>
+            <div class="form">
+               <div class="card-body">
+                  <div class="form-group">
+                     <select name="category_all" id="category_all" class="form-control" v-model="category_all"
+                        @change="getAllProductsByCategoty">
+
+                        <option v-for="c in categories" :value="c.url">\{{c.title}}</option>
+
+                     </select>
+                  </div>
+                  <hr>
+                  <table class="table-hover" style="border-collapse:collapse !important;">
+                     <tbody>
+                        <tr v-for="(e,i) in allProductsByCat" style="border-bottom:1px solid rgba(230,230,230); ">
+
+                           <td style=" padding:0px; display:flex; vertical-align:middle;">
+                              <img :src="e.mainImage" style="width:200px;" alt="">
+                              <div style="width:100%; padding:2%;">
+                                 <div style="display: flex;justify-content:space-between; width:100%;"> № \{{i+1}}
+                                    <div>
+
+                                       <button class="btn btn-outline-danger" @click="deleteProduct(e.id)"><i
+                                             class="fa fa-trash"></i></button>
+
+                                       <button class="btn btn-outline-warning" @click="editProduct(e.id)"><i
+                                             class=" fa fa-edit"></i></button>
+                                       <button class="btn btn-outline-primary" @click="viewProduct(e.id)"><i
+                                             class="fa fa-eye"></i></button>
+                                    </div>
 
 
+                                 </div>
+                                 <hr>
+                                 \{{e.title}}
+                              </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+
+               </div>
+            </div>
+         </div>
       </div>
    </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <script>
 
 
 
-   var app = new Vue({
-      el: '#app',
-      data: {
-         categories: null,
-         category: 1,
-         title: "",
-         description: "",
-         material: [],
-         size: [],
-         postprocessing: [],
-         material: [],
-         price: [{
-            price: "",
-            size: ""
-         }, {
-            price: "",
-            size: ""
-         }, {
-            price: "",
-            size: ""
-         }, {
-            price: "",
-            size: ""
-         }, {
-            price: "",
-            size: ""
-         }, {
-            price: "",
-            size: ""
-         }],
-         mainImage: null,
-         images: [],
-         error: ""
+      var app = new Vue({
+         el: '#app',
+         data: {
+            categories: null,
+            category: 1,
+            category_all: "/category/souvenirs",
+            allProductsByCat: [],
+            title: "",
+            description: "",
+            material: [],
+            postprocessing: [],
+            price: [{
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }, {
+               price: "",
+               size: "",
+               buyPrice: ""
+            }],
+            mainImage: null,
+            images: [],
+            error: "",
+            product: "",
+            onEdit: false
 
-      },
+         },
 
 
-      created() {
-         axios.get('/admin/get-categories')
-            .then(res => {
-               this.categories = res.data;
-            })
-      },
+         created() {
+            axios.get('/admin/get-categories')
+               .then(res => {
+                  this.categories = res.data;
+               });
+            this.getAllProductsByCategoty();
+         },
 
-      methods: {
-         selectionChange(editor, range) {
-            if (range) {
-               if (range.start !== range.end) {
-                  this.selectedText = editor.getText(range.start, range.end)
-                  editor.formatText(range, 'custom', 'hello world')
+         methods: {
+            viewProduct(id) {
+               if (id != "" && id != null) {
+
+                  window.open("/product/" + id);
                }
-            }
-         },
-         onSubmit() {
-            console.log(this.material);
-            this.error = ""
-            if (this.title == "") this.error += "Введіть назву! ";
-            if (this.description == "") this.error += "Введіть опис! ";
-            if (this.category == null) this.error += "Виберіть категорію! ";
-            if (this.price.length == 0) this.error += "Вкажіть коректну ціну! ";
-            if (this.material == 0) this.error += "Виберіть матеріал! ";
-            if (this.postprocessing == 0) this.error += "Виберіть обробку!";
-            if (this.mainImage == null) this.error += "Загрузіть титульну картинку! ";
-            if (this.images.length < 1 || this.images.length > 4) this.error += "Загрузіть від 1 до 4 картинок";
-            console.log(this.images);
-            if (this.title.length > 40) this.error += "Заголовок повинен бути менше 40 символів!";
-            if (this.error == "") {
-
-               var Data = new FormData();
-               Data.append("category", this.category);
-               Data.append("title", this.title);
-               Data.append("description", this.description);
-               Data.append("material", this.material);
-               Data.append("postprocessing", this.postprocessing);
-               var tempPrice = [];
-               this.price.forEach(e => {
-                  if (e.size != "" && e.price != "") tempPrice.push({
-                     price: e.price,
-                     size: e.size
-                  });
-               })
-               console.log(tempPrice);
-               Data.append("price", JSON.stringify(tempPrice));
-               Data.append("mainImage", this.mainImage);
-               this.images.forEach((i, index) => {
-                  Data.append("images" + index, i);
-
-               });
-               axios.post('/admin/save-new-product', Data, {
-                  headers: {
-                     'accept': 'application/json',
-                     'Accept-Language': 'en-US,en;q=0.8',
-                     'Content-Type': `multipart/form-data`,
-                     "Authorization": "Bearer " + localStorage.token
+            },
+            editProduct(id) {
+               this.onEdit = true;
+               if (id != "" && id != null) {
+                  var data = {
+                     id: id
                   }
-               }).then(res => {
-                  console.log(res.data);
-                  alert(res.data);
 
-               });
+                  axios.post("/getProduct", data).then(res => {
+                     this.product = res.data;
+                     this.category = this.product.category;
+                     this.categoryName = this.product.categoryName;
+                     this.title = this.product.title;
+                     this.description = this.product.description;
+                     this.postprocessing = this.product.postprocessing;
+                     this.material = this.product.material;
+                     this.price.forEach(e => {
+                        e.price = "";
+                        e.size = "";
+                        e.buyPrice = "";
+                     })
+                     for (var i = 0; i < this.product.price.length; i++) {
+                        this.price[i].size = this.product.price[i].size;
+                        this.price[i].price = this.product.price[i].price;
+                        this.price[i].buyPrice = this.product.price[i].buyPrice;
+                        console.log(this.price[i].price);
+                     }
+                     console.log(this.price);
+                     this.mainImage = null;
+                     this.images = [];
+
+
+                     console.log("product");
+                     console.log(this.product);
+                  })
+               }
+
+            },
+            deleteProduct(id) {
+
+               var res = window.confirm("Ви точно бажаєте видалити?");
+               if (res) {
+                  var Data = new FormData();
+                  Data.append("id", id);
+                  axios.post("/admin/deleteProductById", Data, {
+                     headers: {
+                        'accept': 'application/json',
+                        'Accept-Language': 'en-US,en;q=0.8',
+                        'Content-Type': `multipart/form-data`,
+                        "Authorization": "Bearer " + localStorage.token
+                     }
+                  }).then(res => {
+                     this.getAllProductsByCategoty();
+                     alert(res.data);
+                  })
+               }
+
+            },
+            getAllProductsByCategoty() {
+               var id = this.category_all.substring(this.category_all.lastIndexOf('/') + 1);
+               data = {
+                  id
+               }
+               axios.post("/getProductsByCategory", data).then(res => {
+                  this.allProductsByCat = res.data;
+               })
+
+            },
+            selectionChange(editor, range) {
+               if (range) {
+                  if (range.start !== range.end) {
+                     this.selectedText = editor.getText(range.start, range.end)
+                     editor.formatText(range, 'custom', 'hello world')
+                  }
+               }
+            },
+            clear() {
+               this.title = "";
+               this.description = "";
+               this.material = [];
+               this.postprocessing = [];
+               this.material = [];
+
+               this.price.forEach(e => { e.price = ""; e.size = ""; e.buyPrice = ""; });
+               this.mainImage = null;
+               this.images = [];
+               this.error = "";
+               $('.custom-file-label1').html("Головна картинка");
+               $('.custom-file-label2').html("Картинки");
+               this.onEdit = false;
+            },
+            onSubmit() {
+               console.log(this.material);
+               this.error = ""
+               if (this.title == "") this.error += "Введіть назву! <br>";
+               if (this.description == "") this.error += "Введіть опис! <br>";
+               if (this.category == null) this.error += "Виберіть категорію! <br>";
+               var counterValid = 0;
+               var priceInvalid = false;
+               this.price.forEach(p => {
+                  if (p.buyPrice != "" && p.price != "" && p.size != "") counterValid++;
+                  if (p.buyPrice != "" && p.price == "" && p.size == "") priceInvalid = true;
+                  if (p.buyPrice == "" && p.price != "" && p.size == "") priceInvalid = true;
+                  if (p.buyPrice == "" && p.price == "" && p.size != "") priceInvalid = true;
+                  if (p.buyPrice != "" && p.price != "" && p.size == "") priceInvalid = true;
+                  if (p.buyPrice != "" && p.price == "" && p.size != "") priceInvalid = true;
+                  if (p.buyPrice == "" && p.price != "" && p.size != "") priceInvalid = true;
+
+               })
+               if (counterValid == 0 || priceInvalid) this.error += "Вкажіть коректну ціну!  <br>";
+               if (this.material == 0) this.error += "Виберіть матеріал! <br>";
+               if (this.postprocessing == 0) this.error += "Виберіть обробку!<br>";
+               if (this.mainImage == null) this.error += "Загрузіть титульну картинку! <br>";
+               if (this.images.length < 1 || this.images.length > 8) this.error += "Загрузіть від 1 до 8 картинок!<br>";
+               console.log(this.images);
+               if (this.title.length > 40) this.error += "Заголовок повинен бути менше 40 символів!<br>";
+               if (this.error == "") {
+
+                  var Data = new FormData();
+                  Data.append("category", this.category);
+                  Data.append("title", this.title);
+                  Data.append("description", this.description);
+                  Data.append("material", this.material);
+                  Data.append("postprocessing", this.postprocessing);
+                  var tempPrice = [];
+                  this.price.forEach(e => {
+                     if (e.size != "" && e.price != "" && e.buyPrice != "") tempPrice.push({
+                        price: e.price,
+                        size: e.size,
+                        buyPrice: e.buyPrice
+                     });
+                  })
+                  console.log(tempPrice);
+                  Data.append("price", JSON.stringify(tempPrice));
+                  Data.append("mainImage", this.mainImage);
+                  this.images.forEach((i, index) => {
+                     Data.append("images" + index, i);
+
+                  });
+                  axios.post('/admin/save-new-product', Data, {
+                     headers: {
+                        'accept': 'application/json',
+                        'Accept-Language': 'en-US,en;q=0.8',
+                        'Content-Type': `multipart/form-data`,
+                        "Authorization": "Bearer " + localStorage.token
+                     }
+                  }).then(res => {
+                     console.log(res.data);
+                     this.getAllProductsByCategoty();
+                     alert(res.data);
+
+
+                  });
+               }
+
+            },
+            onSubmitEdit() {
+               console.log(this.material);
+               this.error = ""
+               if (this.title == "") this.error += "Введіть назву! <br>";
+               if (this.description == "") this.error += "Введіть опис!<br> ";
+               if (this.category == null) this.error += "Виберіть категорію! <br>";
+               var counterValid = 0;
+               var priceInvalid = false;
+               this.price.forEach(p => {
+                  if (p.buyPrice != "" && p.price != "" && p.size != "") counterValid++;
+                  if (p.buyPrice != "" && p.price == "" && p.size == "") priceInvalid = true;
+                  if (p.buyPrice == "" && p.price != "" && p.size == "") priceInvalid = true;
+                  if (p.buyPrice == "" && p.price == "" && p.size != "") priceInvalid = true;
+                  if (p.buyPrice != "" && p.price != "" && p.size == "") priceInvalid = true;
+                  if (p.buyPrice != "" && p.price == "" && p.size != "") priceInvalid = true;
+                  if (p.buyPrice == "" && p.price != "" && p.size != "") priceInvalid = true;
+
+               })
+               if (counterValid == 0 || priceInvalid) this.error += "Вкажіть коректну ціну!  <br>";
+               if (this.material == 0) this.error += "Виберіть матеріал! <br>";
+               if (this.postprocessing == 0) this.error += "Виберіть обробку! <br>";
+               // if (this.mainImage == null) this.error += "Загрузіть титульну картинку! ";
+               // if (this.images.length < 1 || this.images.length > 8) this.error += "Загрузіть від 1 до 8 картинок";
+               if (this.title.length > 40) this.error += "Заголовок повинен бути менше 40 символів! <br>";
+               if (this.error == "") {
+
+                  var Data = new FormData();
+                  Data.append("id", this.product.id);
+                  Data.append("category", this.category);
+                  alert(this.category);
+                  Data.append("title", this.title);
+                  Data.append("description", this.description);
+                  Data.append("material", this.material);
+                  Data.append("postprocessing", this.postprocessing);
+                  var tempPrice = [];
+                  this.price.forEach(e => {
+                     if (e.size != "" && e.price != "" && e.buyPrice != "") tempPrice.push({
+                        price: e.price,
+                        size: e.size,
+                        buyPrice: e.buyPrice
+                     });
+                  })
+                  // console.log(tempPrice);
+                  Data.append("price", JSON.stringify(tempPrice));
+                  console.log(this.mainImage);
+                  if (this.mainImage != null) {
+                     Data.append("mainImage", this.mainImage);
+                  }
+                  console.log(this.images);
+                  if (this.images.length > 0 && this.images.length < 8) {
+                     this.images.forEach((i, index) => {
+                        Data.append("images" + index, i);
+
+                     });
+                  }
+                  axios.post('/admin/save-edit-product', Data, {
+                     headers: {
+                        'accept': 'application/json',
+                        'Accept-Language': 'en-US,en;q=0.8',
+                        'Content-Type': `multipart/form-data`,
+                        "Authorization": "Bearer " + localStorage.token
+                     }
+                  }).then(res => {
+                     console.log(res.data);
+                     this.getAllProductsByCategoty();
+                     alert(res.data);
+
+                  });
+               }
+
+            },
+            getMainImage() {
+               this.mainImage = mainImage.files[0];
+            },
+            getImages() {
+               this.images = Array.from(images.files);
             }
-
-         },
-         getMainImage() {
-            this.mainImage = mainImage.files[0];
-         },
-         getImages() {
-            this.images = Array.from(images.files);
          }
-      }
-   })
+      })
 
 
 
 
 
-   $(document).ready(function () {
-      $('.myCategory').on('click', function () {
-         //   console.log($(this));
+      $(document).ready(function () {
+         $('.myCategory').on('click', function () {
+            //   console.log($(this));
+         });
+
+         $('.custom-file-input').on("change", function () {
+            var files = $(this)[0].files;
+            var names = "";
+            $.each(files, (index, value) => {
+               names += value.name + ", ";
+            })
+            names = names.slice(0, -2);
+            //  console.log(names);
+            $(this).prev('.custom-file-label').html(names);
+         });
+
       });
-
-      $('.custom-file-input').on("change", function () {
-         var files = $(this)[0].files;
-         var names = "";
-         $.each(files, (index, value) => {
-            names += value.name + ", ";
-         })
-         names = names.slice(0, -2);
-         //  console.log(names);
-         $(this).prev('.custom-file-label').html(names);
-      });
-
-   });
-</script>
+   </script>

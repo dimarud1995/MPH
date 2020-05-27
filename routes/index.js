@@ -30,7 +30,8 @@ router.get('/category/:category', function (req, res, next) {
     var catId = catsMap[req._parsedOriginalUrl.path]
     var categoryName = getCategoryName(catId)
     var products = getProducts(catId)
-
+    console.log(products);
+    console.log(categoryName);
     res.render('products', {
         category: categoryName,
         products: products,
@@ -55,8 +56,10 @@ router.post("/get-last-viewed", function (req, res) {
     return res.json(prod);
 });
 router.post("/getRandomProducts", function (req, res) {
-
-    var prod = getRandomProducts(6);
+    if (products.length > 6)
+        var prod = getRandomProducts(6);
+    else prod = products;
+    console.log(prod);
     return res.json(prod);
 });
 router.post("/getProduct", function (req, res) {
@@ -174,6 +177,14 @@ router.post("/get-warhouses", function (req, res) {
 });
 ///
 // support functions
+router.post("/getProductsByCategory", function (req, res) {
+    var id = req.body.id;
+    console.log(id)
+    var ps = products.filter(q => q.categoryName == id);
+    console.log(ps);
+    return res.json(ps);
+})
+
 function getSum(bookedProducts) {
     return bookedProducts.map((x) => x.price).reduce((a, b) => a + b)
 }

@@ -5,6 +5,15 @@ body {
     background-color: #fafafa;
 }
 
+
+
+@media screen and (max-width:700px) {
+    .my-col {
+        margin: 20px 0;
+    }
+}
+
+
 .transition-5 {
     -webkit-transition: all 0.5s;
     transition: all 0.5s;

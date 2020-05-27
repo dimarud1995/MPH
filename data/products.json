@@ -1,21 +1,54 @@
 [{
-    "id": 1590436906722,
+    "id": 1590581605092,
     "category": 1,
     "categoryName": "souvenirs",
-    "title": "sssssssssssssssssss",
-    "description": "12312q12s",
-    "material": ["alder", "ash"],
-    "postprocessing": ["paint"],
+    "title": "12w12",
+    "description": "12s12w",
+    "material": ["pear"],
+    "postprocessing": ["mordent"],
     "price": [{
-        "price": "12",
-        "size": "12x231"
-    }, {
-        "price": "312",
-        "size": "13x221"
-    }, {
-        "price": "1051",
-        "size": "2312x23"
+        "price": "21",
+        "size": "12",
+        "buyPrice": "12"
     }],
-    "mainImage": "/images/products/1590436906722_category3.png",
-    "images": ["/images/products/1590436906722_category5.png", "/images/products/1590436906722_category6.png"]
+    "mainImage": "/images/products/1590581605092_c_photoframes.jpg",
+    "images": ["/images/products/1590581605092_c_souvenirs.jpg"]
+}, {
+    "id": 1590581672829,
+    "category": 1,
+    "categoryName": "souvenirs",
+    "title": "2121",
+    "description": "q22",
+    "material": ["ash", "oak", "pear"],
+    "postprocessing": ["varnish", "oil"],
+    "price": [{
+        "price": "21",
+        "size": "12",
+        "buyPrice": "12"
+    }],
+    "mainImage": "/images/products/1590581672829_c_souvenirs.jpg",
+    "images": ["/images/products/1590581672829_c_weddings.jpg"]
+}, {
+    "id": 1590583274526,
+    "category": 1,
+    "categoryName": "souvenirs",
+    "title": "biewyvweliwve jlhew xylwebx lew xwed ede",
+    "description": "ewkhcblchjes cesjhclsejces",
+    "material": ["alder", "ash", "oak", "pear", "nut", "plywood"],
+    "postprocessing": ["paint", "varnish", "oil", "mordent"],
+    "price": [{
+        "price": "21231",
+        "size": "1211",
+        "buyPrice": "1212"
+    }, {
+        "price": "312312",
+        "size": "3123123",
+        "buyPrice": "123123"
+    }, {
+        "price": "31231232",
+        "size": "312312",
+        "buyPrice": "312312"
+    }],
+    "mainImage": "/images/products/1590583274526_c_clocks_2.jpg",
+    "images": ["/images/products/1590583274526_c_clocks_2.jpg", "/images/products/1590583274526_c_decor_2.jpg", "/images/products/1590583274526_c_doors.jpg", "/images/products/1590583274526_c_forkids.jpg"]
 }]

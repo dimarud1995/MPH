@@ -14,6 +14,16 @@
             <li><a href="/category/for-kids" class="myA">Для дітей</a></li>
             <li><a href="/category/decor" class="myA">Декорації</a></li>
             <li><a href="/category/with-names" class="myA">Іменні вироби</a></li>
+            <li>
+                <div class="form-check"
+                    style="color:green; opacity:0.6; font-size:0.7em; margin-left:10px; margin-top:20px; cursor:pointer;">
+                    <input type="checkbox" id="userTarget" name="userTarget" class="form-check-input"
+                        v-model="newWindow" style="margin-top:5px;">
+                    <label for="userTarget" class="form-check-label" style="cursor:pointer;">Відкривати вироби <br> в
+                        новому вікні</label>
+
+                </div>
+            </li>
         </ul>
     </div>
     <div class="container"
@@ -27,19 +37,20 @@
             <hr />
             <div id="products" style="matgin-top:10px; padding-top:10px;">
                 <div class="row">
-                    {{#each products}}
-                    <div class="col-6 col-lg-3 card-wrapper" style="padding:1%; margin:0px;">
+
+                    <div class="col-6 col-lg-3 card-wrapper" style="padding:2%; margin:0px;"
+                        v-for="(e,i) in allProducts">
                         <div class="product ply-card">
-                            <a href="/product/{{this.id}}">
+                            <a :target="isMobile()? '_self':userTarget" :href="'/product/'+e.id">
                                 <div class="card">
-                                    <img loading="lazy" class="card-img-top" src="{{this.mainImage}}">
+                                    <img loading="lazy" class="card-img-top" :src="e.mainImage">
                                     <div style="padding: 5%;">
-                                        <h5>{{this.title}}
+                                        <h5>\{{e.title}}
                                         </h5>
-                                        <h6>{{this.price}}₴</h6>
+                                        <h6 style="color:green;">\{{e.price[0].price}}₴</h6>
 
                                         <div style="position: absolute;  z-index: 99; bottom:45px; right:0px; opacity:0; transition:all 0.2s; margin:0px;"
-                                            id="girl{{this.id}}">
+                                            :id="'girl'+e.id">
                                             <div style="position: relative;">
                                                 <img src="/images/girl/ok_1.png" class="img-fluid"
                                                     style="height: 80px;">
@@ -60,7 +71,7 @@
                             </a>
                         </div>
                     </div>
-                    {{/each}}
+
                 </div>
             </div>
         </div>
@@ -74,9 +85,9 @@
 
 
             <div class="col-6 col-md-4 col-lg-2 card-wrapper" v-for="(p,i) in products"
-                style="margin:0; padding-left:0.5%; padding-right:0.5%; padding-top:2$; padding-bottom:2%;">
+                style="margin:0; padding-left:2%; padding-right:2%; padding-top:2$; padding-bottom:2%;">
                 <div class="product ply-card">
-                    <a :href="'/product/'+p.id">
+                    <a :target="isMobile()? '_self':userTarget" :href="'/product/'+p.id">
                         <div class="card">
                             <div style=" overflow:hidden;">
                                 <img class="card-img-top" :src="p.mainImage">
@@ -89,7 +100,7 @@
                                 <h6 style="margin-bottom: 30px;">\{{p.title}}
                                 </h6>
                                 <span style="position:absolute; margin-top: 6px; bottom:0px;
-                                        color:green; margin:5px;">\{{p.price}}₴</span>
+                                        color:green; margin:5px;">\{{p.price[0].price}}₴</span>
                             </div>
                         </div>
                     </a>
@@ -152,20 +163,57 @@
         data: {
             products: [],
             comments: [],
-            text: ""
+            allProducts: [],
+            text: "",
+            newWindow: true,
+            userTarget: "_blank"
+        },
+        watch: {
+            newWindow(val) {
+                if (val) {
+                    this.userTarget = "_blank";
+                    localStorage.userTarget = "_blank";
+                } else {
+
+                    this.userTarget = "_self";
+                    localStorage.userTarget = "_self";
+                }
+            }
+        },
+        mounted() {
+            var ut = localStorage.userTarget;
+            if (ut == null) {
+                ut = "_blank";
+                localStorage.userTarget = "_blank"
+            } else {
+                console.log(ut);
+
+                this.userTarget = ut;
+                if (this.userTarget == "_blank") this.newWindow = true;
+                else this.newWindow = false;
+            }
+
         },
         beforeCreate: function () {
+
+
             var url = window.location.href;
             var id = url.substring(url.lastIndexOf('/') + 1);
             data = {
                 id
             }
+            axios.post("/getProductsByCategory", data).then(res => {
+                this.allProducts = res.data;
+                console.log(this.allProducts);
+            })
+
             axios.post("/getRandomProducts", data).then(res => {
                 this.products = res.data;
                 console.log("products");
                 console.log(res.data);
 
             });
+
             axios.post("/getComments", data).then(res => {
                 console.log("commetns:")
                 console.log(res.data);
@@ -174,6 +222,7 @@
                 console.log(res.data);
 
             });
+
 
         },
         methods: {
@@ -204,6 +253,7 @@
 
         color: grey;
         text-decoration: none;
+        cursor: pointer;
     }
 
     .myA:hover {

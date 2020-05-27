@@ -2,7 +2,7 @@
     <div id="product">
         <div class="d-flex align-items-center justify-content-between">
             <h3>\{{product.title}}</h3>
-            <a @click="goBack()" style="color:green; text-decoration:none; font-size:2em;"><i
+            <a @click="goBack()" style="color:green; text-decoration:none; font-size:2em;" v-if="userTarget=='_self'"><i
                     class="fa fa-arrow-alt-circle-left"></i></a>
         </div>
         <hr />
@@ -31,8 +31,8 @@
 
                     <div class="  d-flex align-items-center justify-content-between form-group">
                         <div>
-                            <h6> <span style="color:green; font-size:1.5em; ">\{{resPrice}}<span
-                                        style="font-size: 0.8em;">₴</span>
+                            <h6> <span style="color:green; font-size:1.5em; "> Ціна: \{{resPrice}}<span
+                                        style="font-size: 0.8em;"> ₴</span>
                                 </span></h5>
                         </div>
 
@@ -114,7 +114,7 @@
                 <div class="col-6 col-md-4 col-lg-2 card-wrapper" v-for="(p,i) in products"
                     style="margin:0; padding-left:0.5%; padding-right:0.5%; padding-top:2$; padding-bottom:2%;">
                     <div class="product ply-card">
-                        <a :href="'/product/'+p.id">
+                        <a :target="isMobile()? '_self':userTarget" :href="'/product/'+p.id">
                             <div class="card">
                                 <div style=" overflow:hidden;">
                                     <img class="card-img-top" :src="p.mainImage">
@@ -217,11 +217,19 @@
             material: "",
             postprocessing: "",
             curPrice: 0,
-            resPrice: 0
+            resPrice: 0,
+            userTarget: "_blank"
         },
-
+        mounted() {
+            var ut = localStorage.userTarget;
+            if (ut == null) {
+                ut = "_blank";
+                localStorage.userTarget = "_blank"
+            } else {
+                this.userTarget = ut;
+            }
+        },
         beforeCreate: function () {
-
 
 
             var url = window.location.href;

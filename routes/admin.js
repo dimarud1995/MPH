@@ -181,15 +181,90 @@ router.post('/save-new-product', auth, function (req, res, next) {
     var data = JSON.stringify(products);
     fs.writeFile('./data/products.json', data, (err) => {
       if (err) {
-        return res.json(err);
+        return res.json(err.message.toString());
       }
       console.log('The file has been saved!');
     });
     return res.json("ok");
   } catch (err) {
-    return res.json(err);
+    return res.json(err.message.toString());
   }
 });
+router.post('/save-edit-product', auth, function (req, res, next) {
+  try {
+    console.log("========================");
+    var newP = req.body;
+    console.log(req.body);
+    console.log(req.files);
+    console.log("========================");
+    var mainImagePath = ""; //req.body.mainImage;
+    var imagesPath = []; // req.body.images;
+    var id = newP.id;
+    if (req.files != null) {
+      Object.values(req.files).forEach(f => {
+        if (mainImagePath == "") mainImagePath = "/images/products/" + id + "_" + f.name;
+        else {
+          imagesPath.push("/images/products/" + id + "_" + f.name);
+        }
+        f.mv('./public/images/products/' + id + "_" + f.name);
+
+      });
+    }
+    //  console.log(newP);
+
+    var categoryNum = Number.parseInt(newP.category);
+    var categoryName = categories.find(q => q.id == categoryNum).url.replace("/category/", "");
+    var desc = generateMegaDescription(newP.description);
+    var tempPrice = JSON.parse(newP.price);
+    //    console.log(tempPrice);
+
+    //Елемент передається по ссилці так як в масиві об*єкти, а вони ссилочного типа
+    var tempP = products.filter(e => e.id == id);
+    console.log(tempP);
+    console.log(categoryNum);
+    tempP[0].category = categoryNum;
+    tempP[0].categoryName = categoryName;
+    tempP[0].title = newP.title;
+    tempP[0].description = desc;
+    tempP[0].material = newP.material.split(",");
+    tempP[0].postprocessing = newP.postprocessing.split(",");
+    tempP[0].price = tempPrice;
+
+    if (mainImagePath != '') tempP[0].mainImage = mainImagePath;
+    if (imagesPath.length > 0) tempP[0].images = imagesPath;
+
+    console.log(tempP);
+    var data = JSON.stringify(products);
+    fs.writeFile('./data/products.json', data, (err) => {
+      if (err) {
+        return res.json(err.message.toString());
+      }
+      console.log('The file has been saved!');
+    });
+    return res.json("ok");
+  } catch (err) {
+    return res.json(err.message.toString());
+  }
+});
+router.post("/deleteProductById", auth, function (req, res) {
+  try {
+
+    products.splice(products.indexOf(products.filter(q => q.id == req.body.id)[0]))
+    var data = JSON.stringify(products);
+    fs.writeFile('./data/products.json', data, (err) => {
+      if (err) {
+        return res.json(err.message.toString());
+      }
+      console.log('The file has been saved!');
+    });
+    return res.json("Продукт успішно видалено!")
+  } catch (err) {
+    return res.json(err.message.toString());
+  }
+
+})
+
+
 //
 //CREATE CATEGORY
 router.post('/create-category', auth2, function (req, res) {
@@ -223,7 +298,7 @@ router.post('/save-new-category', auth, function (req, res, next) {
     var data = JSON.stringify(categories);
     //const data = new Uint8Array(Buffer.from(json));
     fs.writeFile('./data/categories.json', data, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The Categories has been saved!');
     });
 
@@ -234,14 +309,14 @@ router.post('/save-new-category', auth, function (req, res, next) {
     var data2 = JSON.stringify(catsMap);
     // const data2 = new Uint8Array(Buffer.from(json));
     fs.writeFile('./data/catIdTitleMap.json', data2, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The catsMap has been saved!');
     });
 
 
     return res.send("Ok");
   } catch (err) {
-    return res.json(err);
+    return res.json(err.message.toString());
   }
 
 });
@@ -259,14 +334,14 @@ router.post('/delete-category', auth, function (req, res) {
         categories.splice(index);
         var data = JSON.stringify(categories);
         fs.writeFile('./data/categories.json', data, (err) => {
-          if (err) return res.json(err.message);
+          if (err) return res.json(err.message.toString());
           console.log('The Categories has been saved!');
         });
         var key = curCat[0].url;
         delete catsMap[key];
         var data2 = JSON.stringify(catsMap);
         fs.writeFile('./data/catIdTitleMap.json', data2, (err) => {
-          if (err) return res.json(err.message);
+          if (err) return res.json(err.message.toString());
           console.log('The catsMap has been saved!');
         });
         return res.send("Ok");
@@ -296,13 +371,13 @@ router.post('/savePopularProducts', auth, function (req, res) {
     var data = JSON.stringify(popularProducts);
 
     fs.writeFile('./data/popularProducts.json', data, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The Popular products has been saved!');
     });
     return res.send('Ok');
   } catch (err) {
     console.log(err);
-    return res.json(err);
+    return res.json(err.message.toString());
   }
 });
 router.get('/getPopularProducts', auth, function (req, res) {
@@ -318,12 +393,12 @@ router.post('/declineOrder', auth, function (req, res) {
     newOrders = d.new;
     var newO = JSON.stringify(newOrders);
     fs.writeFile('./data/newOrders.json', newO, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('Order deleted!');
     });
     return res.json("ok");
   } catch (err) {
-    return res.json(err)
+    return res.json(err.message.toString())
   }
 });
 router.post('/newOrder', function (req, res) {
@@ -364,13 +439,13 @@ router.post('/newOrder', function (req, res) {
     console.log(newOrders);
     var json = JSON.stringify(newOrders);
     fs.writeFile('./data/newOrders.json', json, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The file has been saved!');
     });
 
     return res.json("ok")
   } catch (err) {
-    return res.json(err)
+    return res.json(err.message.toString())
   }
 });
 router.post("/setApproved", auth, function (req, res) {
@@ -383,16 +458,16 @@ router.post("/setApproved", auth, function (req, res) {
     var approvedO = JSON.stringify(approvedOrders);
     //console.log(d);
     fs.writeFile('./data/newOrders.json', newO, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The new orders has been saved!');
     });
     fs.writeFile('./data/approvedOrders.json', approvedO, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.error('The approved orders has been saved!');
     });
     return res.json(approved);
   } catch (err) {
-    return res.json(err)
+    return res.json(err.message.toString())
   }
 });
 router.post("/setDone", auth, function (req, res) {
@@ -404,16 +479,16 @@ router.post("/setDone", auth, function (req, res) {
     var doneO = JSON.stringify(doneOrders);
     var approvedO = JSON.stringify(approvedOrders);
     fs.writeFile('./data/approvedOrders.json', approvedO, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The file has been saved!');
     });
     fs.writeFile('./data/doneOrders.json', doneO, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The file has been saved!');
     });
     return res.json("ok");
   } catch (err) {
-    return res.json(err)
+    return res.json(err.message.toString())
   }
 });
 router.post("/setSent", auth, function (req, res) {
@@ -428,16 +503,16 @@ router.post("/setSent", auth, function (req, res) {
 
     console.log(d);
     fs.writeFile('./data/doneOrders.json', doneO, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The file has been saved!');
     });
     fs.writeFile('./data/sentOrders.json', sentO, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The file has been saved!');
     });
     return res.json("ok");
   } catch (err) {
-    return res.json(err)
+    return res.json(err.message.toString())
   }
 });
 //
@@ -461,7 +536,7 @@ router.post("/newFeedback", function (req, res) {
     feedback.push(r);
     var json = JSON.stringify(feedback);
     fs.writeFile('./data/feedback.json', json, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The file has been saved!');
     });
 
@@ -469,7 +544,7 @@ router.post("/newFeedback", function (req, res) {
 
 
   } catch (err) {
-    res.json(err);
+    res.json(err.message.toString());
   }
 });
 router.post("/setFeedbackStatusViewed", auth, function (req, res) {
@@ -479,13 +554,13 @@ router.post("/setFeedbackStatusViewed", auth, function (req, res) {
     feedback.find(q => q.id == f.id).status = f.status;
     var json = JSON.stringify(feedback);
     fs.writeFile('./data/feedback.json', json, (err) => {
-      if (err) return res.json(err.message);
+      if (err) return res.json(err.message.toString());
       console.log('The file has been saved!');
     });
 
     return res.json("ok");
   } catch (err) {
-    return res.json(err)
+    return res.json(err.message.toString())
   }
 });
 //

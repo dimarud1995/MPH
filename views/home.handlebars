@@ -2,8 +2,8 @@
   <div class="parallax3" style="color:white; text-align:center; margin-top:50px;">
     <div style="margin:auto auto;">
       <a href="https://instagram.com/my_plywood_house" style="color:#fff; text-decoration:none;" title="Наш інстаграм">
-        <div class="bebas" style="line-height: 100%;"><i class="fa fa-instagram"></i> My Plywood House <br><span
-            style="font-size:0.70em; ">Для
+        <div class="bebas" style="line-height: 40%; font-size:1.5em;"><i class="fa fa-instagram"></i> Vasina
+          Hata<br><span style="font-size:0.48em; ">Для
             тих,
             хто вибирає краще</span></div>
       </a>
@@ -116,7 +116,7 @@
 
   </div>
   <!--=====================================-->
-  <div id="hot-propositions" class="container myContainerHeader">
+  {{!-- <div id="hot-propositions" class="container myContainerHeader">
     <h3>Популярні вироби</h3>
   </div>
   <div class="container">
@@ -157,11 +157,11 @@
 
       {{/each}}
     </div>
-  </div>
+  </div> --}}
   <div id="menu-cat"></div>
   <div class="parallax1" style="color:white; text-align:center;">
     <div style="margin:auto auto;">
-      {{!-- <div>My Plywood House</div> --}}
+      {{!-- <div>Vasina-Hata.com</div> --}}
       <div class="bebas">Категорії</div>
       {{!-- <div>Висока якість за розумною ціною!</div> --}}
     </div>
@@ -247,7 +247,7 @@
       <div class="row bebas">
         <div class="col-md-3" style="margin: auto 0; text-align:center;" title="Наш інстаграм"> <a target="blank"
             href="https://instagram.com/my_plywood_house"
-            style="display: block; text-decoration:none; color:#fff;">My<br>Plywood<br>House</a></div>
+            style="display: block; text-decoration:none; color:#fff;">Vasina<br>Hata</a></div>
         <div class="col-md-6"></div>
         <div class="col-md-3" style="margin: auto 0; text-align:center;" title="Наш інстаграм">
           <a target="blank" href="https://instagram.com/my_plywood_house"
@@ -268,13 +268,13 @@
   <div class="container-fluid" style=" margin:0; padding:0; background-color:#fff">
     <div class="row" style="margin:0 10%;">
       <div class="col-md-5 col-lg-7 " style="text-align:center;">
-        <h1 :style="isMobile()? 'margin-top:20px;':'padding-top:16%;' ">My Plywood House</h1>
+        <h1 :style="isMobile()? 'margin-top:20px;':'padding-top:16%;' ">Vasina-Hata.com</h1>
         <br>
         {{!-- <h2 style="color:green;">У нас є все, <br> що
           потрібно вашій дружині
         </h2> --}}
-        <h1 style="color:green;">все,</h1>
-        <h2 style="color:green;"> що вам потрібно
+        <h1 style="color:green;">Речі,</h1>
+        <h2 style="color:green;">що потрібні на кожній кухні
         </h2>
         <a class="btn btn-outline-success myWifeBtn" href="/category/wood-kitchen-accessories"
           style="margin:20px;font-family: 'Bebas'; font-size:2em; padding:10px 70px;  border-radius:300px;">тут</a>
@@ -405,7 +405,7 @@
         <h3>Наша історія</h3>
       </div>
       <p>
-        «My Plywood House» - це молода компанія, що була створена в 2019 році, на базі виробничого підприємства з
+        «Vasina Hata» - це молода компанія, що була створена в 2019 році, на базі виробничого підприємства з
         досвідом роботи більше 9 років. А уже в 2020 році на ваш результат працює штат працівників, що складається із
         висококваліфікованих дизайнерів, менеджерів, верстатників, операторів ЧПУ фрезерних на лазерних станків.
       </p>
@@ -714,7 +714,7 @@
 
     .parallax1 {
       background-image: url("/images/ImageStatic/back_5.jpg");
-      padding-top: 150px;
+      background-attachment: scroll padding-top: 150px;
       padding-bottom: 150px;
       font-size: 2em;
       font-weight: bold;
@@ -727,7 +727,7 @@
 
     .parallax2 {
       background-image: url("/images/ImageStatic/back_10.jpg");
-      padding-top: 150px;
+      background-attachment: scroll padding-top: 150px;
       padding-bottom: 150px;
       font-size: 2em;
       font-weight: bold;
@@ -740,7 +740,7 @@
 
     .parallax3 {
       background-image: url("/images/ImageStatic/back_11.png");
-      padding-top: 150px;
+      background-attachment: scroll padding-top: 150px;
       padding-bottom: 150px;
       font-size: 2em;
       font-weight: bold;
