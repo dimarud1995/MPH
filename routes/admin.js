@@ -249,7 +249,8 @@ router.post('/save-edit-product', auth, function (req, res, next) {
 router.post("/deleteProductById", auth, function (req, res) {
   try {
 
-    products.splice(products.indexOf(products.filter(q => q.id == req.body.id)[0]))
+    products.splice(products.indexOf(products.filter(q => q.id == req.body.id)[0]), 1);
+
     var data = JSON.stringify(products);
     fs.writeFile('./data/products.json', data, (err) => {
       if (err) {
