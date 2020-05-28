@@ -49,29 +49,14 @@
           <h6 class="titleC align-middle" style="text-align: center; font-size:1.5em;"> <span style="  margin: 0;   position: absolute;    top: 50%;                        
                   transform: translate(-50%, -50%);">
               \{{e.title}}
-              <h6><span style="color:green; font-size:2em;">\{{e.price[0].price}}<span style="font-size:0.7em;">
-                    ₴</span></span></span>
-            </h5>
-            {{!-- <div style="text-align: right;">
-              <div style="position: absolute;  z-index: 99; bottom:45px; right:0px; opacity:0; transition:all 0.2s;"
-                :id="'girl'+e.id">
-                <div style="position: relative;">
-                  <img src="/images/girl/ok_1.png" class="img-fluid" style="height: 80px;">
-
-                </div>
-              </div>
-              <button :id="e.id" class="btn btn-success btn-buy btn-sm" onclick="buy(event)"
-                style="font-family: 'AdonisC';">
-                В корзину
-              </button>
-            </div> --}}
-            </span></h5>
-
+              <h6>
+                <span style="color:green; font-size:2em;">\{{e.price[0].price}}
+                  <span style="font-size:0.7em;">
+                    ₴</span>
+                </span>
+              </h6>
         </a>
-
       </div>
-
-
     </div>
     <div class="row" v-if="isMobile()">
 
@@ -116,33 +101,33 @@
 
   </div>
   <!--=====================================-->
-  {{!-- <div id="hot-propositions" class="container myContainerHeader">
+  <div id="hot-propositions" class="container myContainerHeader">
     <h3>Популярні вироби</h3>
   </div>
   <div class="container">
     <div class="row">
-      {{#each popularProducts}}
-      <div class="col-6  col-sm-4 col-md-3" style="margin:0%;padding:1%;">
-        <div class="card myT">
-          <a href="/product/{{this.id}}" style=" color:black; text-decoration:none;">
 
-            <img loading="lazy" class="img-fluid" src="{{this.mainImage}}">
+      <div class="col-6  col-sm-4 col-md-3" style="margin:0%;padding:1%;" v-for="(e,i) in popularProducts">
+        <div class="card myT">
+          <a :href="'/product/'+e.id" style=" color:black; text-decoration:none;">
+
+            <img loading="lazy" class="img-fluid" :src="e.mainImage">
             <div style="padding: 5%;">
-              <h4>{{this.title}}</h4>
-              <h5><span style="color:red;">{{this.price}}<span style="font-size:0.7em;"> ₴</span></span></span>
+              <h4>\{{e.title}}</h4>
+              <h5><span style="color:red;">\{{e.price}}<span style="font-size:0.7em;"> ₴</span></span></span>
               </h5>
               <div style="text-align: right;">
                 <div style="position: absolute;  z-index: 99; bottom:45px; right:0px; opacity:0; transition:all 0.2s;"
-                  id="girl{{this.id}}">
+                  :id="'girl'+e.id">
                   <div style="position: relative;">
                     <img src="/images/girl/ok_1.png" class="img-fluid" style="height: 80px;">
 
                   </div>
                 </div>
-                <button id="{{this.id}}-default-default-{{this.price}}" class="btn btn-success btn-buy btn-sm"
+                {{!-- <button id="{{this.id}}-default-default-{{this.price}}" class="btn btn-success btn-buy btn-sm"
                   onclick="buy(event)">
                   В корзину
-                </button>
+                </button> --}}
               </div>
 
             </div>
@@ -155,9 +140,8 @@
         </div>
       </div>
 
-      {{/each}}
     </div>
-  </div> --}}
+  </div>
   <div id="menu-cat"></div>
   <div class="parallax1" style="color:white; text-align:center;">
     <div style="margin:auto auto;">
@@ -428,7 +412,6 @@
       <div class="bebas">Контакти</div>
       <div> <i class="fa fa-arrow-down"></i></div>
     </div>
-
   </div>
 
 </div>
@@ -459,12 +442,16 @@
 
     data: {
       lastViewedId: [],
-      lastViewed: []
+      lastViewed: [],
+      popularProducts: []
     },
     methods: {
 
     },
     created() {
+      axios.get("/get-popular-products").then(res => {
+        this.popularProducts = res.data;
+      });
       if (localStorage.lastViewedId != null)
         if (JSON.parse(localStorage.lastViewedId).length > 0) {
           console.log(" lastViewed > 0");

@@ -366,10 +366,14 @@ router.post('/savePopularProducts', auth, function (req, res) {
   try {
     if (req.body == null || req.body == '') popularProducts = [];
     else popularProducts = req.body;
+    var temp = [];
     popularProducts.forEach(e => {
+      temp.push(products.filter(q => q.id == e.id));
+    })
+    temp.forEach(e => {
       e.price = e.price[0].price;
     })
-    var data = JSON.stringify(popularProducts);
+    var data = JSON.stringify(temp);
 
     fs.writeFile('./data/popularProducts.json', data, (err) => {
       if (err) return res.json(err.message.toString());

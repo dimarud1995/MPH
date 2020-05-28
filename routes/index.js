@@ -21,7 +21,9 @@ router.get('/', function (req, res, next) {
         popularProducts: popularProducts,
     })
 })
-
+router.get('/faq', function (req, res) {
+    res.render("FAQ");
+})
 router.get('/aboutus', function (req, res) {
     res.render("aboutus");
 })
@@ -43,6 +45,9 @@ router.get('/product/:id', function (req, res, next) {
     res.render('product', {
         product: product
     })
+})
+router.get("/get-popular-products", function (req, res) {
+    return res.json(popularProducts);
 })
 router.post("/get-last-viewed", function (req, res) {
     var prod = [];
