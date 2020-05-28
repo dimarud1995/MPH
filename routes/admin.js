@@ -249,7 +249,8 @@ router.post('/save-edit-product', auth, function (req, res, next) {
 router.post("/deleteProductById", auth, function (req, res) {
   try {
 
-    products.splice(products.indexOf(products.filter(q => q.id == req.body.id)[0]))
+    products.splice(products.indexOf(products.filter(q => q.id == req.body.id)[0]), 1);
+
     var data = JSON.stringify(products);
     fs.writeFile('./data/products.json', data, (err) => {
       if (err) {
@@ -365,10 +366,14 @@ router.post('/savePopularProducts', auth, function (req, res) {
   try {
     if (req.body == null || req.body == '') popularProducts = [];
     else popularProducts = req.body;
+    var temp = [];
     popularProducts.forEach(e => {
+      temp.push(products.filter(q => q.id == e.id));
+    })
+    temp.forEach(e => {
       e.price = e.price[0].price;
     })
-    var data = JSON.stringify(popularProducts);
+    var data = JSON.stringify(temp);
 
     fs.writeFile('./data/popularProducts.json', data, (err) => {
       if (err) return res.json(err.message.toString());
