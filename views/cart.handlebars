@@ -13,25 +13,34 @@
                 class="cart-product ply-card card">
                 <a href="/product/{{this.id}}">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class=" justify-content-start align-items-center">
+                        <div class=" justify-content-start align-items-center" style="display: flex;">
                             <img style="margin:10px; height:100px; width:auto;" src="{{this.mainImage}}">
-                            <span style="margin:10px;">{{this.title}}</span>
+                            <div style="padding:10px 0;" class=" name-d"> <span
+                                    style="margin:10px;">{{this.title}}</span></div>
+
                         </div>
-                        <div style="margin:10px; text-align:right;">
-                            <strong class="price"
-                                id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}">{{this.price}}₴</strong>
+                        <div style="margin:10px; text-align:right; display:flex;">
+                            <div
+                                style="margin:10px 0; color:green; font-weight:300; font-family:Arial, Helvetica, sans-serif">
+                                <strong class="price"
+                                    id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}">{{this.price}}<span
+                                        style="font-size: 0.8em; font-weight:300;">₴</span></strong>
+                            </div>
+
                             <button id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}"
                                 class="remove btn btn-danger btn-sm" onclick="removeProdyctFromCart(event)"><i
                                     class="fa fa-trash"></i></button>
                         </div>
                     </div>
+                    <div style="padding:10px 0;" class=" name-m"> <span style="margin:10px;">{{this.title}}</span></div>
                 </a>
             </div>
             {{/each}}
             <div class="d-flex justify-content-end">
                 <div>
-                    <div class="form-group d-flex justify-content-end">
-                        Усього: <span id="sum" style="margin-left: 10px;margin-right:5px"></span> ₴
+                    <div class="form-group justify-content-end" style="text-align: right; color:green;">
+                        Усього: <span id="sum" style="margin-left: 10px;margin-right:5px"></span><span
+                            style="font-size: 0.8em;">₴</span>
                     </div>
                     <div>
 
@@ -367,3 +376,23 @@
     }
 
 </script>
+<style>
+    .name-d {
+        display: block;
+
+    }
+
+    .name-m {
+        display: none;
+    }
+
+    @media screen and (max-width:768px) {
+        .name-d {
+            display: none;
+        }
+
+        .name-m {
+            display: block;
+        }
+    }
+</style>

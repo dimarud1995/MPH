@@ -67,7 +67,8 @@
                               </div>
                            </div>
                         </td>
-                        <td><button class="btn btn-outline-success" @click="fromPopular(index)">Видалити</button></td>
+                        <td style="text-align: right;"><button class="btn btn-outline-success"
+                              @click="fromPopular(index)">Видалити</button></td>
                      </tr>
                   </tbody>
                </table>
@@ -133,6 +134,7 @@
          toPopular(id) {
             if (this.popularProducts == null) this.popularProducts = [];
             var pp = this.products[id];
+            pp.price = this.products[id].price[0].price;
             this.popularProducts.push(pp);
             console.log(this.popularProducts);
          },

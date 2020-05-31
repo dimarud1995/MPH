@@ -6,30 +6,42 @@
             "name": "Bільха"
         },
         "ash": {
-            "k": 1.16,
+            "k": 1,
             "img": "",
             "name": "Ясен"
         },
         "oak": {
-            "k": 1.33,
+            "k": 1,
             "img": "",
             "name": "Дуб"
         },
         "pear": {
-            "k": 1.33,
+            "k": 1,
             "img": "",
             "name": "Груша"
         },
         "nut": {
-            "k": 1.33,
+            "k": 1,
             "img": "",
             "name": "Горіх"
         },
-        "plywood": {
+        "plywood4": {
             "k": 1,
             "img": "",
-            "name": "Фанера"
+            "name": "Фанера 4мм"
         },
+	"plywood6": {
+            "k": 1,
+            "img": "",
+            "name": "Фанера 6мм"
+        },
+
+	"plywood10": {
+            "k": 1,
+            "img": "",
+            "name": "Фанера 10мм"
+        },
+
         "default": {
             "k": 1,
             "img": "",
@@ -39,12 +51,12 @@
     },
     "postprocessing": {
         "paint": {
-            "k": 1.25,
+            "k": 1,
             "colors": ["white", "black", "brown", "green", "yellow", "red", "pink", "blue", "grey", "orange"],
             "name": "Фарба"
         },
         "varnish": {
-            "k": 1.25,
+            "k": 1,
             "shades": ["dark", "medium", "light"],
             "name": "Лак"
         },
@@ -57,7 +69,7 @@
             "name": "Без обробки"
         },
         "mordent": {
-            "k": 1.25,
+            "k": 1,
             "shades": ["dark", "medium", "light"],
             "name": "Морилка"
         },
@@ -68,7 +80,7 @@
 
         }
     },
-    "mark_up_k": 1.05,
+    "mark_up_k": 1.00,
     "total_k": 1,
     "advertising_k": 1
 

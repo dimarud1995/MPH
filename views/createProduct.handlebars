@@ -1,4 +1,4 @@
-<div id="app" class="container" style="margin-top: 100px; margin-bottom:50px;">
+<div id="app1" class="container" style="margin-top: 100px; margin-bottom:50px;">
    <div class="row">
       <div class="col-md-6" style="margin-gottom:20px;">
          <div class="card">
@@ -45,7 +45,9 @@
                            <option value="oak">Дуб</option>
                            <option value="pear">Груша</option>
                            <option value="nut">Горіх</option>
-                           <option value="plywood">Фанера</option>
+                           <option value="plywood4">Фанера 4мм</option>
+                           <option value="plywood6">Фанера 6мм</option>
+                           <option value="plywood10">Фанера 10мм</option>
 
                         </select>
                      </div>
@@ -239,342 +241,336 @@
          </div>
       </div>
    </div>
-   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-   <script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+   var app = new Vue({
+      el: '#app1',
+      data: {
+         categories: null,
+         category: 1,
+         category_all: "/category/souvenirs",
+         allProductsByCat: [],
+         title: "",
+         description: "",
+         material: [],
+         postprocessing: [],
+         price: [{
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }, {
+            price: "",
+            size: "",
+            buyPrice: ""
+         }],
+         mainImage: null,
+         images: [],
+         error: "",
+         product: "",
+         onEdit: false
+
+      },
 
 
+      created() {
+         axios.get('/admin/get-categories')
+            .then(res => {
+               this.categories = res.data;
+            });
+         this.getAllProductsByCategoty();
+      },
 
-      var app = new Vue({
-         el: '#app',
-         data: {
-            categories: null,
-            category: 1,
-            category_all: "/category/souvenirs",
-            allProductsByCat: [],
-            title: "",
-            description: "",
-            material: [],
-            postprocessing: [],
-            price: [{
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }, {
-               price: "",
-               size: "",
-               buyPrice: ""
-            }],
-            mainImage: null,
-            images: [],
-            error: "",
-            product: "",
-            onEdit: false
+      methods: {
+         viewProduct(id) {
+            if (id != "" && id != null) {
 
+               window.open("/product/" + id);
+            }
          },
-
-
-         created() {
-            axios.get('/admin/get-categories')
-               .then(res => {
-                  this.categories = res.data;
-               });
-            this.getAllProductsByCategoty();
-         },
-
-         methods: {
-            viewProduct(id) {
-               if (id != "" && id != null) {
-
-                  window.open("/product/" + id);
-               }
-            },
-            editProduct(id) {
-               this.onEdit = true;
-               if (id != "" && id != null) {
-                  var data = {
-                     id: id
-                  }
-
-                  axios.post("/getProduct", data).then(res => {
-                     this.product = res.data;
-                     this.category = this.product.category;
-                     this.categoryName = this.product.categoryName;
-                     this.title = this.product.title;
-                     this.description = this.product.description;
-                     this.postprocessing = this.product.postprocessing;
-                     this.material = this.product.material;
-                     this.price.forEach(e => {
-                        e.price = "";
-                        e.size = "";
-                        e.buyPrice = "";
-                     })
-                     for (var i = 0; i < this.product.price.length; i++) {
-                        this.price[i].size = this.product.price[i].size;
-                        this.price[i].price = this.product.price[i].price;
-                        this.price[i].buyPrice = this.product.price[i].buyPrice;
-                        console.log(this.price[i].price);
-                     }
-                     console.log(this.price);
-                     this.mainImage = null;
-                     this.images = [];
-
-
-                     console.log("product");
-                     console.log(this.product);
-                  })
+         editProduct(id) {
+            this.onEdit = true;
+            if (id != "" && id != null) {
+               var data = {
+                  id: id
                }
 
-            },
-            deleteProduct(id) {
-
-               var res = window.confirm("Ви точно бажаєте видалити?");
-               if (res) {
-                  var Data = new FormData();
-                  Data.append("id", id);
-                  axios.post("/admin/deleteProductById", Data, {
-                     headers: {
-                        'accept': 'application/json',
-                        'Accept-Language': 'en-US,en;q=0.8',
-                        'Content-Type': `multipart/form-data`,
-                        "Authorization": "Bearer " + localStorage.token
-                     }
-                  }).then(res => {
-                     this.getAllProductsByCategoty();
-                     alert(res.data);
-                  })
-               }
-
-            },
-            getAllProductsByCategoty() {
-               var id = this.category_all.substring(this.category_all.lastIndexOf('/') + 1);
-               data = {
-                  id
-               }
-               axios.post("/getProductsByCategory", data).then(res => {
-                  this.allProductsByCat = res.data;
-               })
-
-            },
-            selectionChange(editor, range) {
-               if (range) {
-                  if (range.start !== range.end) {
-                     this.selectedText = editor.getText(range.start, range.end)
-                     editor.formatText(range, 'custom', 'hello world')
-                  }
-               }
-            },
-            clear() {
-               this.title = "";
-               this.description = "";
-               this.material = [];
-               this.postprocessing = [];
-               this.material = [];
-
-               this.price.forEach(e => { e.price = ""; e.size = ""; e.buyPrice = ""; });
-               this.mainImage = null;
-               this.images = [];
-               this.error = "";
-               $('.custom-file-label1').html("Головна картинка");
-               $('.custom-file-label2').html("Картинки");
-               this.onEdit = false;
-            },
-            onSubmit() {
-               console.log(this.material);
-               this.error = ""
-               if (this.title == "") this.error += "Введіть назву! <br>";
-               if (this.description == "") this.error += "Введіть опис! <br>";
-               if (this.category == null) this.error += "Виберіть категорію! <br>";
-               var counterValid = 0;
-               var priceInvalid = false;
-               this.price.forEach(p => {
-                  if (p.buyPrice != "" && p.price != "" && p.size != "") counterValid++;
-                  if (p.buyPrice != "" && p.price == "" && p.size == "") priceInvalid = true;
-                  if (p.buyPrice == "" && p.price != "" && p.size == "") priceInvalid = true;
-                  if (p.buyPrice == "" && p.price == "" && p.size != "") priceInvalid = true;
-                  if (p.buyPrice != "" && p.price != "" && p.size == "") priceInvalid = true;
-                  if (p.buyPrice != "" && p.price == "" && p.size != "") priceInvalid = true;
-                  if (p.buyPrice == "" && p.price != "" && p.size != "") priceInvalid = true;
-
-               })
-               if (counterValid == 0 || priceInvalid) this.error += "Вкажіть коректну ціну!  <br>";
-               if (this.material == 0) this.error += "Виберіть матеріал! <br>";
-               if (this.postprocessing == 0) this.error += "Виберіть обробку!<br>";
-               if (this.mainImage == null) this.error += "Загрузіть титульну картинку! <br>";
-               if (this.images.length < 1 || this.images.length > 8) this.error += "Загрузіть від 1 до 8 картинок!<br>";
-               console.log(this.images);
-               if (this.title.length > 40) this.error += "Заголовок повинен бути менше 40 символів!<br>";
-               if (this.error == "") {
-
-                  var Data = new FormData();
-                  Data.append("category", this.category);
-                  Data.append("title", this.title);
-                  Data.append("description", this.description);
-                  Data.append("material", this.material);
-                  Data.append("postprocessing", this.postprocessing);
-                  var tempPrice = [];
+               axios.post("/getProduct", data).then(res => {
+                  this.product = res.data;
+                  this.category = this.product.category;
+                  this.categoryName = this.product.categoryName;
+                  this.title = this.product.title;
+                  this.description = this.product.description;
+                  this.postprocessing = this.product.postprocessing;
+                  this.material = this.product.material;
                   this.price.forEach(e => {
-                     if (e.size != "" && e.price != "" && e.buyPrice != "") tempPrice.push({
-                        price: e.price,
-                        size: e.size,
-                        buyPrice: e.buyPrice
-                     });
+                     e.price = "";
+                     e.size = "";
+                     e.buyPrice = "";
                   })
-                  console.log(tempPrice);
-                  Data.append("price", JSON.stringify(tempPrice));
+                  for (var i = 0; i < this.product.price.length; i++) {
+                     this.price[i].size = this.product.price[i].size;
+                     this.price[i].price = this.product.price[i].price;
+                     this.price[i].buyPrice = this.product.price[i].buyPrice;
+                     console.log(this.price[i].price);
+                  }
+                  console.log(this.price);
+                  this.mainImage = null;
+                  this.images = [];
+
+
+                  console.log("product");
+                  console.log(this.product);
+               })
+            }
+
+         },
+         deleteProduct(id) {
+
+            var res = window.confirm("Ви точно бажаєте видалити?");
+            if (res) {
+               var Data = new FormData();
+               Data.append("id", id);
+               axios.post("/admin/deleteProductById", Data, {
+                  headers: {
+                     'accept': 'application/json',
+                     'Accept-Language': 'en-US,en;q=0.8',
+                     'Content-Type': `multipart/form-data`,
+                     "Authorization": "Bearer " + localStorage.token
+                  }
+               }).then(res => {
+                  this.getAllProductsByCategoty();
+                  alert(res.data);
+               })
+            }
+
+         },
+         getAllProductsByCategoty() {
+            var id = this.category_all.substring(this.category_all.lastIndexOf('/') + 1);
+            data = {
+               id
+            }
+            axios.post("/getProductsByCategory", data).then(res => {
+               this.allProductsByCat = res.data;
+            })
+
+         },
+         selectionChange(editor, range) {
+            if (range) {
+               if (range.start !== range.end) {
+                  this.selectedText = editor.getText(range.start, range.end)
+                  editor.formatText(range, 'custom', 'hello world')
+               }
+            }
+         },
+         clear() {
+            this.title = "";
+            this.description = "";
+            this.material = [];
+            this.postprocessing = [];
+            this.material = [];
+
+            this.price.forEach(e => { e.price = ""; e.size = ""; e.buyPrice = ""; });
+            this.mainImage = null;
+            this.images = [];
+            this.error = "";
+            $('.custom-file-label1').html("Головна картинка");
+            $('.custom-file-label2').html("Картинки");
+            this.onEdit = false;
+         },
+         onSubmit() {
+            console.log(this.material);
+            this.error = ""
+            if (this.title == "") this.error += "Введіть назву! <br>";
+            if (this.description == "") this.error += "Введіть опис! <br>";
+            if (this.category == null) this.error += "Виберіть категорію! <br>";
+            var counterValid = 0;
+            var priceInvalid = false;
+            this.price.forEach(p => {
+               if (p.buyPrice != "" && p.price != "" && p.size != "") counterValid++;
+               if (p.buyPrice != "" && p.price == "" && p.size == "") priceInvalid = true;
+               if (p.buyPrice == "" && p.price != "" && p.size == "") priceInvalid = true;
+               if (p.buyPrice == "" && p.price == "" && p.size != "") priceInvalid = true;
+               if (p.buyPrice != "" && p.price != "" && p.size == "") priceInvalid = true;
+               if (p.buyPrice != "" && p.price == "" && p.size != "") priceInvalid = true;
+               if (p.buyPrice == "" && p.price != "" && p.size != "") priceInvalid = true;
+
+            })
+            if (counterValid == 0 || priceInvalid) this.error += "Вкажіть коректну ціну!  <br>";
+            if (this.material == 0) this.error += "Виберіть матеріал! <br>";
+            if (this.postprocessing == 0) this.error += "Виберіть обробку!<br>";
+            if (this.mainImage == null) this.error += "Загрузіть титульну картинку! <br>";
+            if (this.images.length < 1 || this.images.length > 8) this.error += "Загрузіть від 1 до 8 картинок!<br>";
+            console.log(this.images);
+            if (this.title.length > 40) this.error += "Заголовок повинен бути менше 40 символів!<br>";
+            if (this.error == "") {
+
+               var Data = new FormData();
+               Data.append("category", this.category);
+               Data.append("title", this.title);
+               Data.append("description", this.description);
+               Data.append("material", this.material);
+               Data.append("postprocessing", this.postprocessing);
+               var tempPrice = [];
+               this.price.forEach(e => {
+                  if (e.size != "" && e.price != "" && e.buyPrice != "") tempPrice.push({
+                     price: e.price,
+                     size: e.size,
+                     buyPrice: e.buyPrice
+                  });
+               })
+               console.log(tempPrice);
+               Data.append("price", JSON.stringify(tempPrice));
+               Data.append("mainImage", this.mainImage);
+               this.images.forEach((i, index) => {
+                  Data.append("images" + index, i);
+
+               });
+               axios.post('/admin/save-new-product', Data, {
+                  headers: {
+                     'accept': 'application/json',
+                     'Accept-Language': 'en-US,en;q=0.8',
+                     'Content-Type': `multipart/form-data`,
+                     "Authorization": "Bearer " + localStorage.token
+                  }
+               }).then(res => {
+                  console.log(res.data);
+                  this.getAllProductsByCategoty();
+                  alert(res.data);
+
+
+               });
+            }
+
+         },
+         onSubmitEdit() {
+            console.log(this.material);
+            this.error = ""
+            if (this.title == "") this.error += "Введіть назву! <br>";
+            if (this.description == "") this.error += "Введіть опис!<br> ";
+            if (this.category == null) this.error += "Виберіть категорію! <br>";
+            var counterValid = 0;
+            var priceInvalid = false;
+            this.price.forEach(p => {
+               if (p.buyPrice != "" && p.price != "" && p.size != "") counterValid++;
+               if (p.buyPrice != "" && p.price == "" && p.size == "") priceInvalid = true;
+               if (p.buyPrice == "" && p.price != "" && p.size == "") priceInvalid = true;
+               if (p.buyPrice == "" && p.price == "" && p.size != "") priceInvalid = true;
+               if (p.buyPrice != "" && p.price != "" && p.size == "") priceInvalid = true;
+               if (p.buyPrice != "" && p.price == "" && p.size != "") priceInvalid = true;
+               if (p.buyPrice == "" && p.price != "" && p.size != "") priceInvalid = true;
+
+            })
+            if (counterValid == 0 || priceInvalid) this.error += "Вкажіть коректну ціну!  <br>";
+            if (this.material == 0) this.error += "Виберіть матеріал! <br>";
+            if (this.postprocessing == 0) this.error += "Виберіть обробку! <br>";
+            // if (this.mainImage == null) this.error += "Загрузіть титульну картинку! ";
+            // if (this.images.length < 1 || this.images.length > 8) this.error += "Загрузіть від 1 до 8 картинок";
+            if (this.title.length > 40) this.error += "Заголовок повинен бути менше 40 символів! <br>";
+            if (this.error == "") {
+
+               var Data = new FormData();
+               Data.append("id", this.product.id);
+               Data.append("category", this.category);
+               //  alert(this.category);
+               Data.append("title", this.title);
+               Data.append("description", this.description);
+               Data.append("material", this.material);
+               Data.append("postprocessing", this.postprocessing);
+               var tempPrice = [];
+               this.price.forEach(e => {
+                  if (e.size != "" && e.price != "" && e.buyPrice != "") tempPrice.push({
+                     price: e.price,
+                     size: e.size,
+                     buyPrice: e.buyPrice
+                  });
+               })
+               // console.log(tempPrice);
+               Data.append("price", JSON.stringify(tempPrice));
+               console.log(this.mainImage);
+               if (this.mainImage != null) {
                   Data.append("mainImage", this.mainImage);
+               }
+               console.log(this.images);
+               if (this.images.length > 0 && this.images.length < 8) {
                   this.images.forEach((i, index) => {
                      Data.append("images" + index, i);
 
                   });
-                  axios.post('/admin/save-new-product', Data, {
-                     headers: {
-                        'accept': 'application/json',
-                        'Accept-Language': 'en-US,en;q=0.8',
-                        'Content-Type': `multipart/form-data`,
-                        "Authorization": "Bearer " + localStorage.token
-                     }
-                  }).then(res => {
-                     console.log(res.data);
-                     this.getAllProductsByCategoty();
-                     alert(res.data);
-
-
-                  });
                }
-
-            },
-            onSubmitEdit() {
-               console.log(this.material);
-               this.error = ""
-               if (this.title == "") this.error += "Введіть назву! <br>";
-               if (this.description == "") this.error += "Введіть опис!<br> ";
-               if (this.category == null) this.error += "Виберіть категорію! <br>";
-               var counterValid = 0;
-               var priceInvalid = false;
-               this.price.forEach(p => {
-                  if (p.buyPrice != "" && p.price != "" && p.size != "") counterValid++;
-                  if (p.buyPrice != "" && p.price == "" && p.size == "") priceInvalid = true;
-                  if (p.buyPrice == "" && p.price != "" && p.size == "") priceInvalid = true;
-                  if (p.buyPrice == "" && p.price == "" && p.size != "") priceInvalid = true;
-                  if (p.buyPrice != "" && p.price != "" && p.size == "") priceInvalid = true;
-                  if (p.buyPrice != "" && p.price == "" && p.size != "") priceInvalid = true;
-                  if (p.buyPrice == "" && p.price != "" && p.size != "") priceInvalid = true;
-
-               })
-               if (counterValid == 0 || priceInvalid) this.error += "Вкажіть коректну ціну!  <br>";
-               if (this.material == 0) this.error += "Виберіть матеріал! <br>";
-               if (this.postprocessing == 0) this.error += "Виберіть обробку! <br>";
-               // if (this.mainImage == null) this.error += "Загрузіть титульну картинку! ";
-               // if (this.images.length < 1 || this.images.length > 8) this.error += "Загрузіть від 1 до 8 картинок";
-               if (this.title.length > 40) this.error += "Заголовок повинен бути менше 40 символів! <br>";
-               if (this.error == "") {
-
-                  var Data = new FormData();
-                  Data.append("id", this.product.id);
-                  Data.append("category", this.category);
-                  //  alert(this.category);
-                  Data.append("title", this.title);
-                  Data.append("description", this.description);
-                  Data.append("material", this.material);
-                  Data.append("postprocessing", this.postprocessing);
-                  var tempPrice = [];
-                  this.price.forEach(e => {
-                     if (e.size != "" && e.price != "" && e.buyPrice != "") tempPrice.push({
-                        price: e.price,
-                        size: e.size,
-                        buyPrice: e.buyPrice
-                     });
-                  })
-                  // console.log(tempPrice);
-                  Data.append("price", JSON.stringify(tempPrice));
-                  console.log(this.mainImage);
-                  if (this.mainImage != null) {
-                     Data.append("mainImage", this.mainImage);
+               axios.post('/admin/save-edit-product', Data, {
+                  headers: {
+                     'accept': 'application/json',
+                     'Accept-Language': 'en-US,en;q=0.8',
+                     'Content-Type': `multipart/form-data`,
+                     "Authorization": "Bearer " + localStorage.token
                   }
-                  console.log(this.images);
-                  if (this.images.length > 0 && this.images.length < 8) {
-                     this.images.forEach((i, index) => {
-                        Data.append("images" + index, i);
+               }).then(res => {
+                  console.log(res.data);
+                  this.getAllProductsByCategoty();
+                  alert(res.data);
 
-                     });
-                  }
-                  axios.post('/admin/save-edit-product', Data, {
-                     headers: {
-                        'accept': 'application/json',
-                        'Accept-Language': 'en-US,en;q=0.8',
-                        'Content-Type': `multipart/form-data`,
-                        "Authorization": "Bearer " + localStorage.token
-                     }
-                  }).then(res => {
-                     console.log(res.data);
-                     this.getAllProductsByCategoty();
-                     alert(res.data);
-
-                  });
-               }
-
-            },
-            getMainImage() {
-               this.mainImage = mainImage.files[0];
-            },
-            getImages() {
-               this.images = Array.from(images.files);
+               });
             }
+
+         },
+         getMainImage() {
+            this.mainImage = mainImage.files[0];
+         },
+         getImages() {
+            this.images = Array.from(images.files);
          }
-      })
+      }
+   })
 
-
-
-
-
-      $(document).ready(function () {
-         $('.myCategory').on('click', function () {
-            //   console.log($(this));
-         });
-
-         $('.custom-file-input').on("change", function () {
-            var files = $(this)[0].files;
-            var names = "";
-            $.each(files, (index, value) => {
-               names += value.name + ", ";
-            })
-            names = names.slice(0, -2);
-            //  console.log(names);
-            $(this).prev('.custom-file-label').html(names);
-         });
-
+   $(document).ready(function () {
+      $('.myCategory').on('click', function () {
+         //   console.log($(this));
       });
-   </script>
+
+      $('.custom-file-input').on("change", function () {
+         var files = $(this)[0].files;
+         var names = "";
+         $.each(files, (index, value) => {
+            names += value.name + ", ";
+         })
+         names = names.slice(0, -2);
+         //  console.log(names);
+         $(this).prev('.custom-file-label').html(names);
+      });
+
+   });
+</script>

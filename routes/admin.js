@@ -368,11 +368,14 @@ router.post('/savePopularProducts', auth, function (req, res) {
     else popularProducts = req.body;
     var temp = [];
     popularProducts.forEach(e => {
-      temp.push(products.filter(q => q.id == e.id));
+      var t = products.filter(q => q.id == e.id)
+      t.forEach(t1 => temp.push(t1));
+      console.log(t);
     })
-    temp.forEach(e => {
-      e.price = e.price[0].price;
-    })
+    console.log(temp);
+    // temp.forEach(e => {
+    //   e.price = e.price[0].price;
+    // })
     var data = JSON.stringify(temp);
 
     fs.writeFile('./data/popularProducts.json', data, (err) => {

@@ -47,7 +47,7 @@
         <a :href="'/product/'+e.id" style="display: block; float:left; text-decoration:none; color:#313131">
           <img class="img-fluid " :src="e.mainImage" loading="lazy">
           <h6 class="titleC align-middle" style="text-align: center; font-size:1.5em;"> <span style="  margin: 0;   position: absolute;    top: 50%;                        
-                  transform: translate(-50%, -50%);">
+                  transform: translate(0%, -50%); width:100%;">
               \{{e.title}}
               <h6>
                 <span style="color:green; font-size:2em;">\{{e.price[0].price}}
@@ -67,7 +67,7 @@
             <img loading="lazy" class="img-fluid" :src="e.mainImage">
             <div style="padding: 5%;">
               <h4>\{{e.title}}</h4>
-              <h5><span style="color:red; ">\{{e.price[0].price}}<span style="font-size:0.7em;">
+              <h5><span style="color:green; font-size:1em; ">\{{e.price[0].price}}<span style="font-size:0.7em;">
                     ₴</span></span></span>
               </h5>
               <div style="text-align: right;">
@@ -81,9 +81,9 @@
                   </div>
 
                 </div>
-                <button :id="e.id" class="btn btn-success btn-buy btn-sm" onclick="buy(event)">
+                {{!-- <button :id="e.id" class="btn btn-success btn-buy btn-sm" onclick="buy(event)">
                   В корзину
-                </button>
+                </button> --}}
               </div>
 
             </div>
@@ -114,7 +114,8 @@
             <img loading="lazy" class="img-fluid" :src="e.mainImage">
             <div style="padding: 5%;">
               <h4>\{{e.title}}</h4>
-              <h5><span style="color:red;">\{{e.price}}<span style="font-size:0.7em;"> ₴</span></span></span>
+              <h5><span style="color:green; font-size:1em; ">\{{e.price[0].price}}<span style="font-size:0.7em;">
+                    ₴</span></span></span>
               </h5>
               <div style="text-align: right;">
                 <div style="position: absolute;  z-index: 99; bottom:45px; right:0px; opacity:0; transition:all 0.2s;"
@@ -451,31 +452,25 @@
     created() {
       axios.get("/get-popular-products").then(res => {
         this.popularProducts = res.data;
+        //    console.log(this.popularProducts);
       });
       if (localStorage.lastViewedId != null)
         if (JSON.parse(localStorage.lastViewedId).length > 0) {
-          console.log(" lastViewed > 0");
           this.lastViewedId = JSON.parse(localStorage.lastViewedId);
           var data = {
             lastViewedId: this.lastViewedId
           }
           axios.post("/get-last-viewed", data).then(res => {
-            console.log(res.data.length);
             if (res.data.length > 6) {
-              console.log("1")
               var x = res.data.length - 6;
-              console.log("x=" + x);
               this.lastViewed = res.data.splice(res.data.length - 6);
-
             } else {
-              console.log("2")
               this.lastViewed = res.data;
             }
           });
         }
         else {
           this.lastViewedId = [];
-          console.log("last viewed =0")
         }
     },
     mounted() {

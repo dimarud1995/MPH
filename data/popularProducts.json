@@ -1,23 +1,70 @@
 [{
-    "id": 1590436906722,
+    "id": 1590772041958,
     "category": 1,
     "categoryName": "souvenirs",
-    "title": "sssssssssssssssssss",
-    "description": "12312q12s",
-    "material": ["alder", "ash"],
-    "postprocessing": ["paint"],
-    "price": "12",
-    "mainImage": "/images/products/1590436906722_category3.png",
-    "images": ["/images/products/1590436906722_category5.png", "/images/products/1590436906722_category6.png"]
+    "title": "Візитниця",
+    "description": "Компактна візитниця прикрасить робочій стіл і ваші візитки завжди будуть у вас під рукою.Під замовлення можемо зробити із назвою вашої компанії чи логотипом.",
+    "material": ["plywood4"],
+    "postprocessing": ["paint", "varnish", "no"],
+    "price": [{
+        "price": "140",
+        "size": "9,5х4х4 см",
+        "buyPrice": "80"
+    }],
+    "mainImage": "/images/products/1590772041958_IMG_20200208_223756.jpg",
+    "images": ["/images/products/1590772041958_IMG_20200208_223756.jpg"]
 }, {
-    "id": 1590436906722,
+    "id": 1590772041958,
     "category": 1,
     "categoryName": "souvenirs",
-    "title": "sssssssssssssssssss",
-    "description": "12312q12s",
-    "material": ["alder", "ash"],
-    "postprocessing": ["paint"],
-    "price": "12",
-    "mainImage": "/images/products/1590436906722_category3.png",
-    "images": ["/images/products/1590436906722_category5.png", "/images/products/1590436906722_category6.png"]
+    "title": "Візитниця",
+    "description": "Компактна візитниця прикрасить робочій стіл і ваші візитки завжди будуть у вас під рукою.Під замовлення можемо зробити із назвою вашої компанії чи логотипом.",
+    "material": ["plywood4"],
+    "postprocessing": ["paint", "varnish", "no"],
+    "price": [{
+        "price": "140",
+        "size": "9,5х4х4 см",
+        "buyPrice": "80"
+    }],
+    "mainImage": "/images/products/1590772041958_IMG_20200208_223756.jpg",
+    "images": ["/images/products/1590772041958_IMG_20200208_223756.jpg"]
+}, {
+    "id": 1590608638890,
+    "category": 3,
+    "categoryName": "wood-kitchen-accessories",
+    "title": "Дерев'яна тарілка",
+    "description": "Дере'яна тарілка виготовлена з екологічного матеріалу та оброблена натуральними засобам захисту деревини (лляна олія та віск), тому є абсолютно безпечною для здоров'я.\n\nТака тарілка має ряд переваг у порівнянні з керамічними, а саме вона міцна і не побється у результаті випадкого падіння; Поглинає тепло гарчих страв тому ви ніколи не обпечету об неї руки; Красивий зовнішній вигляд не залишить нікого байдужим.\n\nПоверхня виробу покрита рослинним маслом, завдяки чому зберігається цілісність дерев'яних волокон, які в процесі використання тарілки піддаються різноманітним факторам зовнішнього середовища\n\nЧудово підійде для других страв, салатів,різниз закусок, нарізок м'яса, сиру, риби, овочів та фруктів.\n",
+    "material": ["ash", "oak"],
+    "postprocessing": ["oil"],
+    "price": [{
+        "price": "100",
+        "size": "Ø 16 см",
+        "buyPrice": "120"
+    }, {
+        "price": "120",
+        "size": "Ø 17 см",
+        "buyPrice": "140"
+    }, {
+        "price": "140",
+        "size": "Ø 18 см",
+        "buyPrice": "160"
+    }, {
+        "price": "160",
+        "size": "Ø 19 см",
+        "buyPrice": "200"
+    }, {
+        "price": "180",
+        "size": "Ø 20 см",
+        "buyPrice": "220"
+    }, {
+        "price": "200",
+        "size": "Ø 21 см",
+        "buyPrice": "230"
+    }, {
+        "price": "222",
+        "size": "Ø 22 см",
+        "buyPrice": "240"
+    }],
+    "mainImage": "/images/products/1590608638890_IMG_20200118_213307_1.jpg",
+    "images": ["/images/products/1590608638890_IMG_20200118_213224.jpg", "/images/products/1590608638890_IMG_20200118_213307_1.jpg"]
 }]
