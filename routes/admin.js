@@ -252,8 +252,19 @@ router.post('/save-edit-product', auth, function (req, res, next) {
 });
 router.post("/deleteProductById", auth, function (req, res) {
   try {
+    var p = products.filter(q => q.id == req.body.id)[0];
 
-    products.splice(products.indexOf(products.filter(q => q.id == req.body.id)[0]), 1);
+    fs.unlink(p.imageUrl, (err) => {  
+      if (err) return res.json(err.message.toString());
+      console.log('successfully deleted ' + p.imageUrl);
+    });
+    p.images.forEach(i => {
+      fs.unlink(i, (err) => {
+        if (err) return res.json(err.message.toString());
+        console.log('successfully deleted ' + i);
+      });
+    })
+    products.splice(products.indexOf(p), 1);
 
     var data = JSON.stringify(products);
     fs.writeFile('./data/products.json', data, (err) => {
