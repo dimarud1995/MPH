@@ -1,18 +1,34 @@
 function buy(event) {
-
+    //alert(event.currentTarget.id);
     var id = event.currentTarget.id.split("-")[0]
     var material = event.currentTarget.id.split("-")[1]
     var postprocessing = event.currentTarget.id.split("-")[2]
+
     var price = event.currentTarget.id.split("-")[3]
-    var el = document.getElementById('girl' + id);
+
+    //  var el = document.getElementById('girl' + id);
 
     event.preventDefault()
-    var item = {
-        id,
-        material,
-        postprocessing,
-        price
+    if (postprocessing == "paint" && event.currentTarget.id.split("-").length > 4) {
+        var color = event.currentTarget.id.split("-")[4]
+        var item = {
+            id,
+            material,
+            postprocessing,
+            price,
+            color
+        }
+    } else {
+        var item = {
+            id,
+            material,
+            postprocessing,
+            price,
+            color: ""
+
+        }
     }
+
     var s = JSON.stringify(item)
     console.log(s);
     sessionStorage.setItem(Math.random(), s)
@@ -28,7 +44,7 @@ function buy(event) {
         }
 
     }
-    el.classList.toggle("fade");
+    // el.classList.toggle("fade");
 
     setTimeout(() => {
         el.classList.toggle("fade")
@@ -54,6 +70,7 @@ function removeProdyctFromCart(event) {
     var id2 = id.split('-')[1];
     var id3 = id.split('-')[2];
     var id4 = id.split('-')[3];
+    if (id.split('-').length > 4) var id5 = id.split('-')[4];
     // console.log(prodIds);
     for (let index = 0; index < prodIds.length; index++) {
         var p = JSON.parse(prodIds[index]);
@@ -69,6 +86,7 @@ function removeProdyctFromCart(event) {
             console.log(id2);
             console.log(id3);
             console.log(id4);
+            console.log(id5);
             var i = prodIds.indexOf(prodIds[index]);
             console.log(i);
             prodIds.splice(i, 1)

@@ -87,11 +87,14 @@ router.get("/adminorder/:id", function (req, res) {
   O.productIdInOrder.forEach(e => {
     var p = products.find(p => p.id == e.id);
     if (p) {
+
+      console.log(p);
       var p1 = {
         id: e.id,
         price: e.price,
         material: e.material,
         postprocessing: e.postprocessing,
+        color: e.color ? e.color : "",
         mainImage: p.mainImage,
         title: p.title
 
@@ -150,9 +153,10 @@ router.post('/save-new-product', auth, function (req, res, next) {
     var id = new Date().getTime();
     Object.values(req.files).forEach(f => {
       if (mainImagePath == "") mainImagePath = "/images/products/" + id + "_" + f.name;
-      else {
-        imagesPath.push("/images/products/" + id + "_" + f.name);
-      }
+      // set title image in recicler
+      // else {
+      imagesPath.push("/images/products/" + id + "_" + f.name);
+      // }
       f.mv('./public/images/products/' + id + "_" + f.name);
 
     });

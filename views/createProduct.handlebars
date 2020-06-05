@@ -1,4 +1,13 @@
 <div id="app1" class="container" style="margin-top: 100px; margin-bottom:50px;">
+   <div
+      style="border-radius:30px; width:100%; padding:40px; text-align:center; border:1px red solid; margin:30px 0; color:green; font-size:1.5em;">
+      Дімон, коли будеш добавлять нові продукти, то вибирай головну картинку, а в поле "Картинки" загружай інші. <br>
+      Якшо
+      там
+      всього одна картинка то став її як головну, а в поле "Картинки" нічо не загружай. <br> Я так зробив, шоб менше
+      місця
+      займало на сервері.
+   </div>
    <div class="row">
       <div class="col-md-6" style="margin-gottom:20px;">
          <div class="card">
@@ -433,7 +442,7 @@
             if (this.material == 0) this.error += "Виберіть матеріал! <br>";
             if (this.postprocessing == 0) this.error += "Виберіть обробку!<br>";
             if (this.mainImage == null) this.error += "Загрузіть титульну картинку! <br>";
-            if (this.images.length < 1 || this.images.length > 8) this.error += "Загрузіть від 1 до 8 картинок!<br>";
+            if (this.images.length < 0 || this.images.length > 8) this.error += "Загрузіть від 0 до 8 картинок!<br>";
             console.log(this.images);
             if (this.title.length > 40) this.error += "Заголовок повинен бути менше 40 символів!<br>";
             if (this.error == "") {

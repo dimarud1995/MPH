@@ -14,7 +14,6 @@ var koef = require('../data/koef.json');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    console.log(popularProducts);
     res.render('home', {
         slides: slides,
         categories: categories,
@@ -32,8 +31,6 @@ router.get('/category/:category', function (req, res, next) {
     var catId = catsMap[req._parsedOriginalUrl.path]
     var categoryName = getCategoryName(catId)
     var products = getProducts(catId)
-    console.log(products);
-    console.log(categoryName);
     res.render('products', {
         category: categoryName,
         products: products,
@@ -51,7 +48,6 @@ router.get("/get-popular-products", function (req, res) {
 })
 router.post("/get-last-viewed", function (req, res) {
     var prod = [];
-    console.log(req.body);
     req.body.lastViewedId.forEach(q => {
         var p = products.find(w => w.id == q);
         if (p != null) {
@@ -64,7 +60,6 @@ router.post("/getRandomProducts", function (req, res) {
     if (products.length > 6)
         var prod = getRandomProducts(6);
     else prod = products;
-    console.log(prod);
     return res.json(prod);
 });
 router.post("/getProduct", function (req, res) {
@@ -72,33 +67,30 @@ router.post("/getProduct", function (req, res) {
     return res.json(p);
 })
 router.post("/getInterestingProducts", function (req, res) {
-    //  console.log(req.body)
     var product = getProductById(req.body.id)
-    //  console.log(product);
     var a = [];
     a.push(product);
-    //  console.log(a);
     var pr = getInterestingProducts(a, 6);
-    //  console.log(pr);
     return res.json(pr)
 });
 router.get("/get-koef", function (req, res) {
     return res.json(koef);
 })
 router.post('/cart', function (req, res, next) {
-    console.log("1");
     var products = products
     var ids = JSON.parse('[' + req.body.prodIds + ']');
     var bookedProducts = getProductsByIds(ids)
     var sum = getSum(bookedProducts)
-    console.log("2");
 
+    //  console.log(bookedProducts);
+    console.log("SUCCESS!!!!!!!!!!!!!!!!!");
     res.render('cart', {
         products: bookedProducts,
         sum: sum,
         interestingProducts: getInterestingProducts(bookedProducts, 6),
         interestingCategories: getInterestingCategories(bookedProducts, 6)
     })
+
 })
 router.get('/about-us', function (req, res) {
     res.render('aboutus')
@@ -110,31 +102,21 @@ router.get('/order', function (req, res) {
 // COMMENTS
 
 router.post("/getComments", function (req, res) {
-    // console.log(req.body.id);
     var c = getSmartComments(req.body.id, 10);
-    // console.log("comments:");
-    //   console.log(c);
     return res.json(c);
 })
 router.post("/setComment", function (req, res) {
     try {
         var c = req.body;
-        //  console.log(c);
-
         c.date = getDate();
         if (comments.length != 0) c.id = comments[comments.length - 1].id + 1;
-        //  console.log(c);
         c.about = " про цей виріб";
         comments.push(c);
         var json = JSON.stringify(comments);
-        //  console.log(json);
         fs.writeFile('./data/comments.json', json, (err) => {
             if (err) return res.json(err.message);
-            console.log('The file has been saved!');
         });
         var r = QuickSort(comments);
-        console.log(r);
-        console.log("===========================================");
         return res.json({
             comments: r,
             status: "ok"
@@ -146,7 +128,6 @@ router.post("/setComment", function (req, res) {
 })
 
 router.post("/get-cities", function (req, res) {
-    console.log(req.body.name);
 
     var temp = newPostWarhouses.data.filter(q => q.SettlementDescription.includes(req.body.name)).map(function (w) {
         var obj = {
@@ -157,12 +138,10 @@ router.post("/get-cities", function (req, res) {
         return obj;
     })
     var temp2 = temp.filter((item, index) => temp.indexOf(item) === index);
-    // console.log(temp2);
     return res.json(temp2)
 });
 
 router.post("/get-warhouses", function (req, res) {
-    console.log(req.body.name);
 
     var temp = newPostWarhouses.data.filter(q => q.SettlementDescription.includes(req.body.name)).map(function (w) {
         var obj = {
@@ -174,7 +153,6 @@ router.post("/get-warhouses", function (req, res) {
             SettlementRegionsDescription: w.SettlementRegionsDescription,
 
         }
-        //    console.log(obj);
         return obj;
 
     })
@@ -184,9 +162,7 @@ router.post("/get-warhouses", function (req, res) {
 // support functions
 router.post("/getProductsByCategory", function (req, res) {
     var id = req.body.id;
-    console.log(id)
     var ps = products.filter(q => q.categoryName == id);
-    console.log(ps);
     return res.json(ps);
 })
 
@@ -206,8 +182,8 @@ function getProductsByIds(ids) {
     var res = []
 
     ids.forEach((x) => {
-        var product = products.find((e) => e.id == x.id)
 
+        var product = products.find((e) => e.id == x.id)
         if (product) {
 
             var p = {
@@ -219,15 +195,14 @@ function getProductsByIds(ids) {
                 mainImage: product.mainImage,
                 images: product.images,
                 price: x.price,
+                color: x.color ? x.color : "",
                 material: x.material,
                 postprocessing: x.postprocessing
             }
-
+            console.log(p);
             res.push(p)
         }
     })
-    console.log(res);
-    // var groupped = groupBy(res, prod => prod.id);
 
     return res
 }
@@ -241,8 +216,16 @@ function getInterestingProducts(bookedPr, number) {
         });
         if (tempRes.length == 0) {
             tempRes = shuffle(products);
+        } else {
+            bookedPr.forEach(i => {
+                var tempP = products.filter(e => e.category != i.category);
+                var tempS = shuffle(tempP).slice(0, 6);
+                tempS.forEach(q => tempRes.push(q));
+            });
         }
+
         var j = 0;
+        var errorExit = 0;
         var curNumb = number;
         if (number > tempRes.length) curNumb = tempRes.length;
 
@@ -250,8 +233,14 @@ function getInterestingProducts(bookedPr, number) {
             var counter = Math.round(Math.random() * (tempRes.length - 1));
             if (res.length > 0) {
                 if (tempRes[counter] != null) {
-                    res.push(tempRes[counter]);
-                    j++;
+                    if (!res.includes(tempRes[counter])) {
+                        res.push(tempRes[counter]);
+                        j++;
+                    } else {
+                        if (errorExit > 50) break;
+                        errorExit++;
+                    }
+
                 }
             } else {
                 if (tempRes[counter] != null) {
@@ -363,10 +352,8 @@ function getSmartComments(id, number) {
     var res = [];
     try {
         var temp = comments.filter(q => q.prodid == id);
-        // console.log("temp length: " + temp.length);
         if (temp.length < number) {
             var prodByCategory = products.filter(w => w.catId == products.find(q => q.id == id).catId);
-            // console.log(prodByCategory);
             prodByCategory.forEach(e => {
                 if (id != e.prodid) {
                     var item = comments.find(q => q.prodid == e.id);
@@ -388,9 +375,7 @@ function getSmartComments(id, number) {
             }
         temp = comments;
 
-        //  console.log("length=" + temp.length);
         res = QuickSort(temp);
-        console.log("successsssssssssssssssssssssssssss");
         return res;
     } catch (err) {
         return [{
@@ -406,21 +391,15 @@ function getSmartComments(id, number) {
 
 function QuickSort(B) {
     var A = Array.from(B);
-    //console.log(A);
     var res = [];
     while (A.length != 0) {
         var max = MDC(A[0].date);
         var maxi = 0;
-        //  console.log(maxi)
         for (var i = 0; i < A.length; i++) {
-            //console.log("2")
             var t = MDC(A[i].date);
-            //  console.log("if ----------all---t " + t)
             if (max < t) {
                 max = t;
                 maxi = i;
-                //      console.log("if ----------------maxi " + maxi)
-                //    console.log("if ----------------t " + t)
 
             }
         }

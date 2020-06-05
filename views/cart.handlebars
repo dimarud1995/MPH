@@ -9,25 +9,26 @@
         </div>
         <div class="cart-list">
             {{#each products}}
-            <div id="product-{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}"
+            <div id="product-{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}-{{this.color}}"
                 class="cart-product ply-card card">
                 <a href="/product/{{this.id}}">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class=" justify-content-start align-items-center" style="display: flex;">
                             <img style="margin:10px; height:100px; width:auto;" src="{{this.mainImage}}">
-                            <div style="padding:10px 0;" class=" name-d"> <span
-                                    style="margin:10px;">{{this.title}}</span></div>
+                            <div style="padding:10px 0;" class=" name-d"> <span style="margin:10px;">{{this.title}}
+                                </span></div>
 
                         </div>
                         <div style="margin:10px; text-align:right; display:flex;">
                             <div
                                 style="margin:10px 0; color:green; font-weight:300; font-family:Arial, Helvetica, sans-serif">
                                 <strong class="price"
-                                    id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}">{{this.price}}<span
+                                    id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}-{{this.color}}">{{this.price}}<span
                                         style="font-size: 0.8em; font-weight:300;">₴</span></strong>
                             </div>
 
-                            <button id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}"
+                            <button
+                                id="{{this.id}}-{{this.material}}-{{this.postprocessing}}-{{this.price}}-{{this.color}}"
                                 class="remove btn btn-danger btn-sm" onclick="removeProdyctFromCart(event)"><i
                                     class="fa fa-trash"></i></button>
                         </div>
@@ -159,7 +160,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
     $(document).ready(() => {
-        console.log("count sum");
         countSum();
     });
 
@@ -208,7 +208,6 @@
                 if (this.tel != "") {
                     valOnlyDec = [];
                     var value = Array.from(this.tel)
-                    console.log(value);
                     var temp = "";
                     for (var i = 0; i < value.length; i++) {
                         if (this.isDec(value[i]))
@@ -231,7 +230,6 @@
                     this.tel = temp;
                 }
 
-                //  console.log(val);
             },
             getCities() {
                 this.t++;
@@ -245,9 +243,7 @@
                         axios.post("/get-cities", data).then(
                             res => {
                                 this.t = 0;
-                                console.log(res.data)
                                 this.cities = res.data;
-                                console.log(this.cities.length);
                                 if (this.cities.length > 0) {
                                     this.recAboutCity = "";
                                     this.getWarhouses();
@@ -268,14 +264,12 @@
                 }
                 axios.post("/get-warhouses", data).then(
                     res => {
-                        console.log(res.data)
                         this.warhouses = res.data;
                     }
                 )
             },
             createOrder() {
                 this.sum = Number.parseInt($('#sum').text());
-                console.log(this.sum);
                 this.showOrderInfo = !this.showOrderInfo;
                 window.scrollTo(0, top);
             },
@@ -300,11 +294,7 @@
                 if (!validMail && this.email.length > 0) this.error += "Вкажіть правильно емейл адресу!  <br>"
                 if (this.delivery == "new_post" && (this.city == "" || this.warhouse == "")) this.error += "Вкажіть відділення Нової Пошти!  <br>"
                 if (this.delivery == "ukrpost" && this.city == "") this.error += "Вкажіть адресу для відправки! <br>"
-                console.log("this.error");
 
-                console.log(this.error);
-                console.log(this.tel);
-                console.log(this.email);
                 if (this.error == "") {
                     var ids = getCardItemIds();
 
@@ -323,12 +313,11 @@
                     localStorage.userName = this.name;
                     localStorage.tel = this.tel;
                     localStorage.email = this.email;
-                    console.log(data);
                     axios.post("/admin/newOrder", data).then(res => {
                         if (res.data == "ok") {
                             alert("Ваші дані успішно відправлені, ми з вами зв'яжемося найближчим часом!")
                             sessionStorage.clear();
-                            window.location.href = "/#menu-cat"
+                            window.location.href = "/category/souvenirs"
                         } else {
                             alert("Щось пішло не так, ви можете звернутись до нас через інстаграм!");
                             window.location.href = "/#contact-us";
@@ -343,20 +332,35 @@
     function getCardItemIds() {
         var priceList = $('.price');
         var list = []
+        console.log("LIST_____________priceList_______________LIST");
+
         console.log(priceList);
         priceList.each((i, e) => {
             var id1 = e.id.split('-')[0];
             var id2 = e.id.split('-')[1];
             var id3 = e.id.split('-')[2];
             var id4 = e.id.split('-')[3];
-            var item = {
-                id: id1,
-                material: id2,
-                postprocessing: id3,
-                price: id4
+            if (e.id.split('-').length > 4) {
+                var id5 = e.id.split('-')[4];
+                var item = {
+                    id: id1,
+                    material: id2,
+                    postprocessing: id3,
+                    price: id4,
+                    color: id5
+                }
+            } else {
+                var item = {
+                    id: id1,
+                    material: id2,
+                    postprocessing: id3,
+                    price: id4,
+                    color: ""
+                }
             }
             list.push(item);
         });
+        console.log("LIST__________________________________LIST");
         console.log(list);
         return list;
     }
@@ -365,10 +369,8 @@
         var priceList = $('.price').text();
         var sum = 0;
         var list = priceList.split("₴");
-        // console.log(list);
         for (var i = 0; i < list.length; i++) {
             if (list[i].length > 0) {
-                //   console.log(list[i]);
                 sum += Number.parseInt(list[i]);
                 $('#sum').text(sum);
             }
@@ -377,6 +379,27 @@
 
 </script>
 <style>
+    .container {
+        animation: linear fadeInAnimation 0.6s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+
+        25% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+
     .name-d {
         display: block;
 

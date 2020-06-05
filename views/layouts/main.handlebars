@@ -2,6 +2,15 @@
 <html>
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151355572-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151355572-1');
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="Cache-control" content="public">
     <title>Vasina-Hata.com</title>
@@ -62,16 +71,17 @@
                     style=" v-iftext-decoration:none; margin:0; padding:0; overflow:hidden;">
                     <div class="row" style="margin:0;padding:0;">
                         <div class="col-6" style="margin:0; padding:0;">
-                            <ul style="  list-style-type: none; margin:0;padding:0;">
+                            <ul
+                                style="  list-style-type: none; margin:0;padding:0; font-family:Arial, Helvetica, sans-serif !important;">
                                 <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/souvenirs"
                                         class="nav-link" style="color:green;">Сувеніри</a></li>
                                 <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
                                         href="/category/home-accessories" class="nav-link"
-                                        style="color:green;">Аксесуари для дому</a>
+                                        style="color:green;">Аксесуари <br> для дому</a>
                                 </li>
                                 <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
                                         href="/category/wood-kitchen-accessories" class="nav-link "
-                                        style="color:green;">Кухонні
+                                        style="color:green;">Кухонні <br>
                                         приналежності</a></li>
                                 <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
                                         href="/category/photoframes" class="nav-link "
@@ -85,24 +95,30 @@
                             </ul>
                         </div>
                         <div class="col-6" style="margin:0; padding:0;">
-                            <ul style="  list-style-type: none; margin:0;padding:0;">
+                            <ul
+                                style="  list-style-type: none; margin:0;padding:0; font-family:Arial, Helvetica, sans-serif !important;">
                                 <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/doors"
                                         class="nav-link " style="color:green;">Двері
                                         жалюзі</a></li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
+                                        href="/category/wedding-decor" class="nav-link " style="color:green;">Весільний
+                                        <br>
+                                        декор</a>
+                                </li>
+                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/with-names"
+                                        class="nav-link " style="color:green;">Іменні <br>
+                                        вироби</a>
+                                </li>
                                 <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/lamps"
                                         class="nav-link " style="color:green;">Лампи</a>
                                 </li>
-                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a
-                                        href="/category/wedding-decor" class="nav-link " style="color:green;">Весільний
-                                        декор</a></li>
+
                                 <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/for-kids"
                                         class="nav-link " style="color:green;">Для
                                         дітей</a></li>
                                 <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/decor"
                                         class="nav-link " style="color:green;">Декорації</a></li>
-                                <li class="nav-item" style="margin:0px; padding:5px 0px;"><a href="/category/with-names"
-                                        class="nav-link " style="color:green;">Іменні
-                                        вироби</a></li>
+
                             </ul>
                         </div>
 
@@ -120,7 +136,7 @@
                     <a class="nav-link" href="/#about-us"><i class="fa fa-pagelines d-lg-none"></i> Про нас</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/faq"><i class="fa fa-pagelines d-lg-none"></i> FAQ</a>
+                    <a class="nav-link" href="/faq"><i class="fa fa-question d-lg-none"></i> FAQ</a>
                 </li>
                 <li>
                     <form name="cartBtnForm" method="POST" action="/cart">
@@ -141,7 +157,7 @@
 
     {{{body}}}
     <footer style=" background-color:#E0E0E0; z-index:5;" id="foot">
-        <div class="container-fluid" id="contact-us">
+        <div class="container-fluid" id="contact-us" style="position: relative;">
             <h4 style="margin: 0 auto; width:100%; text-align:center; padding:50px;">Контакти</h4>
             <div class="row " style="padding-left: 2%; padding-right:2%;">
                 <div class="col-md-6 " tyle="margin-bottom: 10px;">
@@ -196,9 +212,10 @@
             </div>
             <div class="row bebas"
                 style="margin:0px;padding-top: 20px; padding-bottom: 20px; background-color:#616161; text-align:center; color:#ffffff; position: absolute;width: 100%; left: 0px;">
-                <div style="position: relative; margin:0 auto;">2019-2020 Vasina-Hata.com</div>
+                <div style="position: relative; margin:0 auto;">2019-2020 Vasina-Hata.com </div>
             </div>
         </div>
+
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -306,6 +323,32 @@
         });
     </script>
     <style>
+        .row {
+            animation: linear fadeInAnimation 1s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        footer {
+            animation: linear fadeInAnimation 2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+
+            25% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
         .logoHeader {
             color: #818181;
             -webkit-transition: all 0.5s;

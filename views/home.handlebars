@@ -45,16 +45,17 @@
       <div class="col-6 col-sm-4 col-md-4 col-lg-2 myC " style="margin:0px; padding:0.5%; rosition:relative;"
         v-for="(e,i) in lastViewed">
         <a :href="'/product/'+e.id" style="display: block; float:left; text-decoration:none; color:#313131">
-          <img class="img-fluid " :src="e.mainImage" loading="lazy">
-          <h6 class="titleC align-middle" style="text-align: center; font-size:1.5em;"> <span style="  margin: 0;   position: absolute;    top: 50%;                        
-                  transform: translate(0%, -50%); width:100%;">
+          <img class="img-fluid " :src="e.mainImage" onload="fadeIn(this)" style="display:none;">
+          <h6 class="titleC align-middle" style="text-align: center; font-size:1.5em; width:99% !important;"> <span
+              style=" position: absolute;    top: 50%;                        
+                  transform: translate(-50%, -50%); ">
               \{{e.title}}
-              <h6>
-                <span style="color:green; font-size:2em;">\{{e.price[0].price}}
-                  <span style="font-size:0.7em;">
-                    ₴</span>
-                </span>
-              </h6>
+              <br>
+              <span style="color:green; font-size:1em;">\{{e.price[0].price}}
+                <span style="font-size:0.7em;">
+                  ₴</span>
+              </span>
+          </h6>
         </a>
       </div>
     </div>
@@ -64,7 +65,7 @@
         <div class="card myT">
           <a :href="'/product/'+e.id" style=" color:black; text-decoration:none;">
 
-            <img loading="lazy" class="img-fluid" :src="e.mainImage">
+            <img onload="fadeIn(this)" style="display:none;" class="img-fluid" :src="e.mainImage">
             <div style="padding: 5%;">
               <h4>\{{e.title}}</h4>
               <h5><span style="color:green; font-size:1em; ">\{{e.price[0].price}}<span style="font-size:0.7em;">
@@ -111,7 +112,7 @@
         <div class="card myT">
           <a :href="'/product/'+e.id" style=" color:black; text-decoration:none;">
 
-            <img loading="lazy" class="img-fluid" :src="e.mainImage">
+            <img onload="fadeIn(this)" style="display:none;" class="img-fluid" :src="e.mainImage">
             <div style="padding: 5%;">
               <h4>\{{e.title}}</h4>
               <h5><span style="color:green; font-size:1em; ">\{{e.price[0].price}}<span style="font-size:0.7em;">
@@ -188,7 +189,7 @@
 
       <div class="col-6 col-sm-4 col-md-3 col-lg-3 myC" style="margin:0px; padding:0px; rosition:relative;">
         <a href="{{this.url}}" style="display: block; float:left; text-decoration:none; color:#313131">
-          <img class="img-fluid " src="{{this.imageUrl}}">
+          <img onload="fadeIn(this)" style="display:none;" class="img-fluid " src="{{this.imageUrl}}">
           <h5 class="titleC align-middle" style="text-align: center;"> <span style="  margin: 0;   position: absolute;    top: 50%;                        
                   transform: translate(-50%, -50%); letter-spacing: 0.0em;">{{this.title}}</span></h5>
         </a>
@@ -208,7 +209,7 @@
                 <div class="category ply-card" style="margin:10px;">
                   <a href="{{this.url}}">
                     <div class="card">
-                      <img class="card-img-top " src="{{this.imageUrl}}">
+                      <img onload="fadeIn(this)" style="display:none;" class="card-img-top " src="{{this.imageUrl}}">
                       <div class="card-body">
                         <h5 class="card-title" style="margin-top:0px;">{{this.title}}</h5>
                       </div>
@@ -420,10 +421,12 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-  $('.carousel').carousel({
-    interval: 8947
-  })
-
+  //  $('.carousel').carousel({
+  //   interval: 8947
+  // })
+  window.fadeIn = function (obj) {
+    $(obj).fadeIn(1000);
+  }
 
 
   var mixinDetictingMobile = {
@@ -734,5 +737,30 @@
     }
 
 
+  }
+
+  .container,
+  .parallax1,
+  .parallax2,
+  .parallax3,
+  .card,
+  img {
+    animation: fadeInAnimation ease 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+    }
+
+    25% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
 </style>

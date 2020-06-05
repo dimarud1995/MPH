@@ -1,7 +1,7 @@
 /node_modules
-data/
-data
-/data
+node_modules
+node_modules/*
+
 
 public/images/categories
 public/images/products
