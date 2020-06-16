@@ -1,4 +1,4 @@
-<div id="app">
+<div id="app" style="background-color: #fafafa !important;">
   <div class="parallax3" style="color:white; text-align:center; margin-top:50px;">
     <div style="margin:auto auto;">
       <a href="https://instagram.com/my_plywood_house" style="color:#fff; text-decoration:none;" title="Наш інстаграм">
@@ -187,9 +187,10 @@
 
       {{#each categories}}
 
-      <div class="col-6 col-sm-4 col-md-3 col-lg-3 myC" style="margin:0px; padding:0px; rosition:relative;">
+      <div class="col-6 col-sm-4 col-md-3 col-lg-3 myC" style="margin:0px; padding:0; rosition:relative;">
         <a href="{{this.url}}" style="display: block; float:left; text-decoration:none; color:#313131">
-          <img onload="fadeIn(this)" style="display:none;" class="img-fluid " src="{{this.imageUrl}}">
+          <img onload="fadeIn(this)" style="display:none; width:100% !important;; height:100% !important;"
+            class="img-fluid " src="{{this.imageUrl}}">
           <h5 class="titleC align-middle" style="text-align: center;"> <span style="  margin: 0;   position: absolute;    top: 50%;                        
                   transform: translate(-50%, -50%); letter-spacing: 0.0em;">{{this.title}}</span></h5>
         </a>
@@ -226,32 +227,11 @@
     </div>
   </div>
 
-  <div id="about-us"></div>
+  <div id="about-us" style="width:100%; border-top:1px solid rgba(0, 0, 0, 0.05);"></div>
 
-  <div class="parallax2" style="color:white; ">
-    <div class="container-fluid">
-      <div class="row bebas">
-        <div class="col-md-3" style="margin: auto 0; text-align:center;" title="Наш інстаграм"> <a target="blank"
-            href="https://instagram.com/my_plywood_house"
-            style="display: block; text-decoration:none; color:#fff;">Vasina<br>Hata</a></div>
-        <div class="col-md-6"></div>
-        <div class="col-md-3" style="margin: auto 0; text-align:center;" title="Наш інстаграм">
-          <a target="blank" href="https://instagram.com/my_plywood_house"
-            style="display: block; text-decoration:none; color:#fff;">
-            <div style="padding-top:20px; padding-bottom:20px; background-color: rgba(0, 0, 0, 0.0); 
-            width:100%;height:100%; border-radius:0px;">
 
-              <i class="fa fa-instagram"></i> Instagram
-            </div>
-          </a>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
   {{!-- TODO Про нас, чим займаємось і чого у нас куплять --}}
-  <div class="container-fluid" style=" margin:0; padding:0; background-color:#fff">
+  <div class="container-fluid" style=" margin:0 !important; padding:0; background-color:#fff">
     <div class="row" style="margin:0 10%;">
       <div class="col-md-5 col-lg-7 " style="text-align:center;">
         <h1 :style="isMobile()? 'margin-top:20px;':'padding-top:16%;' ">Vasina-Hata.com</h1>
@@ -259,9 +239,8 @@
         {{!-- <h2 style="color:green;">У нас є все, <br> що
           потрібно вашій дружині
         </h2> --}}
-        <h1 style="color:green;">Речі,</h1>
-        <h2 style="color:green;">що потрібні на кожній кухні
-        </h2>
+        <h2 style="color:green;">Найкращі речі,</h2>
+        <h2 style="color:green;">для вашої кухні</h2>
         <a class="btn btn-outline-success myWifeBtn" href="/category/wood-kitchen-accessories"
           style="margin:20px;font-family: 'Bebas'; font-size:2em; padding:10px 70px;  border-radius:300px;">тут</a>
       </div>
@@ -269,7 +248,7 @@
         <img src="/images/ImageStatic/m_static_2.jpeg" class="img-fluid">
       </div>
     </div>
-    <div class="links container" style="padding-left: 15%;">
+    <div class="links container links2" style=" margin-bottom:100px;">
       <div class="row">
         <div class="col-md-6">
           <ul style=" margin:0; padding:0;">
@@ -320,18 +299,63 @@
 
         </div>
       </div>
-    </div>
-    <hr>
-  </div>
-  {{!-- <div class="container " style="position:relative;">
-    <div style="position: relative;">
-      <div class="container myContainerHeader">
-        <h3>Про нас</h3>
-      </div>
 
     </div>
     <hr>
-  </div> --}}
+
+    <div id="delivery" class="container myContainerHeader" style="margin-top:0px;">
+      <h3 style="margin-top:30px;">Як ми працюємо?</h3>
+    </div>
+    <div class="container">
+      <div style="margin-bottom: 50px; display: flex;">
+        <img src="/images/ImageStatic/how_we_work.PNG" class="mob">
+        {{!-- <div style="vertical-align:middle; height:400px; position:relative;">
+          <div class="bt">
+            <div class="ht">Підбір</div>
+            <div class="lt">Вибираєте вироби, які вам сподобались</div>
+          </div>
+          <div class="bt">
+            <div class="ht">Оформлення замовлення</div>
+            <div class="lt">Вказуєте необхідні дані для замовлення</div>
+          </div>
+          <div class="bt">
+            <div class="ht">Підтвердження</div>
+            <div class="lt">Наш менеджер зв'яжеться з вами для підтвердження замовлення
+            </div>
+          </div>
+          <div class="bt">
+            <div class="ht">Відправка</div>
+            <div class="lt">Відправляємо вироби на вказану вами адресу</div>
+          </div>
+        </div>--}}
+      </div>
+
+
+    </div>
+
+    <div class="parallax2" style="color:white; ">
+      <div class="container-fluid">
+        <div class="row bebas">
+          <div class="col-md-3" style="margin: auto 0; text-align:center;" title="Наш інстаграм"> <a target="blank"
+              href="https://instagram.com/my_plywood_house"
+              style="display: block; text-decoration:none; color:#fff;">Vasina<br>Hata</a></div>
+          <div class="col-md-6"></div>
+          <div class="col-md-3" style="margin: auto 0; text-align:center;" title="Наш інстаграм">
+            <a target="blank" href="https://instagram.com/my_plywood_house"
+              style="display: block; text-decoration:none; color:#fff;">
+              <div style="padding-top:20px; padding-bottom:20px; background-color: rgba(0, 0, 0, 0.0); 
+            width:100%;height:100%; border-radius:0px;">
+
+                <i class="fa fa-instagram"></i> Instagram
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 
 
@@ -490,17 +514,88 @@
 
 </script>
 <style>
+  .lt {
+    font-size: 20px;
+    color: #414141;
+    position: relative;
+  }
+
+  .ht {
+    font-size: 30px;
+    color: #414141;
+  }
+
+  .bt {
+    position: flex;
+    margin: 50px 10px;
+  }
+
+  .bt:first-child {
+    margin-top: 10px;
+  }
+
+  .bt:last-child {
+    margin-bottom: 10px;
+  }
+
   .links ul li {
     text-indent: 1em;
     color: green;
 
-    margin: 10px 0px;
+    margin-bottom: 10px;
 
   }
 
-  @media screen and (min-width:1000px) {
-    .links {
-      margin-left: 10%;
+  .links2 {
+    margin-left: 20%;
+  }
+
+  .d {
+
+    display: block;
+  }
+
+  .m {
+    display: none;
+  }
+
+  .mob {
+    max-width: 50%;
+
+    padding: 10px 0%;
+  }
+
+  @media screen and (max-width:800px) {
+    .d {
+      display: none;
+    }
+
+    .mob {
+      max-width: 100%;
+      padding: 10px 0%;
+
+      display: block;
+    }
+
+    .m {
+      max-width: 100%;
+      display: block;
+    }
+
+    .lt {
+      font-size: 14px;
+      color: #414141;
+    }
+
+    .ht {
+      font-size: 20px;
+      color: #414141;
+    }
+
+    .links2 {
+      width: 90%;
+      padding: 10% !important;
+      margin: 0px !important;
     }
   }
 
@@ -569,7 +664,7 @@
     height: 70px;
     width: 100%;
     z-index: 4;
-    background-image: linear-gradient(0, #fafafa, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(0, #fafafa, rgba(250, 250, 250, 0.9), rgba(250, 250, 250, 0));
   }
 
   p {
@@ -739,13 +834,23 @@
 
   }
 
-  .container,
+  .container {
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
   .parallax1,
   .parallax2,
-  .parallax3,
+  .parallax3 {
+    animation: fadeInAnimation ease 1.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
   .card,
   img {
-    animation: fadeInAnimation ease 2s;
+    animation: fadeInAnimation ease 1.5s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
   }

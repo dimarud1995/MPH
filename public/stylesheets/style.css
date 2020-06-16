@@ -3,6 +3,8 @@ body {
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
     background-color: #fafafa;
+    display: relative;
+    color: #414141;
 }
 
 
@@ -53,10 +55,26 @@ a {
 .navbar li {
     margin-right: 40px;
     z-index: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    transition: all 1s ease-in-out;
+}
+
+.navbar li:hover a {
+    z-index: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: green !important;
+
+
+
+
 }
 
 .navbar li a {
     z-index: 100;
+
+
 }
 
 .navbar .cart {

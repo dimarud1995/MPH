@@ -133,16 +133,24 @@
         var $i = $('.interestingProps');
 
         $window.scroll(function (event) {
+
+
             //  $sidebar.addClass("fixed");
             var $scrollTop = $window.scrollTop();
 
             var $iTop = $i.position().top;
 
             if ($scrollTop + $sidebarHeight + 100 > $iTop) {
-                $sidebar.css("opacity", 0);
+                $sidebar.css("top", $iTop - $sidebarHeight);
+                $sidebar.css("position", "absolute");
+                //     $sidebar.css("opacity", 1);
+
             } else {
+                $sidebar.css("position", "fixed");
+
                 $sidebar.css("top", 70);
-                $sidebar.css("opacity", 1);
+                //    $sidebar.css("opacity", 1);
+
             }
             console.log($scrollTop);
             //  var $topPosition = Math.max(80, $scrollTop - $sidebarTop + 100);
@@ -243,7 +251,7 @@
 </script>
 <style>
     .card {
-        animation: fadeInAnimation ease 2s;
+        animation: fadeInAnimation ease 1.6s;
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
     }
@@ -254,8 +262,9 @@
         animation-fill-mode: forwards;
     }
 
-    .category_title {
-        animation: fadeInAnimation ease 2s;
+    .category_title,
+    .mySidebar {
+        animation: fadeInAnimation ease 1.2s;
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
     }
@@ -280,8 +289,7 @@
         height: ;
         z-index: 1;
         top: 70px;
-        -webkit-transition: all 0.5s;
-        transition: all 0.5s;
+
     }
 
     ul {
