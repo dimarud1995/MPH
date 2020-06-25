@@ -140,6 +140,10 @@ a {
     height: 220px;
 }
 
+.card-img-top {
+    border-radius: 0px !important;
+}
+
 #categories .category .card-title {
     text-align: center;
     vertical-align: middle;
@@ -190,6 +194,10 @@ footer i {
 #product,
 .cart-list {
     min-height: 600px;
+}
+
+.card {
+    border-radius: 0px !important;
 }
 
 .card,

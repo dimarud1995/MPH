@@ -83,7 +83,7 @@ router.post('/cart', function (req, res, next) {
     var sum = getSum(bookedProducts)
 
     //  console.log(bookedProducts);
-    console.log("SUCCESS!!!!!!!!!!!!!!!!!");
+    // console.log("SUCCESS!!!!!!!!!!!!!!!!!");
     res.render('cart', {
         products: bookedProducts,
         sum: sum,
@@ -111,6 +111,8 @@ router.post("/setComment", function (req, res) {
         c.date = getDate();
         if (comments.length != 0) c.id = comments[comments.length - 1].id + 1;
         c.about = " про цей виріб";
+        c.category = products.find(e => e.id == c.prodid).category;
+        console.log(c);
         comments.push(c);
         var json = JSON.stringify(comments);
         fs.writeFile('./data/comments.json', json, (err) => {
@@ -199,7 +201,7 @@ function getProductsByIds(ids) {
                 material: x.material,
                 postprocessing: x.postprocessing
             }
-            console.log(p);
+            //   console.log(p);
             res.push(p)
         }
     })
@@ -351,33 +353,65 @@ function getDate() {
 function getSmartComments(id, number) {
     var res = [];
     try {
-        var temp = comments.filter(q => q.prodid == id);
-        if (temp.length < number) {
-            var prodByCategory = products.filter(w => w.catId == products.find(q => q.id == id).catId);
-            prodByCategory.forEach(e => {
-                if (id != e.prodid) {
-                    var item = comments.find(q => q.prodid == e.id);
-                    if (item) {
-                        item.about = " про категорію товарів";
-                        temp.push(item);
-
-                    }
-                }
-
-            });
-        }
-        if (comments.length > number)
-            while (temp.length < number) {
-                var counter = Math.round(Math.random() * (comments.length - 1))
-                var item = comments[counter];
-                item.about = " про компанію";
+        var tempComent = comments.filter(q => q.prodid == id);
+        var category = products.find(e => e.id == id).category;
+        console.log("tempComent");
+        console.log(tempComent);
+        var temp = [];
+        tempComent.forEach(item => {
+            if (item) {
+                item.about = " про цей виріб";
                 temp.push(item);
             }
-        temp = comments;
+        });
+        console.log("category " + category)
+        var prodByCategory = products.filter(w => w.category == category);
+        console.log("probyCat");
+        //  console.log(prodByCategory);
+        console.log("=======================================================")
+        prodByCategory.forEach(e => {
+            //  console.log(e);
+            var items = comments.filter(q => q.prodid == e.id);
+            console.log("items");
+            console.log(items);
+            for (var i = 0; i < items.length; i++) {
+                if (items[i]) {
+                    console.log(items[i]);
+                    var v = false;
+                    temp.forEach(a => {
+                        if (a.id == items[i].id) v = true;
+                    })
+                    if (!v) {
+                        items[i].about = " про категорію";
+                        temp.push(items[i]);
+                    }
+                }
+            }
+        });
+        console.log("=======================================================")
 
+        // }
+        // if (comments.length > number)
+        //     while (temp.length < number) {
+        //         var counter = Math.round(Math.random() * (comments.length - 1))
+        //         var item = comments[counter];
+        //         var validation = false;
+        //         temp.forEach(element => {
+        //             if (element.id == item.id) validation = true;
+        //         });
+        //         if (!validation) {
+        //             item.about = " про компанію";
+        //             temp.push(item);
+        //         }
+
+        //     }
+        //temp = comments;
+        console.log("comments");
+        console.log(temp);
         res = QuickSort(temp);
         return res;
     } catch (err) {
+        console.log(err);
         return [{
             "prodid": "0",
             "id": 0,
