@@ -1,21 +1,177 @@
-<div class="container" id="app">
-    <h1>OK</h1>
-    <h1>OK</h1>
-    <h1>OK</h1>
-    <h1>OK</h1>
-    <h1>OK</h1>
-    <h1>OK</h1>
+<div class="container-fluid" id="app" style="padding-top: 100px;">
+    <h4>Замовлень за весь час: \{{sentOrders.length}}</h2>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+        <div class="row">
+            <div class="col-12 p-2" style="height: 600px;">
+                <div class="card">
+                    <div class="card-header">Кількість замовлень та одиниць товару по днях</div>
+                    <div class="card-body">
+                        <div class="ct-chart ct-perfect-fourth" id="orderPerDay" style="height: 500px;"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12  p-2" style="height: 600px;">
+                <div class="card">
+                    <div class="card-header">Прибуток по днях</div>
+                    <div class="card-body">
+                        <div class="ct-chart ct-perfect-fourth" id="profitAndExpencses" style="height: 500px;"></div>
+                    </div>
+                </div>
+            </div>
+            {{!-- <div class="col-lg-3 col-md-6  p-2">
+                <div class="card">
+                    <div class="card-header">Найважливіший товар(штук)</div>
+                    <div class="card-body">
+                        <div class="ct-chart ct-perfect-fourth" id="mostValuableItem"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6  p-2">
+                <div class="card">
+                    <div class="card-header">Найважливіший товар(грн)</div>
+                    <div class="card-body">
+                        <div class="ct-chart ct-perfect-fourth" id="mostValuableItemMoney"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6  p-2">
+                <div class="card">
+                    <div class="card-header">Найважливіший товар</div>
+                    <div class="card-body">
+                        <div class="ct-chart ct-perfect-fourth"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-header">Найважливіший товар</div>
+                    <div class="card-body">
+                        <div class="ct-chart ct-perfect-fourth"></div>
+                    </div>
+                </div>
+            </div> --}}
+        </div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
 <script>
     var app = new Vue({
         el: '#app',
         data: {
-
+            newOrders: [],
+            approvedOrders: [],
+            doneOrders: [],
+            sentOrders: [],
         },
         methods: {
 
+        },
+        mounted() {
+            var config = {
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                }
+            }
+            axios.get("/admin/getOrders", config).then(res => {
+                console.log(res.data);
+                this.newOrders = res.data.newOrders.reverse();
+                this.approvedOrders = res.data.approvedOrders.reverse();
+                this.doneOrders = res.data.doneOrders.reverse();
+                this.sentOrders = res.data.sentOrders.reverse();
+                var temp = this.sentOrders.length > 60 ? this.sentOrders.slice(0, 60) : this.sentOrders;
+                localStorage.sentOrders = JSON.stringify(temp);
+            });
         }
+
     });
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
+    function justDoIt() {
+        var ordersByDay = [];
+        ordersByDay = JSON.parse(localStorage.sentOrders);
+        var labels1 = ordersByDay.map(q => q.date.split(" ")[0]).filter(onlyUnique);;
+        var series1 = [];
+        var series2 = [];
+        var series3 = [];
+        var series4 = [];
+
+        labels1.forEach(e => {
+            var tempValue = ordersByDay.filter(w => w.date.includes(e)).length;
+            var tempValue2 = ordersByDay.filter(w => w.date.includes(e));
+            var tempValue21 = 0;
+            var tempPriceValue = 0;
+            tempValue2.forEach(z => {
+                tempValue21 += z.productIdInOrder.length;
+                z.productIdInOrder.forEach(k => {
+                    tempPriceValue += Number.parseFloat(k.price);
+                })
+            })
+            console.log(tempPriceValue);
+            series1.push(tempValue);
+            series2.push(tempValue21);
+            series3.push(tempPriceValue);
+        })
+        // Our labels and three data series
+        var data = {
+            labels: labels1,
+            series: [
+                series1,
+                series2
+            ]
+        };
+        var data2 = {
+            labels: labels1,
+            series: [
+                series3
+            ]
+        };
+
+        // We are setting a few options for our chart and override the defaults
+        var options = {
+            // Don't draw the line chart points
+            // showPoint: false,
+            // Disable line smoothing
+            //lineSmooth: false,
+            // X-Axis specific configuration
+            axisX: {
+                // We can disable the grid for this axis
+                //showGrid: false,
+                // and also don't show the label
+                //  showLabel: false
+            },
+            // Y-Axis specific configuration
+            axisY: {
+                // Lets offset the chart a bit from the labels
+                //   offset: 60,
+                // The label interpolation function enables you to modify the values
+                // used for the labels on each axis. Here we are converting the
+                // values into million pound.
+                //   labelInterpolationFnc: function (value) {
+                //     return '$' + value + 'm';
+                // }
+            }
+        };
+
+        // All you need to do is pass your configuration as third parameter to the chart function
+        new Chartist.Line('#orderPerDay', data, options);
+        new Chartist.Line('#profitAndExpencses', data2, options);
+
+
+    }
+
+    setTimeout(justDoIt, 2000);
+
+
 </script>
+<style>
+    .card {
+        margin-top: 20px !important;
+    }
+</style>

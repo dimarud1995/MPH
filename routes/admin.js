@@ -254,7 +254,7 @@ router.post("/deleteProductById", auth, function (req, res) {
   try {
     var p = products.filter(q => q.id == req.body.id)[0];
 
-    fs.unlink(p.imageUrl, (err) => {  
+    fs.unlink(p.imageUrl, (err) => {
       if (err) return res.json(err.message.toString());
       console.log('successfully deleted ' + p.imageUrl);
     });
@@ -465,7 +465,25 @@ router.post('/newOrder', function (req, res) {
       if (err) return res.json(err.message.toString());
       console.log('The file has been saved!');
     });
-
+    var accountSid = process.env.TWILIO_SID;
+    var authToken = process.env.TWILIO_AUTH_TOKEN;
+    var tel = process.env.PHONE_NUMBER;
+    const client = require('twilio')(accountSid, authToken);
+    var text = "Нове замовлення у Vasina-Hata.com!"
+    client.messages
+      .create({
+        body: text,
+        from: tel,
+        to: '+380666634062'
+      })
+      .then(message => console.log(message.sid));
+    // client.messages
+    //   .create({
+    //     body: text,
+    //     from: tel,
+    //     to: '+380973242382'
+    //   })
+    //   .then(message => console.log(message.sid));
     return res.json("ok")
   } catch (err) {
     return res.json(err.message.toString())
