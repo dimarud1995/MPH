@@ -50,5 +50,5 @@ function autosave() {
     });
 }
 setInterval(intervalFunc, 60000);
-setInterval(autosave, 60000);
+setInterval(autosave, 86000000);
 setInterval(getNewPostWarhouses, 86345000);
