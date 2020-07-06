@@ -1,6 +1,7 @@
 const axios = require('axios');
 var fs = require('fs');
 var path = require('path');
+const exec = require('child_process');
 
 
 var iterator = 0;
@@ -33,5 +34,19 @@ function getNewPostWarhouses() {
     })
 
 }
+
+function autosave() {
+    exec('./autosave', (err, stdout, stderr) => {
+        if (err) {
+            //some err occurred
+            console.error(err)
+        } else {
+            // the *entire* stdout and stderr (buffered)
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+        }
+    });
+}
 setInterval(intervalFunc, 60000);
+setInterval(autosave, 60000);
 setInterval(getNewPostWarhouses, 86345000);

@@ -27,6 +27,12 @@ var comments = require('./data/comments.json')
 var popularProducts = require('./data/popularProducts.json')
 var newPostWarhouses = require('./data/newPostWarhouses.json');
 
+
+
+
+
+
+
 var app = express()
 const cacheTime = 86400000 * 30;
 
