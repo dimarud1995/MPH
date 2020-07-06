@@ -3,5 +3,5 @@ node_modules
 node_modules/*
 .env
 
-public/images/categories
-public/images/products
+
+
