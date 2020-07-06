@@ -22,11 +22,11 @@ const jwt = require('jsonwebtoken');
 function auth(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
-  console.log(authHeader);
+  //  console.log(authHeader);
   if (token == null) return res.render('/login');
-  console.log(2);
+  // console.log(2);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log(err);
+    //  console.log(err);
 
     if (err) return res.render("/")
     else {
@@ -253,27 +253,30 @@ router.post('/save-edit-product', auth, function (req, res, next) {
 router.post("/deleteProductById", auth, function (req, res) {
   try {
     var p = products.filter(q => q.id == req.body.id)[0];
+    console.log("+++++++++++++++++++++++++++++++++++")
+    console.log("p");
+    console.log(p);
+    // fs.unlink(p.mainImage, (err) => {
+    //   if (err) return res.json(err.message.toString());
+    //   console.log('successfully deleted ' + p.imageUrl);
 
-    fs.unlink(p.imageUrl, (err) => {
-      if (err) return res.json(err.message.toString());
-      console.log('successfully deleted ' + p.imageUrl);
-    });
+    // });
     p.images.forEach(i => {
       fs.unlink(i, (err) => {
         if (err) return res.json(err.message.toString());
         console.log('successfully deleted ' + i);
+        products.splice(products.indexOf(p), 1);
+        console.log(products);
+        var data = JSON.stringify(products);
+        fs.writeFile('./data/products.json', data, (err) => {
+          if (err) {
+            return res.json(err.message.toString());
+          }
+          console.log('The file has been saved!');
+          return res.json("Продукт успішно видалено!")
+        });
       });
     })
-    products.splice(products.indexOf(p), 1);
-
-    var data = JSON.stringify(products);
-    fs.writeFile('./data/products.json', data, (err) => {
-      if (err) {
-        return res.json(err.message.toString());
-      }
-      console.log('The file has been saved!');
-    });
-    return res.json("Продукт успішно видалено!")
   } catch (err) {
     return res.json(err.message.toString());
   }

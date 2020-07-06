@@ -129,6 +129,14 @@
             <label for="comment" class="form-control-lable">Коментар:</label>
             <textarea class="form-control" v-model="comment" type="text"></textarea>
         </div>
+
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="policy" v-model="policy">
+            <label class="form-check-label" for="policy">Погоджуюсь з <a href="/privacy-policy" target="_blank"
+                    style="color:green;">
+                    Політикою
+                    конфіденційності</a> *</label>
+        </div>
         <div v-if="error.length!=0">
             <h6 style="color:red;" v-html="error">
             </h6>
@@ -141,7 +149,7 @@
         </div>
         <hr>
         <div>
-            <span style="color:green;">Ваші особисті дані використовуються лише на цьому сайті та для оформлення
+            <span style="color:green;">Ваші особисті дані потрібні для оформлення
                 поштової відправки! <i class="fas fa-shield-alt"></i></span><br>
             <span style="color:grey; font-size:0.9em;">Поля відмічені * є обов'язковими!</span>
         </div>
@@ -167,6 +175,7 @@
     var app = new Vue({
         el: '#app',
         data: {
+            policy: true,
             sum: 0,
             showOrderInfo: true,
             tel: "",
@@ -289,6 +298,7 @@
                 this.error = "";
                 var validMail = this.validEmail(this.email);
                 var validTel = this.validTel(this.tel);
+                if (!this.policy) this.error = "Погодьтесь з умовами конфіденційності, для оформлення замовлення! <br>"
                 if (this.tel === "") this.error = "Вкажіть телефон <br>";
                 if (!validTel && this.tel.length > 0) { this.error += "Вкажіть телефон коректно  <br>"; }
                 if (!validMail && this.email.length > 0) this.error += "Вкажіть правильно емейл адресу!  <br>"

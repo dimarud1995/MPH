@@ -23,6 +23,9 @@ router.get('/', function (req, res, next) {
 router.get('/faq', function (req, res) {
     res.render("FAQ");
 })
+router.get('/privacy-policy', function (req, res) {
+    res.render("privacypolicy");
+})
 router.get('/aboutus', function (req, res) {
     res.render("aboutus");
 })
