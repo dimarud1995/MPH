@@ -1,7 +1,9 @@
 const axios = require('axios');
 var fs = require('fs');
 var path = require('path');
-const exec = require('child_process');
+const {
+    exec
+} = require('child_process');
 
 
 var iterator = 0;
