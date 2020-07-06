@@ -38,7 +38,7 @@ function getNewPostWarhouses() {
 }
 
 function autosave() {
-    exec('./autosave', (err, stdout, stderr) => {
+    exec('./autosave.sh', (err, stdout, stderr) => {
         if (err) {
             //some err occurred
             console.error(err)
