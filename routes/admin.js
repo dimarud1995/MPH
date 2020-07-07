@@ -262,11 +262,11 @@ router.post("/deleteProductById", auth, function (req, res) {
 
     // });
     p.images.forEach(i => {
-      fs.unlink(".public/" + i, (err) => {
+      fs.unlink("./public/" + i, (err) => {
         if (err) return res.json(err.message.toString());
         console.log('successfully deleted ' + i);
         products.splice(products.indexOf(p), 1);
-        console.log(products);
+        //  console.log(products);
         var data = JSON.stringify(products);
         fs.writeFile('./data/products.json', data, (err) => {
           if (err) {
